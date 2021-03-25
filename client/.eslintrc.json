@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "prettier","plugin:jest/recommended"],
   "parserOptions": {
     "es6": true,
     "ecmaVersion": 6,
@@ -18,7 +18,8 @@
   },
   "root": true,
   "env": {
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   },
   "rules": {
     "react/jsx-filename-extension": [
