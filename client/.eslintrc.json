@@ -2,10 +2,10 @@
   "parser": "babel-eslint",
   "extends": ["airbnb", "prettier","plugin:jest/recommended"],
   "parserOptions": {
-    "es6": true,
-    "ecmaVersion": 6,
+    "ecmaVersion": 12,
     "ecmaFeatures": {
       "impliedStrict": true,
+      "jsx": true,
       "experimentalObjectRestSpread": true
     }
   },

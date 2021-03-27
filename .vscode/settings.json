@@ -16,10 +16,6 @@
 	"editor.formatOnSave": true,
 	"files.eol": "\n",
 	"cSpell.words": [
-		"pgport",
-		"usercalories",
-		"userexercisescalories",
-		"userfoodcalories"
 	],
 	"cSpell.ignoreWords": ["starticon"]
 }

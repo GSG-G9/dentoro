@@ -2,7 +2,7 @@
 	"env": {
 		"browser": true,
 		"commonjs": true,
-		"es6": true,
+		"es2021": true,
 		"node": true,
 		"jest/globals": true
 	},
@@ -12,7 +12,7 @@
 		"SharedArrayBuffer": "readonly"
 	},
 	"parserOptions": {
-		"ecmaVersion": 2018
+		"ecmaVersion": 12
 	},
 	"plugins": ["prettier", "jest"],
 	"rules": {
@@ -22,13 +22,6 @@
 				"singleQuote": true,
 				"trailingComma": "all"
 			}
-		],
-		"jest/no-disabled-tests": "warn",
-		"jest/no-focused-tests": "error",
-		"jest/no-identical-title": "error",
-		"jest/prefer-to-have-length": "warn",
-		"jest/valid-expect": "error",
-		"consistent-return": "off",
-		"jest/no-test-callback": "off"
+		]
 	}
 }
