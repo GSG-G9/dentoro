@@ -1,0 +1,53 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier","plugin:jest/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "no-nested-ternary": "off",
+    "react/prefer-stateless-function": [0],
+    "react/jsx-props-no-spreading": [0],
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true
+      }
+    ],
+    "react/state-in-constructor": [0, "always"]
+  },
+  "plugins": ["react", "prettier"]
+}
