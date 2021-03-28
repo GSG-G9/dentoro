@@ -1,3 +1,3 @@
-module.exports = (req, res, next) => {
-	res.json({ message: __filename });
+module.exports = (req, res) => {
+  res.json({ message: __filename });
 };
