@@ -8,7 +8,7 @@
 
 ## **The solution** :bulb: :-
 
-- Use the technology to create a smooth and tidy system, also employment its advantages in durability by creating a web application to provide the specific requirements inclouds a booking form and database history for every patient. So that saves time and effort for the dentist and helps the patients with their reservation for an appointment.
+- Use the technology to create a smooth and tidy system, also employment its advantages in durability by creating a web application to provide the specific requirements include a booking form and database history for every patient. So that saves time and effort for the dentist and helps the patients with their reservation for an appointment.
 
 ## **User Stories**  :books: :-
 
