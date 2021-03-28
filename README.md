@@ -6,7 +6,7 @@
 
 - The Dentist faces hardships to manage patients' appointments, their payment schedules, and their history manually.That would cause huge problems like wasting some time and effort and tripling some customers with the repeated data requests. Doctors encounter these problems to track the patients' histories, and all of these operations are done with paperwork that is not durable.
 
-## **The solution** :bulb
+## **The solution** :bulb: :-
 
 - Use the technology to create a smooth and tidy system, also employment its advantages in durability by creating a web application to provide the specific requirements inclouds a booking form and database history for every patient. So that saves time and effort for the dentist and helps the patients with their reservation for an appointment.
 
