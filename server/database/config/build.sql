@@ -15,19 +15,19 @@ CREATE TABLE patients(
 CREATE TABLE appointments(
   id SERIAL PRIMARY KEY,
   patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
-  appointment_date DATE,
-  appointment_time TIME,
-  is_done BOOLEAN,
+  appointment_date DATE NOT NULL,
+  appointment_time TIME NOT NULL,
+  is_done BOOLEAN DEFAULT false,
   complaines TEXT
 );
 
 CREATE TABLE history(
   id SERIAL PRIMARY KEY,
   appointment_id INTEGER REFERENCES appointments(id) ON UPDATE CASCADE,
-  descrption TEXT,
-  price FLOAT,
-  payment FLOAT,
-  balance FLOAT
+  descrption TEXT NOT NULL,
+  price FLOAT DEFAULT 0,
+  payment FLOAT DEFAULT 0,
+  balance FLOAT NOT NULL
 );
 
 CREATE TABLE users(
