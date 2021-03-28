@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS patients,appointments,history,users, CASCADE
+DROP TABLE IF EXISTS patients,appointments,history,users CASCADE;
 
 CREATE TABLE patients(
   id SERIAL PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE patients(
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR (100),
   birthday DATE,
-  phone VARCHAR(30) NOT NULL UNIQUE,
+  phone VARCHAR(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE appointments(
@@ -23,7 +23,7 @@ CREATE TABLE appointments(
 
 CREATE TABLE history(
   id SERIAL PRIMARY KEY,
-  patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ,
+  patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
   descrption TEXT,
   price FLOAT,
   payment FLOAT,
@@ -34,7 +34,7 @@ CREATE TABLE history(
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   email VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(250) NOT NULL,
+  password VARCHAR(250) NOT NULL
 );
 
 COMMIT;
