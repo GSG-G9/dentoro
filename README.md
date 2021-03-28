@@ -1,6 +1,6 @@
 # dentoro
 
-## **The Problem** :no_entry_sign
+## **The Problem** :no_entry_sign: :-
 
 - Patients find it hard to book an appointment in a dental clinic, they would make a call, or they would come to the clinic to book an appointment, and sometimes they would come to it and wait in a queue to meet the doctor without any previous booking.
 
@@ -10,7 +10,7 @@
 
 - Use the technology to create a smooth and tidy system, also employment its advantages in durability by creating a web application to provide the specific requirements inclouds a booking form and database history for every patient. So that saves time and effort for the dentist and helps the patients with their reservation for an appointment.
 
-## **User Stories**  :books
+## **User Stories**  :books: :-
 
 - As a patient, I want to book an appointment at a specific time and date and personal details like a name and birthday. So I can save my time and effort.
 - As a dentist, I want a table to display all the schedules for the day so I can manage them IRL.
@@ -22,7 +22,7 @@
 - As a dentist, I can add the treatment or the cure as a text, its price, and the actual payment to the current patient. The patients will be removed from the queue, and all of their data will be stored in the database.
 - As a dentist, I can delete or edit the patient's appointment. So I can do it when needed.
 
-## **User Journey**  :pencil2
+## **User Journey**  :pencil2: :-
 
 - As a patient, I can see the main page with a login button and a (book now) button, Also there is some basic info about the clinic.
 - As a patient, I can click on the (book now) button, then a form will appear and will ask me for my info and the time of the appointment.
@@ -37,7 +37,7 @@
 [View Prototype](https://www.figma.com/proto/mL8QfRpfZywsgNCpXzhBtX/DENTAL?node-id=0%3A1&scaling=min-zoom&page-id=0%3A1)
 ![dentaro](https://user-images.githubusercontent.com/62717875/112746910-ce22ac80-8fba-11eb-99f9-857214f75df8.png)
 
-## **Technologies** :computer
+## **Technologies** :computer: :-
 
 - BackEnd: **Node JS & Express JS**
 - FrontEnd: **React JS**
@@ -45,17 +45,17 @@
 - Styling: **CSS**
 - Libraries: **AntDesign**
 
-## **Lead Mentor**
+## **Lead Mentor** :-
 
 - Muhammad Abdulhadi
 
-## **Team Members**
+## **Team Members** :-
 
 - Hassan Elnajjar
 - Alaa Alser
 - Alaa Shurrab
 
-## **Resources**
+## **Resources** :-
 
 - [Node Js](https://nodejs.org/en/)
 - [React Js](https://reactjs.org/)
