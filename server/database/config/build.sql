@@ -24,7 +24,7 @@ CREATE TABLE appointments(
 CREATE TABLE history(
   id SERIAL PRIMARY KEY,
   appointment_id INTEGER REFERENCES appointments(id) ON UPDATE CASCADE,
-  descrption TEXT NOT NULL,
+  description TEXT NOT NULL,
   price FLOAT DEFAULT 0,
   payment FLOAT DEFAULT 0,
   balance FLOAT NOT NULL
