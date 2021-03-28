@@ -1,20 +1,10 @@
-<<<<<<< HEAD
-const express = require('express');
-
-const app = express();
-
-const { clientError, serverError } = require('./middlewares');
-
-app.use(clientError);
-app.use(serverError);
-||||||| 383d3da
-=======
 require('dotenv').config();
 
 const express = require('express');
 const { join } = require('path');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const { clientError, serverError } = require('./middlewares');
 
 const {
   env: { PORT, NODE_ENV },
@@ -47,5 +37,8 @@ if (NODE_ENV === 'production') {
     res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
   });
 }
+
+app.use(clientError);
+app.use(serverError);
+
 module.exports = app;
->>>>>>> 7fe361946f08df9de6f40cdab8fadf59e6b12f0f
