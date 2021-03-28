@@ -1,22 +1,21 @@
 {
-	"eslint.workingDirectories": ["client", "server"],
-	"[javascript]": {
-		"editor.codeActionsOnSave": {
-			"source.fixAll": true
-		},
-		"editor.formatOnSave": false
-	},
-	"[json]": {
-		"editor.defaultFormatter": "vscode.json-language-features"
-	},
-	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-	"editor.codeActionsOnSave": {
-      "source.fixAll": true,
+  "eslint.workingDirectories": ["client", "server"],
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
     },
-	"editor.formatOnSave": true,
-	"files.eol": "\n",
-	"cSpell.words": [
-		"dentoro"
-	],
-	"cSpell.ignoreWords": ["starticon"]
+
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "cSpell.words": [],
+  "cSpell.ignoreWords": ["starticon"]
 }
