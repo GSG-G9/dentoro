@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const connection = require('./connection');
 const dbBuild = require('./build');
 

@@ -1,4 +1,4 @@
-insert into patients(firstname,lastname,email,phone,birthday,diseses) 
+insert into patients(firstname,lastname,email,phone,birthday,diseases) 
 values
 ('Easton','Brekke','Francesco.Weissnat55@yahoo.com','(331) 439-6451 x329','1936-12-02','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
 ('Alexie','Jenkins','Talon.Fritsch@hotmail.com','(868) 462-0397 x84075','1946-12-02','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
@@ -21,7 +21,7 @@ values
 ('Cristian','Wintheiser','Cecilia41@yahoo.com','(166) 430-8386','1996-12-02','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
 ('Milton','Konopelski','Josefina79@hotmail.com','1-700-991-9688','1996-12-02','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad');
 
-insert into appointments(patient_id,is_done,appointment_date,appointment_time,complaines) 
+insert into appointments(patient_id,is_done,appointment_date,appointment_time,complaints) 
 values
 (2,false,'2021-12-02','22:30','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
 (1,true,'2020-12-02','22:30','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),

@@ -9,7 +9,7 @@ CREATE TABLE patients(
   email VARCHAR (100),
   birthday DATE,
   phone VARCHAR(30) NOT NULL UNIQUE,
-  diseses TEXT
+  diseases TEXT
 );
 
 CREATE TABLE appointments(
@@ -18,7 +18,7 @@ CREATE TABLE appointments(
   appointment_date DATE NOT NULL,
   appointment_time TIME NOT NULL,
   is_done BOOLEAN DEFAULT false,
-  complaines TEXT
+  complaints TEXT
 );
 
 CREATE TABLE history(

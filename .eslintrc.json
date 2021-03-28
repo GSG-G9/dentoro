@@ -16,7 +16,7 @@
 	},
 	"plugins": ["prettier", "jest"],
 	"rules": {
-		"no-console": "off",
+		// "no-console": "off",
 		"prettier/prettier": [
 			"error",
 			{
