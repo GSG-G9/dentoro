@@ -8,7 +8,8 @@ CREATE TABLE patients(
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR (100),
   birthday DATE,
-  phone VARCHAR(30) NOT NULL UNIQUE
+  phone VARCHAR(30) NOT NULL UNIQUE,
+  diseses TEXT
 );
 
 CREATE TABLE appointments(
@@ -17,18 +18,16 @@ CREATE TABLE appointments(
   appointment_date DATE,
   appointment_time TIME,
   is_done BOOLEAN,
-  complaines TEXT,
-  diseses TEXT
+  complaines TEXT
 );
 
 CREATE TABLE history(
   id SERIAL PRIMARY KEY,
-  patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
+  appointment_id INTEGER REFERENCES appointments(id) ON UPDATE CASCADE,
   descrption TEXT,
   price FLOAT,
   payment FLOAT,
-  balance FLOAT,
-  appointment_date TIME DEFAULT current_time
+  balance FLOAT
 );
 
 CREATE TABLE users(
