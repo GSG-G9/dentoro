@@ -1,17 +1,9 @@
 const router = require('express').Router();
-const {
-  searchAppointments,
-  getAppointmentsAtSpecificDate,
-  getAvailableAppointmentsAtSpecificDate,
-  addAppointment,
-} = require('../../controllers');
+require('../../controllers');
 
-router.get('/appointments/search', searchAppointments);
-router.get('/appointments/:date', getAppointmentsAtSpecificDate);
-router.get(
-  '/appointments/available/:date',
-  getAvailableAppointmentsAtSpecificDate,
-);
-router.post('/appointments', addAppointment);
+router.get('/appointments/search');
+router.get('/appointments/:date');
+router.get('/appointments/available/:date');
+router.post('/appointments');
 
 module.exports = router;

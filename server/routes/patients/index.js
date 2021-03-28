@@ -1,25 +1,11 @@
 const router = require('express').Router();
-const {
-  getPatients,
-  getPatientById,
-  editPatientProfile,
-  searchPatient,
-  addPatientHistory,
-  editPatientAppointment,
-  deletePatientAppointment,
-} = require('../../controllers');
+require('../../controllers');
 
-router.get('/patients', getPatients);
-router
-  .route('/patients/:patientId')
-  .get(getPatientById)
-  .patch(editPatientProfile);
-router.get('/patients/search', searchPatient);
-router.post('/patients/:patientId/history', addPatientHistory);
-router.patch(
-  '/patients/:patientId/appointment/:appointmentId',
-  editPatientAppointment,
-);
-router.delete('/patients/:patientId/appointment', deletePatientAppointment);
+router.get('/patients');
+router.route('/patients/:patientId').get().patch();
+router.get('/patients/search');
+router.post('/patients/:patientId/history');
+router.patch('/patients/:patientId/appointment/:appointmentId');
+router.delete('/patients/:patientId/appointment');
 
 module.exports = router;
