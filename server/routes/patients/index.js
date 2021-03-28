@@ -1,11 +1,11 @@
 const router = require('express').Router();
 require('../../controllers');
 
-router.get('/patients');
-router.route('/patients/:patientId').get().patch();
-router.get('/patients/search');
-router.post('/patients/:patientId/history');
-router.patch('/patients/:patientId/appointment/:appointmentId');
-router.delete('/patients/:patientId/appointment');
+router.get('/');
+router.get('/search');
+router.route('/:patientId').get().patch();
+router.post('/:patientId/history');
+router.delete('/:patientId/appointment');
+router.patch('/:patientId/appointment/:appointmentId');
 
 module.exports = router;

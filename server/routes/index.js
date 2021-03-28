@@ -3,8 +3,8 @@ const appointmentsRouter = require('./appointments');
 const patientsRouter = require('./patients');
 const usersRouter = require('./users');
 
-router.use(usersRouter);
-router.use(patientsRouter);
-router.use(appointmentsRouter);
+router.use('/users', usersRouter);
+router.use('/patients', patientsRouter);
+router.use('/appointments', appointmentsRouter);
 
 module.exports = router;
