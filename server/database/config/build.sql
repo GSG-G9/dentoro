@@ -16,7 +16,7 @@ CREATE TABLE patients(
 CREATE TABLE appointments(
   id SERIAL PRIMARY KEY,
   patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
-  appointment_date DATE NOT NULL,
+  appointment_date TIMESTAMP NOT NULL,
   appointment_time TIME NOT NULL,
   is_done BOOLEAN DEFAULT false,
   complaints TEXT
