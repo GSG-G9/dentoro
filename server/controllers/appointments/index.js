@@ -1,1 +1,1 @@
-module.exports = {};
+module.exports.getAppointmentsByDate = require('./getAppointmentsByDate');

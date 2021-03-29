@@ -11,8 +11,3 @@ const dbBuild = require('./build');
     console.log('Build Failed', e);
   }
 })();
-
-module.exports = {
-  connection,
-  dbBuild,
-};
