@@ -15,7 +15,7 @@ describe('Server Tests', () => {
           id: 1,
           patient_id: 1,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
-          appointment_time: '22:30:00',
+          appointment_time: '22:00:00',
           is_done: true,
           complaints:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -32,7 +32,7 @@ describe('Server Tests', () => {
           id: 2,
           patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
-          appointment_time: '20:30:00',
+          appointment_time: '20:00:00',
           is_done: false,
           complaints:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -60,7 +60,7 @@ describe('Server Tests', () => {
             id: 1,
             patient_id: 1,
             appointment_date: '2020-12-02T00:00:00.000Z',
-            appointment_time: '22:30:00',
+            appointment_time: '22:00:00',
             is_done: true,
             complaints:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -77,7 +77,7 @@ describe('Server Tests', () => {
             id: 2,
             patient_id: 2,
             appointment_date: '2020-12-02T00:00:00.000Z',
-            appointment_time: '20:30:00',
+            appointment_time: '20:00:00',
             is_done: false,
             complaints:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
