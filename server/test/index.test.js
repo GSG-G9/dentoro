@@ -89,8 +89,7 @@ describe('Server Tests', () => {
           ],
         },
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/patients/search?lastName="Jenkins"', async () => {
       const res = await request(app)
@@ -116,8 +115,7 @@ describe('Server Tests', () => {
           ],
         },
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/patients/search?phone="0599010105"', async () => {
       const res = await request(app)
@@ -143,8 +141,7 @@ describe('Server Tests', () => {
           ],
         },
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
 
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
@@ -157,8 +154,7 @@ describe('Server Tests', () => {
         error: 'Invalid Phone',
         message: 'Please Send an valid phone with length of 10 like 0599010101',
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/patients/search?firstName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
@@ -170,8 +166,7 @@ describe('Server Tests', () => {
         error: 'Invalid Name',
         message: 'Please Send an valid firstName or lastName',
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/patients/search?lastName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
@@ -183,8 +178,7 @@ describe('Server Tests', () => {
         error: 'Invalid Name',
         message: 'Please Send an valid firstName or lastName',
       };
-      const actual = JSON.parse(res.text);
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
   });
 });
