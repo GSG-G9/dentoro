@@ -11,7 +11,7 @@ const {
   },
 } = require('../../../utils');
 
-module.exports = async (req, res, next) => {
+const getPatientByNameOrPhone = async (req, res, next) => {
   try {
     const {
       query: { phone, firstName, lastName },
@@ -48,10 +48,11 @@ module.exports = async (req, res, next) => {
     const { rows: patientsByPhone } = await getPatientByPhone(phone);
     res.json({
       message: 'success',
-      status: 200,
+      statusCode: 200,
       data: { patientsByPhone, patientsByName },
     });
   } catch (error) {
     next(error);
   }
 };
+module.exports = getPatientByNameOrPhone;

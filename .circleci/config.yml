@@ -28,8 +28,11 @@ jobs:
               sleep 1
             done
             echo Failed waiting for Postgres && exit 1
-        
-      - run: npm install
-      - run: npm run build:db
-      - run: npm test
+  test: 
+    require:
+      build
+    - run: npm install
+    - run: npm run build:db
+    - run: npm test
+
       

@@ -4,6 +4,7 @@ const express = require('express');
 const { join } = require('path');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const { clientError, serverError } = require('./middlewares');
 
 const {
   env: { PORT, NODE_ENV },
@@ -36,4 +37,8 @@ if (NODE_ENV === 'production') {
     res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
   });
 }
+
+app.use(clientError);
+app.use(serverError);
+
 module.exports = app;

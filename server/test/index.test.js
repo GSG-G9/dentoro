@@ -65,7 +65,7 @@ describe('Server Tests', () => {
         .expect(200);
       const expected = {
         message: 'success',
-        status: 200,
+        statusCode: 200,
         data: {
           patientsByPhone: [],
           patientsByName: [
@@ -92,7 +92,7 @@ describe('Server Tests', () => {
         .expect(200);
       const expected = {
         message: 'success',
-        status: 200,
+        statusCode: 200,
         data: {
           patientsByPhone: [],
           patientsByName: [
@@ -119,7 +119,7 @@ describe('Server Tests', () => {
         .expect(200);
       const expected = {
         message: 'success',
-        status: 200,
+        statusCode: 200,
         data: {
           patientsByName: [],
           patientsByPhone: [
