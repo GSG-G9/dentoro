@@ -2,6 +2,7 @@ BEGIN;
 
 DROP TABLE IF EXISTS patients,appointments,history,users CASCADE;
 
+set timezone = 'Asia/Jerusalem';
 CREATE TABLE patients(
   id SERIAL PRIMARY KEY,
   firstname VARCHAR(100) NOT NULL,
