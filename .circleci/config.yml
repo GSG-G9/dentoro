@@ -6,7 +6,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD 
-      - image: circleci/postgres:11.11-postgis-ram
+      - image: circleci/postgres:alpine
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  
