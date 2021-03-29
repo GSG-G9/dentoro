@@ -1,6 +1,6 @@
 const { object, string } = require('yup');
 
-const patientSearchByNameValidation = object({
+const patientSearchValidation = object({
   firstName: string()
     .matches(/^[a-zA-Z]+$/)
     .min(3)
@@ -9,13 +9,7 @@ const patientSearchByNameValidation = object({
     .matches(/^[a-zA-Z]+$/)
     .min(3)
     .max(50),
-});
-
-const patientSearchByPhoneValidation = object({
   phone: string().length(10),
 });
 
-module.exports = {
-  patientSearchByNameValidation,
-  patientSearchByPhoneValidation,
-};
+module.exports = patientSearchValidation;

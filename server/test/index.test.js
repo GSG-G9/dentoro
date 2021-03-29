@@ -184,8 +184,9 @@ describe('Server Tests', () => {
         .expect(400);
       const expected = {
         statusCode: 400,
-        error: 'Invalid Phone',
-        message: 'Please Send an valid phone with length of 10 like 0599010101',
+        error: 'Invalid Query String',
+        message:
+          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
       };
       return expect(expected).toEqual(res.body);
     });
@@ -196,8 +197,9 @@ describe('Server Tests', () => {
         .expect(400);
       const expected = {
         statusCode: 400,
-        error: 'Invalid Name',
-        message: 'Please Send an valid firstName or lastName',
+        error: 'Invalid Query String',
+        message:
+          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
       };
       return expect(expected).toEqual(res.body);
     });
@@ -208,8 +210,9 @@ describe('Server Tests', () => {
         .expect(400);
       const expected = {
         statusCode: 400,
-        error: 'Invalid Name',
-        message: 'Please Send an valid firstName or lastName',
+        error: 'Invalid Query String',
+        message:
+          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
       };
       return expect(expected).toEqual(res.body);
     });

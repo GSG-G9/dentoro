@@ -1,12 +1,6 @@
 const { getPatientByNameOrPhoneQuery } = require('../../../database/queries');
 
-const {
-  boomify,
-  patientSearchValidation: {
-    patientSearchByNameValidation,
-    patientSearchByPhoneValidation,
-  },
-} = require('../../../utils');
+const { boomify, patientSearchValidation } = require('../../../utils');
 
 const getPatientByNameOrPhone = async (req, res, next) => {
   try {
@@ -14,31 +8,18 @@ const getPatientByNameOrPhone = async (req, res, next) => {
       query: { phone, firstName, lastName },
     } = req;
 
-    const patientNameValidation = await patientSearchByNameValidation.isValid({
+    const patientQueryValidation = await patientSearchValidation.isValid({
       firstName,
       lastName,
+      phone,
     });
 
-    if (!patientNameValidation)
+    if (!patientQueryValidation)
       return next(
         boomify(
           400,
-          'Invalid Name',
-          'Please Send an valid firstName or lastName',
-        ),
-      );
-
-    const patientPhoneValidation = await patientSearchByPhoneValidation.isValid(
-      {
-        phone,
-      },
-    );
-    if (!patientPhoneValidation)
-      return next(
-        boomify(
-          400,
-          'Invalid Phone',
-          'Please Send an valid phone with length of 10 like 0599010101',
+          'Invalid Query String',
+          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
         ),
       );
     const { rows: patients } = await getPatientByNameOrPhoneQuery({
