@@ -1,7 +1,4 @@
-const {
-  getPatientByNameQuery,
-  getPatientByPhoneQuery,
-} = require('../../../database/queries');
+const { getPatientByNameOrPhoneQuery } = require('../../../database/queries');
 
 const {
   boomify,
@@ -44,16 +41,16 @@ const getPatientByNameOrPhone = async (req, res, next) => {
           'Please Send an valid phone with length of 10 like 0599010101',
         ),
       );
-    const { rows: patientsByName } = await getPatientByNameQuery({
+    const { rows: patients } = await getPatientByNameOrPhoneQuery({
       firstName,
       lastName,
+      phone,
     });
 
-    const { rows: patientsByPhone } = await getPatientByPhoneQuery(phone);
     return res.json({
       message: 'success',
       statusCode: 200,
-      data: { patientsByPhone, patientsByName },
+      data: patients,
     });
   } catch (error) {
     return next(error);

@@ -1,3 +1,2 @@
-module.exports.getPatientByNameQuery = require('./getPatientByNameQuery');
-module.exports.getPatientByPhoneQuery = require('./getPatientByPhoneQuery');
+module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhoneQuery');
 module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');

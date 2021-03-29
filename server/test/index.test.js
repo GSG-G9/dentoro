@@ -3,8 +3,7 @@ const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
 const {
-  getPatientByNameQuery,
-  getPatientByPhoneQuery,
+  getPatientByNameOrPhoneQuery,
   getAppointmentsByDateQuery,
 } = require('../database/queries');
 
@@ -12,7 +11,7 @@ describe('Server Tests', () => {
   beforeEach(() => dbBuild());
   afterAll(() => connection.end());
   describe('Database Tests', () => {
-    test('getPatientByNameQuery(Easton) query should return the patient object', async () => {
+    test('getPatientByNameOrPhoneQuery(Easton) query should return the patient object', async () => {
       const expected = [
         {
           id: 1,
@@ -25,12 +24,12 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows: actual } = await getPatientByNameQuery({
+      const { rows: actual } = await getPatientByNameOrPhoneQuery({
         firstName: 'Easton',
       });
       return expect(expected).toEqual(actual);
     });
-    test('getPatientByNameQuery(Jenkins) query should return the patient object', async () => {
+    test('getPatientByNameOrPhoneQuery(Jenkins) query should return the patient object', async () => {
       const expected = [
         {
           id: 2,
@@ -43,13 +42,15 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows: actual } = await getPatientByNameQuery({
+      const { rows: actual } = await getPatientByNameOrPhoneQuery({
         lastName: 'Jenkins',
       });
       return expect(expected).toEqual(actual);
     });
-    test('getPatientByPhoneQuery(0599010105) query should return the patient object', async () => {
-      const { rows: actual } = await getPatientByPhoneQuery('0599010105');
+    test('getPatientByNameOrPhoneQuery(0599010105) query should return the patient object', async () => {
+      const { rows: actual } = await getPatientByNameOrPhoneQuery({
+        phone: '0599010105',
+      });
       const expected = [
         {
           id: 5,
@@ -114,21 +115,18 @@ describe('Server Tests', () => {
       const expected = {
         message: 'success',
         statusCode: 200,
-        data: {
-          patientsByPhone: [],
-          patientsByName: [
-            {
-              id: 1,
-              firstname: 'Easton',
-              lastname: 'Brekke',
-              email: 'Francesco.Weissnat55@yahoo.com',
-              birthday: '1936-12-02T00:00:00.000Z',
-              phone: '0599010101',
-              diseases:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-            },
-          ],
-        },
+        data: [
+          {
+            id: 1,
+            firstname: 'Easton',
+            lastname: 'Brekke',
+            email: 'Francesco.Weissnat55@yahoo.com',
+            birthday: '1936-12-02T00:00:00.000Z',
+            phone: '0599010101',
+            diseases:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+          },
+        ],
       };
       return expect(expected).toEqual(res.body);
     });
@@ -140,21 +138,18 @@ describe('Server Tests', () => {
       const expected = {
         message: 'success',
         statusCode: 200,
-        data: {
-          patientsByPhone: [],
-          patientsByName: [
-            {
-              id: 2,
-              firstname: 'Alexie',
-              lastname: 'Jenkins',
-              email: 'Talon.Fritsch@hotmail.com',
-              birthday: '1946-12-02T00:00:00.000Z',
-              phone: '0599010102',
-              diseases:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-            },
-          ],
-        },
+        data: [
+          {
+            id: 2,
+            firstname: 'Alexie',
+            lastname: 'Jenkins',
+            email: 'Talon.Fritsch@hotmail.com',
+            birthday: '1946-12-02T00:00:00.000Z',
+            phone: '0599010102',
+            diseases:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+          },
+        ],
       };
       return expect(expected).toEqual(res.body);
     });
@@ -166,21 +161,18 @@ describe('Server Tests', () => {
       const expected = {
         message: 'success',
         statusCode: 200,
-        data: {
-          patientsByName: [],
-          patientsByPhone: [
-            {
-              id: 5,
-              firstname: 'Marlin',
-              lastname: 'Bahringer',
-              email: 'Alexandre16@hotmail.com',
-              birthday: '1936-12-02T00:00:00.000Z',
-              phone: '0599010105',
-              diseases:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-            },
-          ],
-        },
+        data: [
+          {
+            id: 5,
+            firstname: 'Marlin',
+            lastname: 'Bahringer',
+            email: 'Alexandre16@hotmail.com',
+            birthday: '1936-12-02T00:00:00.000Z',
+            phone: '0599010105',
+            diseases:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+          },
+        ],
       };
       return expect(expected).toEqual(res.body);
     });
