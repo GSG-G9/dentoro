@@ -8,4 +8,5 @@ const getPatients = async (req, res, next) => {
     next(error);
   }
 };
+
 module.exports = getPatients;

@@ -1,7 +1,7 @@
 const router = require('express').Router();
-require('../../controllers');
+const { getPatients } = require('../../controllers');
 
-router.get('/');
+router.get('/', getPatients);
 router.get('/search');
 router.route('/:patientId').get().patch();
 router.post('/:patientId/history');

@@ -1,4 +1,4 @@
-const { connection } = require('../../config/connection');
+const connection = require('../../config/connection');
 
 const getPatientsQuery = () => {
   const sql = {
