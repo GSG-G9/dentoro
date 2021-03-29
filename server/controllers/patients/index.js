@@ -1,1 +1,3 @@
-module.exports = {};
+const getPatients = require('./getPatients');
+
+module.exports = { getPatients };
