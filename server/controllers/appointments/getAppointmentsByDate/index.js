@@ -9,12 +9,12 @@ const getAppointmentsByDate = async (req, res, next) => {
       appointmentDate,
     });
     if (!isValid) {
-      throw boomify(400, 'Invalid Date', 'Please send a correct date');
+      return next(boomify(400, 'Invalid Date', 'Please send a correct date'));
     }
     const { rows } = await getAppointmentsByDateQuery(appointmentDate);
-    res.json({ statusCode: 200, message: 'success', data: rows });
+    return res.json({ statusCode: 200, message: 'success', data: rows });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 
