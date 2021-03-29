@@ -18,7 +18,6 @@ const appointmentsSearch = async (req, res, next) => {
         lastName,
         phone,
       });
-      console.log(data);
       res.json({
         StatusCode: 200,
         data,
