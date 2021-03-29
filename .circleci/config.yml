@@ -31,8 +31,10 @@ jobs:
   test: 
     require:
       build
-    - run: npm install
-    - run: npm run build:db
-    - run: npm test
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build:db
+      - run: npm test
 
       
