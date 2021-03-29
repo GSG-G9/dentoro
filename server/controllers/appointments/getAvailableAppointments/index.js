@@ -31,7 +31,6 @@ const getAllProfileData = async (req, res, next) => {
     const availableTimeSet = new Set(availableTime);
 
     const { rows: unavailable } = await getUnavailableTimes({ date });
-    console.log(unavailable);
 
     unavailable.forEach((element) => {
       const { appointment_time: appointmentTime } = element;
