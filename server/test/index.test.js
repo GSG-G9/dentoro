@@ -96,9 +96,8 @@ describe('Server Tests', () => {
         .get('/api/v1/appointments/2020-12-02')
         .expect('Content-Type', /json/)
         .expect(200);
-      const actual = JSON.parse(res.text);
 
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/appointments/:appointmentDate should return boomify Object Error when invalid Date is added', async () => {
       const expected = {
@@ -110,9 +109,7 @@ describe('Server Tests', () => {
         .get('/api/v1/appointments/5952awd-59')
         .expect('Content-Type', /json/)
         .expect(400);
-      const actual = JSON.parse(res.text);
-
-      return expect(expected).toEqual(actual);
+      return expect(expected).toEqual(res.body);
     });
   });
 });
