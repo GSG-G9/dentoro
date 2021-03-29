@@ -1,7 +1,7 @@
 const router = require('express').Router();
-require('../../controllers');
+const { appointmentsSearch } = require('../../controllers');
 
-router.get('/search');
+router.get('/search', appointmentsSearch);
 router.get('/:date');
 router.get('/available/:date');
 router.post('/');
