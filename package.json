@@ -11,7 +11,7 @@
     "kill-run": "npm run kill && npm run server",
     "start": "cross-env NODE_ENV=production node ./server/index.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "build:db": "cross-env NODE_ENV=test node server/database/config",
+    "build:db": "cross-env NODE_ENV=development node server/database/config",
     "lint-fix": "eslint server/ --fix",
     "lint": "eslint server/",
     "lint-react": "cd client && npm run lint"

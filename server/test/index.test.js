@@ -14,7 +14,7 @@ describe('Server Tests', () => {
           appointments_id: 2,
           id: 1,
           patient_id: 1,
-          appointment_date: new Date('2020-12-01T22:00:00.000Z'),
+          appointment_date: new Date('2020-12-02T00:00:00.000Z'),
           appointment_time: '22:30:00',
           is_done: true,
           complaints:
@@ -22,7 +22,7 @@ describe('Server Tests', () => {
           firstname: 'Easton',
           lastname: 'Brekke',
           email: 'Francesco.Weissnat55@yahoo.com',
-          birthday: new Date('1936-12-01T22:00:00.000Z'),
+          birthday: new Date('1936-12-02T00:00:00.000Z'),
           phone: '(331) 439-6451 x329',
           diseases:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -31,7 +31,7 @@ describe('Server Tests', () => {
           appointments_id: 8,
           id: 2,
           patient_id: 2,
-          appointment_date: new Date('2020-12-01T22:00:00.000Z'),
+          appointment_date: new Date('2020-12-02T00:00:00.000Z'),
           appointment_time: '20:30:00',
           is_done: false,
           complaints:
@@ -39,13 +39,13 @@ describe('Server Tests', () => {
           firstname: 'Alexie',
           lastname: 'Jenkins',
           email: 'Talon.Fritsch@hotmail.com',
-          birthday: new Date('1946-12-01T22:00:00.000Z'),
+          birthday: new Date('1946-12-02T00:00:00.000Z'),
           phone: '(868) 462-0397 x84075',
           diseases:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows } = await getAppointmentsByDate('2020-12-2');
+      const { rows } = await getAppointmentsByDate('2020-12-02');
       return expect(expected).toEqual(rows);
     });
   });
@@ -59,7 +59,7 @@ describe('Server Tests', () => {
             appointments_id: 2,
             id: 1,
             patient_id: 1,
-            appointment_date: '2020-12-01T22:00:00.000Z',
+            appointment_date: '2020-12-02T00:00:00.000Z',
             appointment_time: '22:30:00',
             is_done: true,
             complaints:
@@ -67,7 +67,7 @@ describe('Server Tests', () => {
             firstname: 'Easton',
             lastname: 'Brekke',
             email: 'Francesco.Weissnat55@yahoo.com',
-            birthday: '1936-12-01T22:00:00.000Z',
+            birthday: '1936-12-02T00:00:00.000Z',
             phone: '(331) 439-6451 x329',
             diseases:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -76,7 +76,7 @@ describe('Server Tests', () => {
             appointments_id: 8,
             id: 2,
             patient_id: 2,
-            appointment_date: '2020-12-01T22:00:00.000Z',
+            appointment_date: '2020-12-02T00:00:00.000Z',
             appointment_time: '20:30:00',
             is_done: false,
             complaints:
@@ -84,7 +84,7 @@ describe('Server Tests', () => {
             firstname: 'Alexie',
             lastname: 'Jenkins',
             email: 'Talon.Fritsch@hotmail.com',
-            birthday: '1946-12-01T22:00:00.000Z',
+            birthday: '1946-12-02T00:00:00.000Z',
             phone: '(868) 462-0397 x84075',
             diseases:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -93,7 +93,7 @@ describe('Server Tests', () => {
       };
 
       const res = await request(app)
-        .get('/api/v1/appointments/2020-12-2')
+        .get('/api/v1/appointments/2020-12-02')
         .expect('Content-Type', /json/)
         .expect(200);
       const actual = JSON.parse(res.text);
