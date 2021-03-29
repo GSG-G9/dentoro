@@ -8,7 +8,6 @@ afterAll(() => connection.end());
 
 describe('Get all patients', () => {
   test('Route /patients status 200, json header', async () => {
-    expect.assertions(1);
     const res = await request(app)
       .get('/api/v1/patients')
       .expect(200)
