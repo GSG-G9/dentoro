@@ -9,7 +9,7 @@ const patientSearchValidation = object({
     .matches(/^[a-zA-Z]+$/)
     .min(3)
     .max(50),
-  phone: string().length(10),
+  phone: string().matches(/^\d+$/).min(9).max(14),
 });
 
 module.exports = patientSearchValidation;
