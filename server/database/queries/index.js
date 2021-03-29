@@ -1,1 +1,3 @@
-module.exports = () => {};
+const { getPatientsQuery } = require('./patients');
+
+module.exports = { getPatientsQuery };
