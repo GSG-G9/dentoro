@@ -10,6 +10,7 @@ const {
 } = process;
 
 const router = require('./routes');
+const { clientError, serverError } = require('./controllers/errorHandle');
 
 const app = express();
 
@@ -24,6 +25,9 @@ const middlewares = [
 
 app.use(middlewares);
 app.use('/api/v1/', router);
+
+app.use(clientError);
+app.use(serverError);
 
 if (NODE_ENV === 'development') {
   app.get('/', (req, res) => {
