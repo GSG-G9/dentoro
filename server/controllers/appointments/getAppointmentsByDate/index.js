@@ -1,7 +1,7 @@
-const { getAppointmentsByDate } = require('../../../database/queries');
+const { getAppointmentsByDateQuery } = require('../../../database/queries');
 const { appointmentDateValidation, boomify } = require('../../../utils');
 
-module.exports = async (req, res, next) => {
+const getAppointmentsByDate = async (req, res, next) => {
   try {
     const { appointmentDate } = req.params;
 
@@ -11,9 +11,11 @@ module.exports = async (req, res, next) => {
     if (!isValid) {
       throw boomify(400, 'Invalid Date', 'Please send a correct date');
     }
-    const { rows } = await getAppointmentsByDate(appointmentDate);
+    const { rows } = await getAppointmentsByDateQuery(appointmentDate);
     res.json({ statusCode: 200, message: 'success', data: rows });
   } catch (err) {
     next(err);
   }
 };
+
+module.exports = getAppointmentsByDate;

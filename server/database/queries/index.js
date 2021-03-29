@@ -1,1 +1,1 @@
-module.exports.getAppointmentsByDate = require('./getAppointmentsByDate');
+module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');

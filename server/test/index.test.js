@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
-const { getAppointmentsByDate } = require('../database/queries');
+const { getAppointmentsByDateQuery } = require('../database/queries');
 
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
@@ -45,12 +45,12 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows } = await getAppointmentsByDate('2020-12-02');
+      const { rows } = await getAppointmentsByDateQuery('2020-12-02');
       return expect(expected).toEqual(rows);
     });
   });
   describe('Routes Tests', () => {
-    test('GET /api/v1/appointments/:appointmentDate should appointment objects joined with patients data', async () => {
+    test('GET /api/v1/appointments/:appointmentDate should return appointment objects joined with patients data', async () => {
       const expected = {
         statusCode: 200,
         message: 'success',
@@ -96,6 +96,20 @@ describe('Server Tests', () => {
         .get('/api/v1/appointments/2020-12-02')
         .expect('Content-Type', /json/)
         .expect(200);
+      const actual = JSON.parse(res.text);
+
+      return expect(expected).toEqual(actual);
+    });
+    test('GET /api/v1/appointments/:appointmentDate should return boomify Object Error when invalid Date is added', async () => {
+      const expected = {
+        statusCode: 400,
+        message: 'Please send a correct date',
+        error: 'Invalid Date',
+      };
+      const res = await request(app)
+        .get('/api/v1/appointments/5952awd-59')
+        .expect('Content-Type', /json/)
+        .expect(400);
       const actual = JSON.parse(res.text);
 
       return expect(expected).toEqual(actual);
