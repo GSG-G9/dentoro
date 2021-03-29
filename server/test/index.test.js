@@ -117,11 +117,10 @@ describe('Server Tests', () => {
 
 describe('Get all patients', () => {
   test('Route /patients status 200, json header', async () => {
-    expect.assertions(1);
     const res = await request(app)
       .get('/api/v1/patients')
       .expect(200)
       .expect('Content-Type', /json/);
-    expect(res.body.data).toHaveLength(20);
+    return expect(res.body.data).toHaveLength(20);
   });
 });

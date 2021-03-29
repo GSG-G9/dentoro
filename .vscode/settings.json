@@ -4,7 +4,6 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": true
     },
-    "editor.formatOnSave": false
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
@@ -13,7 +12,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "files.eol": "\n",
   "cSpell.words": [],
   "cSpell.ignoreWords": ["starticon", "boomify", "middlewares"]
