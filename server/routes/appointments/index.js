@@ -1,8 +1,8 @@
 const router = require('express').Router();
-require('../../controllers');
+const { getAppointmentsByDate } = require('../../controllers');
 
 router.get('/search');
-router.get('/:date');
+router.get('/:appointmentDate', getAppointmentsByDate);
 router.get('/available/:date');
 router.post('/');
 
