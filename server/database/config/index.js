@@ -6,6 +6,8 @@ const dbBuild = require('./build');
   try {
     await dbBuild();
     console.log('Build Successfully');
+    const { rows } = await connection.query('SELECT * from history');
+    console.log(rows);
     connection.end();
   } catch (e) {
     console.log('Build Failed', e);
