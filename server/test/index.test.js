@@ -52,7 +52,7 @@ describe('Server Tests', () => {
   describe('Routes Tests', () => {
     test('GET /api/v1/appointments/:appointmentDate should appointment objects joined with patients data', async () => {
       const expected = {
-        status: 200,
+        statusCode: 200,
         message: 'success',
         data: [
           {

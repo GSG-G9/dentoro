@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
       throw boomify(400, 'Invalid Date', 'Please send a correct date');
     }
     const { rows } = await getAppointmentsByDate(appointmentDate);
-    res.json({ status: 200, message: 'success', data: rows });
+    res.json({ statusCode: 200, message: 'success', data: rows });
   } catch (err) {
     next(err);
   }
