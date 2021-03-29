@@ -4,12 +4,7 @@ const connection = require('./connection');
 
 const dbBuild = () => {
   let sql = readFileSync(join(__dirname, 'build.sql')).toString();
-  if (
-    process.env.NODE_ENV === 'test' ||
-    process.env.NODE_ENV === 'development'
-  ) {
-    sql += readFileSync(join(__dirname, 'fakeData.sql')).toString();
-  }
+  sql += readFileSync(join(__dirname, 'fakeData.sql')).toString();
   return connection.query(sql);
 };
 
