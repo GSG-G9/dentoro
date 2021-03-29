@@ -1,8 +1,8 @@
 const router = require('express').Router();
-require('../../controllers');
+const { getPatientByNameOrPhone } = require('../../controllers');
 
 router.get('/');
-router.get('/search');
+router.get('/search', getPatientByNameOrPhone);
 router.route('/:patientId').get().patch();
 router.post('/:patientId/history');
 router.delete('/:patientId/appointment');

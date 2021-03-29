@@ -7,7 +7,7 @@ CREATE TABLE patients(
   firstname VARCHAR(100) NOT NULL,
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR (100),
-  birthday DATE,
+  birthday TIMESTAMPTZ,
   phone VARCHAR(30) NOT NULL UNIQUE,
   diseases TEXT
 );
