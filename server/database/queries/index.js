@@ -1,4 +1,3 @@
-const getHistoryLogs = require('./getHistoryLogs');
-const getPatientProfileData = require('./getPatientProfileData');
-
-module.exports = { getHistoryLogs, getPatientProfileData };
+module.exports.getHistoryLogs = require('./getHistoryLogs');
+module.exports.getPatientProfileData = require('./getPatientProfileData');
+module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');

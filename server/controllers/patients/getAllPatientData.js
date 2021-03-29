@@ -1,4 +1,4 @@
-const boom = require('@hapi/boom');
+const { boomify } = require('../../utils');
 
 const {
   getHistoryLogs,
@@ -12,7 +12,7 @@ const getAllProfileData = async (req, res, next) => {
       rows: [profile],
     } = await getPatientProfileData({ patientId });
     if (!profile) {
-      return next(boom.conflict('Invalided patientId'));
+      return next(boomify(400, 'Invalid id', 'Please send a correct one'));
     }
 
     const { rows: history } = await getHistoryLogs({ patientId });
@@ -30,7 +30,7 @@ const getAllProfileData = async (req, res, next) => {
       },
     });
   } catch (error) {
-    return next(boom.badImplementation(error));
+    return next(error);
   }
 };
 
