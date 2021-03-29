@@ -23,10 +23,12 @@ const getPatientByNameOrPhone = async (req, res, next) => {
     });
 
     if (!patientNameValidation)
-      throw boomify(
-        400,
-        'Invalid Name',
-        'Please Send an valid firstName or lastName',
+      return next(
+        boomify(
+          400,
+          'Invalid Name',
+          'Please Send an valid firstName or lastName',
+        ),
       );
 
     const patientPhoneValidation = await patientSearchByPhoneValidation.isValid(
@@ -35,10 +37,12 @@ const getPatientByNameOrPhone = async (req, res, next) => {
       },
     );
     if (!patientPhoneValidation)
-      throw boomify(
-        400,
-        'Invalid Phone',
-        'Please Send an valid phone with length of 10 like 0599010101',
+      return next(
+        boomify(
+          400,
+          'Invalid Phone',
+          'Please Send an valid phone with length of 10 like 0599010101',
+        ),
       );
     const { rows: patientsByName } = await getPatientByNameQuery({
       firstName,
@@ -46,13 +50,13 @@ const getPatientByNameOrPhone = async (req, res, next) => {
     });
 
     const { rows: patientsByPhone } = await getPatientByPhoneQuery(phone);
-    res.json({
+    return res.json({
       message: 'success',
       statusCode: 200,
       data: { patientsByPhone, patientsByName },
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 module.exports = getPatientByNameOrPhone;
