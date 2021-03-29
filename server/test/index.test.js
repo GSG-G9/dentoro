@@ -46,7 +46,6 @@ describe('Server Tests', () => {
         },
       ];
       const { rows } = await getAppointmentsByDate('2020-12-2');
-      console.log(rows);
       return expect(expected).toEqual(rows);
     });
   });
