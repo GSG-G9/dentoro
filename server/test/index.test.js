@@ -2,7 +2,10 @@ const request = require('supertest');
 const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
-const { getAppointmentsByDateQuery } = require('../database/queries');
+const {
+  getAppointmentsByDateQuery,
+  getUnavailableTimes,
+} = require('../database/queries');
 
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
@@ -46,6 +49,17 @@ describe('Server Tests', () => {
         },
       ];
       const { rows } = await getAppointmentsByDateQuery('2020-12-02');
+      return expect(expected).toEqual(rows);
+    });
+    test('getUnavailableTimes query should return appointment objects times', async () => {
+      const expected = [
+        { appointment_time: '22:00:00' },
+        { appointment_time: '22:00:00' },
+        { appointment_time: '22:00:00' },
+        { appointment_time: '12:00:00' },
+        { appointment_time: '21:00:00' },
+      ];
+      const { rows } = await getUnavailableTimes({ date: '2021-12-02' });
       return expect(expected).toEqual(rows);
     });
   });
@@ -104,6 +118,42 @@ describe('Server Tests', () => {
         statusCode: 400,
         message: 'Please send a correct date',
         error: 'Invalid Date',
+      };
+      const res = await request(app)
+        .get('/api/v1/appointments/5952awd-59')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      return expect(expected).toEqual(res.body);
+    });
+    test('GET /api/v1/appointments/available/:date should return free time without any appointments', async () => {
+      const expected = {
+        title: 'available time',
+        detail: 'data collected Successfully',
+        data: [
+          '13:00:00',
+          '14:00:00',
+          '15:00:00',
+          '16:00:00',
+          '17:00:00',
+          '18:00:00',
+          '19:00:00',
+          '20:00:00',
+          '23:00:00',
+        ],
+      };
+
+      const res = await request(app)
+        .get('/api/v1/appointments/available/2021-12-02')
+        .expect('Content-Type', /json/)
+        .expect(201);
+
+      return expect(expected).toEqual(res.body);
+    });
+    test('GET /api/v1/appointments/available/:date should return boomify Object Error when invalid Date is added', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid Date',
+        message: 'Please send a correct date',
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
