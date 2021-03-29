@@ -7,7 +7,7 @@ CREATE TABLE patients(
   firstname VARCHAR(100) NOT NULL,
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR (100),
-  birthday DATE,
+  birthday TIMESTAMPTZ,
   phone VARCHAR(30) NOT NULL UNIQUE,
   diseases TEXT
 );
@@ -15,7 +15,7 @@ CREATE TABLE patients(
 CREATE TABLE appointments(
   id SERIAL PRIMARY KEY,
   patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
-  appointment_date DATE NOT NULL,
+  appointment_date TIMESTAMPTZ NOT NULL,
   appointment_time TIME NOT NULL,
   is_done BOOLEAN DEFAULT false,
   complaints TEXT
