@@ -1,6 +1,6 @@
 const {
-  getPatientByName,
-  getPatientByPhone,
+  getPatientByNameQuery,
+  getPatientByPhoneQuery,
 } = require('../../../database/queries');
 
 const {
@@ -40,12 +40,12 @@ const getPatientByNameOrPhone = async (req, res, next) => {
         'Invalid Phone',
         'Please Send an valid phone with length of 10 like 0599010101',
       );
-    const { rows: patientsByName } = await getPatientByName({
+    const { rows: patientsByName } = await getPatientByNameQuery({
       firstName,
       lastName,
     });
 
-    const { rows: patientsByPhone } = await getPatientByPhone(phone);
+    const { rows: patientsByPhone } = await getPatientByPhoneQuery(phone);
     res.json({
       message: 'success',
       statusCode: 200,

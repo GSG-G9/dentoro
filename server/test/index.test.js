@@ -2,13 +2,16 @@ const request = require('supertest');
 const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
-const { getPatientByName, getPatientByPhone } = require('../database/queries');
+const {
+  getPatientByNameQuery,
+  getPatientByPhoneQuery,
+} = require('../database/queries');
 
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
   afterAll(() => connection.end());
   describe('Database Tests', () => {
-    test('getPatientByName(Easton) query should return the patient object', async () => {
+    test('getPatientByNameQuery(Easton) query should return the patient object', async () => {
       const expected = [
         {
           id: 1,
@@ -21,10 +24,12 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows: actual } = await getPatientByName({ firstName: 'Easton' });
+      const { rows: actual } = await getPatientByNameQuery({
+        firstName: 'Easton',
+      });
       return expect(expected).toEqual(actual);
     });
-    test('getPatientByName(Jenkins) query should return the patient object', async () => {
+    test('getPatientByNameQuery(Jenkins) query should return the patient object', async () => {
       const expected = [
         {
           id: 2,
@@ -37,11 +42,13 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows: actual } = await getPatientByName({ lastName: 'Jenkins' });
+      const { rows: actual } = await getPatientByNameQuery({
+        lastName: 'Jenkins',
+      });
       return expect(expected).toEqual(actual);
     });
-    test('getPatientByPhone(0599010105) query should return the patient object', async () => {
-      const { rows: actual } = await getPatientByPhone('0599010105');
+    test('getPatientByPhoneQuery(0599010105) query should return the patient object', async () => {
+      const { rows: actual } = await getPatientByPhoneQuery('0599010105');
       const expected = [
         {
           id: 5,
@@ -135,6 +142,46 @@ describe('Server Tests', () => {
             },
           ],
         },
+      };
+      const actual = JSON.parse(res.text);
+      return expect(expected).toEqual(actual);
+    });
+
+    test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
+      const res = await request(app)
+        .get('/api/v1/patients/search?phone=invalidPhone')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid Phone',
+        message: 'Please Send an valid phone with length of 10 like 0599010101',
+      };
+      const actual = JSON.parse(res.text);
+      return expect(expected).toEqual(actual);
+    });
+    test('GET /api/v1/patients/search?firstName="2invalidName@" should return boomify object error', async () => {
+      const res = await request(app)
+        .get('/api/v1/patients/search?firstName=2invalidName@')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid Name',
+        message: 'Please Send an valid firstName or lastName',
+      };
+      const actual = JSON.parse(res.text);
+      return expect(expected).toEqual(actual);
+    });
+    test('GET /api/v1/patients/search?lastName="2invalidName@" should return boomify object error', async () => {
+      const res = await request(app)
+        .get('/api/v1/patients/search?lastName=2invalidName@')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid Name',
+        message: 'Please Send an valid firstName or lastName',
       };
       const actual = JSON.parse(res.text);
       return expect(expected).toEqual(actual);
