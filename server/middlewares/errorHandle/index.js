@@ -12,7 +12,6 @@ const serverError = (err, req, res, next) => {
     : boomify(500, 'Internal Server Error', 'Something went wrong');
 
   res.status(err.statusCode || 500).json(errorMessage);
-  console.log(err);
 };
 
 module.exports = { clientError, serverError };
