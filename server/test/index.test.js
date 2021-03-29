@@ -45,7 +45,7 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
       ];
-      const { rows } = await getAppointmentsByDate('2-12-2020');
+      const { rows } = await getAppointmentsByDate('2020-12-2');
       return expect(expected).toEqual(rows);
     });
   });
@@ -93,7 +93,7 @@ describe('Server Tests', () => {
       };
 
       const res = await request(app)
-        .get('/api/v1/appointments/2-12-2020')
+        .get('/api/v1/appointments/2020-12-2')
         .expect('Content-Type', /json/)
         .expect(200);
       const actual = JSON.parse(res.text);
