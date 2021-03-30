@@ -8,8 +8,8 @@ const parseDateString = (value, originalValue) => {
   return parsedDate;
 };
 
-const schema = object({
+const appointmentDateValidationSchema = object({
   appointmentDate: date().transform(parseDateString),
 });
-
-module.exports = schema;
+module.exports.parseDateString = parseDateString;
+module.exports.appointmentDateValidationSchema = appointmentDateValidationSchema;
