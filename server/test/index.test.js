@@ -2,7 +2,10 @@ const request = require('supertest');
 const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
-const { getAppointmentsByDateQuery } = require('../database/queries');
+const {
+  getAppointmentsByDateQuery,
+  getAppointmentsByPatientName,
+} = require('../database/queries');
 
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
@@ -46,6 +49,36 @@ describe('Server Tests', () => {
         },
       ];
       const { rows } = await getAppointmentsByDateQuery('2020-12-02');
+      return expect(expected).toEqual(rows);
+    });
+    test('getAppointmentsByPatientName query should return available appointments', async () => {
+      const expected = [
+        {
+          id: 1,
+          appointment_date: new Date('2021-12-02T00:00:00.000Z'),
+          appointment_time: '22:30:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+        },
+        {
+          id: 4,
+          appointment_date: new Date('2021-12-02T00:00:00.000Z'),
+          appointment_time: '22:30:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+        },
+        {
+          id: 8,
+          appointment_date: new Date('2020-12-02T00:00:00.000Z'),
+          appointment_time: '20:30:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+        },
+      ];
+      const { rows } = await getAppointmentsByPatientName({
+        firstName: 'Alexie',
+        lastName: 'Jenkins',
+      });
       return expect(expected).toEqual(rows);
     });
   });
@@ -110,6 +143,20 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
+    });
+    test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(res.body.data).toHaveLength(3);
+    });
+    test('GET /api/v1/appointments/search should return Validation Error enter a name or phone', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(res.body.error).toBe('Validation Error');
     });
   });
 });
