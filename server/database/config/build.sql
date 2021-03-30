@@ -26,8 +26,7 @@ CREATE TABLE history(
   appointment_id INTEGER REFERENCES appointments(id) ON UPDATE CASCADE,
   description TEXT NOT NULL,
   price FLOAT DEFAULT 0,
-  payment FLOAT DEFAULT 0,
-  balance FLOAT NOT NULL
+  payment FLOAT DEFAULT 0
 );
 
 CREATE TABLE users(
