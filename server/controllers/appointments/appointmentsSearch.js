@@ -1,8 +1,7 @@
 const {
   getAppointmentsByPatientNameOrPhone,
 } = require('../../database/queries');
-const { appointmentsSearchSchema } = require('../../utils/validation');
-const { boomify } = require('../../utils');
+const { appointmentsSearchSchema, boomify } = require('../../utils');
 
 const appointmentsSearch = async (req, res, next) => {
   try {
