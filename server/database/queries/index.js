@@ -1,4 +1,4 @@
-const getUnavailableTimes = require('./getUnavailableTimes');
-const getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
-
-module.exports = { getUnavailableTimes, getAppointmentsByDateQuery };
+module.exports.getUnavailableTimes = require('./getUnavailableTimes');
+module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
+module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhoneQuery');
+module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');

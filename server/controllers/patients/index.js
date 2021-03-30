@@ -1,1 +1,1 @@
-module.exports = {};
+module.exports.getPatientByNameOrPhone = require('./getPatientByNameOrPhone');

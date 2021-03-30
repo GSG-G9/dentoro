@@ -11,10 +11,13 @@ const getAllProfileData = async (req, res, next) => {
 
     if (!isValid) {
       return next(boomify(400, 'Invalid Date', 'Please send a correct date'));
-      //   return next(boom.conflict('Invalided Date'));
     }
 
     const availableTime = [
+      '08:00:00',
+      '09:00:00',
+      '10:00:00',
+      '11:00:00',
       '12:00:00',
       '13:00:00',
       '14:00:00',
@@ -22,31 +25,26 @@ const getAllProfileData = async (req, res, next) => {
       '16:00:00',
       '17:00:00',
       '18:00:00',
-      '19:00:00',
-      '20:00:00',
-      '21:00:00',
-      '22:00:00',
-      '23:00:00',
     ];
     const availableTimeSet = new Set(availableTime);
 
-    const { rows: unavailable } = await getUnavailableTimes({ date });
+    const { rows: unavailableTime } = await getUnavailableTimes({ date });
+    console.log(unavailableTime);
 
-    unavailable.forEach((element) => {
+    unavailableTime.forEach((element) => {
       const { appointment_time: appointmentTime } = element;
       if (availableTimeSet.has(appointmentTime)) {
         availableTimeSet.delete(appointmentTime);
       }
     });
 
-    return res.status(201).json({
+    return res.json({
       title: 'available time',
       detail: 'data collected Successfully',
       data: Array.from(availableTimeSet),
     });
   } catch (error) {
     return next(error);
-    // return next(boom.badImplementation(error));
   }
 };
 
