@@ -5,6 +5,7 @@ const connection = require('../database/config/connection');
 const {
   getPatientByNameOrPhoneQuery,
   getAppointmentsByDateQuery,
+  getAppointmentsByPatientNameOrPhone,
   getUnavailableTimes,
   getPatientProfileData,
   getHistoryLogs,
@@ -108,6 +109,43 @@ describe('Server Tests', () => {
       const { rows } = await getAppointmentsByDateQuery('2020-12-02');
       return expect(expected).toEqual(rows);
     });
+    test('getAppointmentsByPatientName query should return available appointments', async () => {
+      const expected = [
+        {
+          appointment_id: 1,
+          patient_id: 2,
+          appointment_date: new Date('2021-12-02T00:00:00.000Z'),
+          appointment_time: '08:00:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+          phone: '0599010102',
+        },
+        {
+          appointment_id: 4,
+          patient_id: 2,
+          appointment_date: new Date('2021-12-02T00:00:00.000Z'),
+          appointment_time: '17:00:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+          phone: '0599010102',
+        },
+        {
+          appointment_id: 8,
+          patient_id: 2,
+          appointment_date: new Date('2020-12-02T00:00:00.000Z'),
+          appointment_time: '11:00:00',
+          firstname: 'Alexie',
+          lastname: 'Jenkins',
+          phone: '0599010102',
+        },
+      ];
+      const { rows } = await getAppointmentsByPatientNameOrPhone({
+        firstName: 'Alexie',
+        lastName: 'Jenkins',
+      });
+      return expect(expected).toEqual(rows);
+    });
+
     test('getUnavailableTimes query should return appointment objects times', async () => {
       const expected = [
         { appointment_time: '08:00:00' },
@@ -320,6 +358,27 @@ describe('Server Tests', () => {
       return expect(expected).toEqual(res.body);
     });
 
+    test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(res.body.data).toHaveLength(3);
+    });
+    test('GET /api/v1/appointments/search?phone=0599010102 should return an array with 3 appointments', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search?phone=0599010102')
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(res.body.data).toHaveLength(3);
+    });
+    test('GET /api/v1/appointments/search should return Validation Error enter a name or phone', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(res.body.error).toBe('Validation Error');
+    });
     test('GET /api/v1/appointments/available/:date should return free time without any appointments', async () => {
       const expected = {
         title: 'available time',

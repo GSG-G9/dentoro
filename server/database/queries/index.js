@@ -1,4 +1,5 @@
-module.exports.getPatientsQuery = require('./patients');
+module.exports.getPatientsQuery = require('./getPatientsQuery');
+module.exports.getAppointmentsByPatientNameOrPhone = require('./getAppointmentsByPatientName');
 module.exports.getUnavailableTimes = require('./getUnavailableTimes');
 module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
 module.exports.getHistoryLogs = require('./getHistoryLogs');
