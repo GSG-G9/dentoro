@@ -1,3 +1,2 @@
-const getAllProfileData = require('./getAllPatientData');
-
-module.exports = { getAllProfileData };
+module.exports.getPatientByNameOrPhone = require('./getPatientByNameOrPhone');
+module.exports.getAllProfileData = require('./getAllPatientData');
