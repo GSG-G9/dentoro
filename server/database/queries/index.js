@@ -5,3 +5,5 @@ module.exports.getHistoryLogs = require('./getHistoryLogs');
 module.exports.getPatientProfileData = require('./getPatientProfileData');
 module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhoneQuery');
 module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
+module.exports.addPatientQuery = require('./addPatientQuery');
+module.exports.addAppointmentQuery = require('./addAppointmentQuery');

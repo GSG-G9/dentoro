@@ -9,6 +9,8 @@ const {
   getUnavailableTimes,
   getPatientProfileData,
   getHistoryLogs,
+  addAppointmentQuery,
+  addPatientQuery,
 } = require('../database/queries');
 
 describe('Server Tests', () => {
@@ -185,6 +187,44 @@ describe('Server Tests', () => {
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
       return expect(expected).toEqual(rows);
+    });
+    test('addPatientQuery(patientData) query should return new patient id', async () => {
+      const patientData = {
+        firstName: 'test',
+        lastName: 'test',
+        phone: '0599020202',
+        email: 'test@test.com',
+        birthday: '08-08-1989',
+        diseases: 'cancer',
+      };
+      const {
+        rows: [{ id: patientId }],
+      } = await addPatientQuery(patientData);
+      return expect(patientId).toBeTruthy();
+    });
+    test('addAppointmentQuery(patientData) query should return new appointment id', async () => {
+      const patientData = {
+        firstName: 'test',
+        lastName: 'test',
+        phone: '0599020202',
+        email: 'test@test.com',
+        birthday: '08-08-1989',
+      };
+      const {
+        rows: [{ id: patientId }],
+      } = await addPatientQuery(patientData);
+
+      const appointmentData = {
+        patientId,
+        appointmentDate: '2021-3-31',
+        appointmentTime: '16:00:00',
+        complaints: 'teeth pain',
+      };
+
+      const {
+        rows: [{ id: appointmentId }],
+      } = await addAppointmentQuery(appointmentData);
+      return expect(appointmentId).toBeTruthy();
     });
   });
   describe('Routes Tests', () => {
@@ -458,5 +498,50 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
+    test('POST /api/v1/appointments with patientData belongs to new patient attached to request body should return success message with status code 201', async () => {
+      const patientData = {
+        firstName: 'test',
+        lastName: 'test',
+        phone: '0599020202',
+        email: 'test@test.com',
+        birthday: '08-08-1989',
+        appointmentDate: '2021-3-31',
+        appointmentTime: '16:00:00',
+        complaints: 'teeth pain',
+      };
+      const res = await request(app)
+        .post('/api/v1/appointments')
+        .set({
+          'Content-Type': 'application/json',
+        })
+        .send(patientData)
+        .expect(201)
+        .expect('Content-Type', /json/);
+      const expected = { status: 201, message: 'success' };
+      return expect(expected).toEqual(res.body);
+    });
+    // test('POST /api/v1/appointments with patientData belongs to exist patient attached to request body should return success message with status code 201 without adding new Patient -by checking the count of the existing patients to be 20 after adding the appointment', async () => {
+    //   const patientData = {
+    //     firstName: 'Easton',
+    //     lastName: 'Brekke',
+    //     phone: '0599010101',
+    //     email: 'Francesco.Weissnat55@yahoo.com',
+    //     birthday: '1936-12-02',
+    //     appointmentDate: '2021-3-31',
+    //     appointmentTime: '16:00:00',
+    //     complaints: 'teeth pain',
+    //   };
+    //   const res = await request(app)
+    //     .post('/api/v1/appointments')
+    //     .set({
+    //       'Content-Type': 'application/json',
+    //     })
+    //     .send(patientData)
+    //     .expect(201)
+    //     .expect('Content-Type', /json/);
+    //   const expected = { status: 201, message: 'success' };
+    //   const patientsCount = await getPate
+    //   expect(expected).toEqual(res.body);
+    // });
   });
 });
