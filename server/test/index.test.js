@@ -3,8 +3,9 @@ const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
 const {
-  getAppointmentsByDateQuery,
   getPatientByNameOrPhoneQuery,
+  getAppointmentsByDateQuery,
+  getUnavailableTimes,
   getPatientProfileData,
   getHistoryLogs,
 } = require('../database/queries');
@@ -74,7 +75,7 @@ describe('Server Tests', () => {
           id: 1,
           patient_id: 1,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
-          appointment_time: '22:30:00',
+          appointment_time: '09:00:00',
           is_done: true,
           complaints:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -91,7 +92,7 @@ describe('Server Tests', () => {
           id: 2,
           patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
-          appointment_time: '20:30:00',
+          appointment_time: '11:00:00',
           is_done: false,
           complaints:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -107,7 +108,17 @@ describe('Server Tests', () => {
       const { rows } = await getAppointmentsByDateQuery('2020-12-02');
       return expect(expected).toEqual(rows);
     });
-
+    test('getUnavailableTimes query should return appointment objects times', async () => {
+      const expected = [
+        { appointment_time: '08:00:00' },
+        { appointment_time: '10:00:00' },
+        { appointment_time: '17:00:00' },
+        { appointment_time: '12:00:00' },
+        { appointment_time: '15:00:00' },
+      ];
+      const { rows } = await getUnavailableTimes({ date: '2021-12-02' });
+      return expect(expected).toEqual(rows);
+    });
     test('getPatientProfileData query should return Patient Profile Data by ID', async () => {
       const expected = [
         {
@@ -208,7 +219,6 @@ describe('Server Tests', () => {
       };
       return expect(expected).toEqual(res.body);
     });
-
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=invalidPhone')
@@ -258,7 +268,7 @@ describe('Server Tests', () => {
             id: 1,
             patient_id: 1,
             appointment_date: '2020-12-02T00:00:00.000Z',
-            appointment_time: '22:30:00',
+            appointment_time: '09:00:00',
             is_done: true,
             complaints:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -275,7 +285,7 @@ describe('Server Tests', () => {
             id: 2,
             patient_id: 2,
             appointment_date: '2020-12-02T00:00:00.000Z',
-            appointment_time: '20:30:00',
+            appointment_time: '11:00:00',
             is_done: false,
             complaints:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
@@ -310,6 +320,27 @@ describe('Server Tests', () => {
       return expect(expected).toEqual(res.body);
     });
 
+    test('GET /api/v1/appointments/available/:date should return free time without any appointments', async () => {
+      const expected = {
+        title: 'available time',
+        detail: 'data collected Successfully',
+        data: [
+          '09:00:00',
+          '11:00:00',
+          '13:00:00',
+          '14:00:00',
+          '16:00:00',
+          '18:00:00',
+        ],
+      };
+
+      const res = await request(app)
+        .get('/api/v1/appointments/available/2021-12-02')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      return expect(expected).toEqual(res.body);
+    });
     test('GET /api/v1/patients/:patientId should return All patients data', async () => {
       const expected = {
         title: 'patient data',
@@ -343,6 +374,18 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
+      return expect(expected).toEqual(res.body);
+    });
+    test('GET /api/v1/appointments/available/:date should return boomify Object Error when invalid Date is added', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid Date',
+        message: 'Please send a correct date',
+      };
+      const res = await request(app)
+        .get('/api/v1/appointments/5952awd-59')
+        .expect('Content-Type', /json/)
+        .expect(400);
       return expect(expected).toEqual(res.body);
     });
     test('GET /api/v1/patients/:patientId should return boomify Object Error when invalid id is added', async () => {
