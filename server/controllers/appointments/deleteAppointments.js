@@ -1,5 +1,4 @@
 const { deleteAppointmentsQueries } = require('../../database/queries');
-// const { boomify } = require('../../utils');
 
 const deleteAppointments = async (req, res, next) => {
   try {
