@@ -5,6 +5,8 @@ const connection = require('../database/config/connection');
 const {
   getAppointmentsByDateQuery,
   getUnavailableTimes,
+  getPatientProfileData,
+  getHistoryLogs,
   getPatientByNameOrPhoneQuery,
 } = require('../database/queries');
 
@@ -117,6 +119,35 @@ describe('Server Tests', () => {
       const { rows } = await getUnavailableTimes({ date: '2021-12-02' });
       return expect(expected).toEqual(rows);
     });
+    test('getPatientProfileData query should return Patient Profile Data by ID', async () => {
+      const expected = [
+        {
+          id: 12,
+          firstname: 'Izabella',
+          lastname: 'Hoppe',
+          email: 'Katlynn.Treutel36@yahoo.com',
+          birthday: new Date('1996-12-02T00:00:00.000Z'),
+          phone: '0599010112',
+          diseases:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+        },
+      ];
+      const { rows } = await getPatientProfileData({ patientId: 12 });
+      return expect(expected).toEqual(rows);
+    });
+    test('getHistoryLogs query should return Patient Profile Data by ID', async () => {
+      const expected = [
+        {
+          price: 50,
+          payment: 0,
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+          appointment_date: new Date('2021-01-02T00:00:00.000Z'),
+        },
+      ];
+      const { rows } = await getHistoryLogs({ patientId: 12 });
+      return expect(expected).toEqual(rows);
+    });
   });
   describe('Routes Tests', () => {
     test('GET /api/v1/patients/search?firstName="Easton"', async () => {
@@ -188,7 +219,6 @@ describe('Server Tests', () => {
       };
       return expect(expected).toEqual(res.body);
     });
-
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=invalidPhone')
@@ -310,6 +340,41 @@ describe('Server Tests', () => {
 
       return expect(expected).toEqual(res.body);
     });
+    test('GET /api/v1/patients/:patientId should return All patients data', async () => {
+      const expected = {
+        title: 'patient data',
+        detail: 'data collected Successfully',
+        data: {
+          profile: {
+            id: 12,
+            firstname: 'Izabella',
+            lastname: 'Hoppe',
+            email: 'Katlynn.Treutel36@yahoo.com',
+            birthday: '1996-12-02T00:00:00.000Z',
+            phone: '0599010112',
+            diseases:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+          },
+          balance: 50,
+          history: [
+            {
+              price: 50,
+              payment: 0,
+              description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+              appointment_date: '2021-01-02T00:00:00.000Z',
+            },
+          ],
+        },
+      };
+
+      const res = await request(app)
+        .get('/api/v1/patients/12')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      return expect(expected).toEqual(res.body);
+    });
     test('GET /api/v1/appointments/available/:date should return boomify Object Error when invalid Date is added', async () => {
       const expected = {
         statusCode: 400,
@@ -318,6 +383,18 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      return expect(expected).toEqual(res.body);
+    });
+    test('GET /api/v1/patients/:patientId should return boomify Object Error when invalid id is added', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid id',
+        message: 'Please send a correct one',
+      };
+      const res = await request(app)
+        .get('/api/v1/patients/1a')
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
