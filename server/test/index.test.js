@@ -3,8 +3,8 @@ const app = require('../app');
 const dbBuild = require('../database/config/build');
 const connection = require('../database/config/connection');
 const {
-  getAppointmentsByDateQuery,
   getPatientByNameOrPhoneQuery,
+  getAppointmentsByDateQuery,
   getAppointmentsByPatientNameOrPhone,
   getUnavailableTimes,
   getPatientProfileData,
@@ -397,6 +397,7 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
+
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
