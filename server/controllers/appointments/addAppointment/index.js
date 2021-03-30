@@ -72,11 +72,13 @@ const addAppointment = async (req, res, next) => {
     });
     return res.status(201).json({ status: 201, message: 'success' });
   } catch (err) {
-    return next(
-      err.name === 'ValidationError'
-        ? boomify(400, 'Validation Error', err.errors)
-        : err,
-    );
+    if (err.name === 'RangeError') {
+      return next(boomify(400, 'RangeError', err.message));
+    }
+    if (err.name === 'ValidationError') {
+      return next(boomify(400, 'Validation Error', err.errors));
+    }
+    return next(err);
   }
 };
 

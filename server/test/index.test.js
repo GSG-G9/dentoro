@@ -572,6 +572,32 @@ describe('Server Tests', () => {
       };
       return expect(expected).toEqual(res.body);
     });
+    test('POST /api/v1/appointments with patientData - send incorrect appointmentTime', async () => {
+      const patientData = {
+        firstName: 'test',
+        lastName: 'test',
+        phone: '0599010102',
+        email: 'test@test.com',
+        birthday: '1989-08-08',
+        appointmentDate: '2021-4-02',
+        appointmentTime: '14:00',
+        complaints: 'teeth pain',
+      };
+      const res = await request(app)
+        .post('/api/v1/appointments')
+        .set({
+          'Content-Type': 'application/json',
+        })
+        .send(patientData)
+        .expect(400)
+        .expect('Content-Type', /json/);
+      const expected = {
+        statusCode: 400,
+        error: 'RangeError',
+        message: 'Invalid time value',
+      };
+      return expect(expected).toEqual(res.body);
+    });
     test('POST /api/v1/appointments with patientData - choose unavailable time', async () => {
       const patientData = {
         firstName: 'test',
