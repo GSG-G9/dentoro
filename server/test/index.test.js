@@ -26,7 +26,7 @@ describe('Server Tests', () => {
           lastname: 'Brekke',
           email: 'Francesco.Weissnat55@yahoo.com',
           birthday: new Date('1936-12-02T00:00:00.000Z'),
-          phone: '(331) 439-6451 x329',
+          phone: '0599010101',
           diseases:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
@@ -43,7 +43,7 @@ describe('Server Tests', () => {
           lastname: 'Jenkins',
           email: 'Talon.Fritsch@hotmail.com',
           birthday: new Date('1946-12-02T00:00:00.000Z'),
-          phone: '(868) 462-0397 x84075',
+          phone: '0599010102',
           diseases:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
@@ -59,6 +59,7 @@ describe('Server Tests', () => {
           appointment_time: '22:30:00',
           firstname: 'Alexie',
           lastname: 'Jenkins',
+          phone: '0599010102',
         },
         {
           id: 4,
@@ -66,6 +67,7 @@ describe('Server Tests', () => {
           appointment_time: '22:30:00',
           firstname: 'Alexie',
           lastname: 'Jenkins',
+          phone: '0599010102',
         },
         {
           id: 8,
@@ -73,6 +75,7 @@ describe('Server Tests', () => {
           appointment_time: '20:30:00',
           firstname: 'Alexie',
           lastname: 'Jenkins',
+          phone: '0599010102',
         },
       ];
       const { rows } = await getAppointmentsByPatientName({
@@ -101,7 +104,7 @@ describe('Server Tests', () => {
             lastname: 'Brekke',
             email: 'Francesco.Weissnat55@yahoo.com',
             birthday: '1936-12-02T00:00:00.000Z',
-            phone: '(331) 439-6451 x329',
+            phone: '0599010101',
             diseases:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
           },
@@ -118,7 +121,7 @@ describe('Server Tests', () => {
             lastname: 'Jenkins',
             email: 'Talon.Fritsch@hotmail.com',
             birthday: '1946-12-02T00:00:00.000Z',
-            phone: '(868) 462-0397 x84075',
+            phone: '0599010102',
             diseases:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
           },
@@ -147,6 +150,13 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(res.body.data).toHaveLength(3);
+    });
+    test('GET /api/v1/appointments/search?phone=0599010102 should return an array with 3 appointments', async () => {
+      const res = await request(app)
+        .get('/api/v1/appointments/search?phone=0599010102')
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(res.body.data).toHaveLength(3);
