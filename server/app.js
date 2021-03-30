@@ -26,9 +26,6 @@ const middlewares = [
 app.use(middlewares);
 app.use('/api/v1/', router);
 
-app.use(clientError);
-app.use(serverError);
-
 if (NODE_ENV === 'development') {
   app.get('/', (req, res) => {
     res.json({ message: 'server running' });

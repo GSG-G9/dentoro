@@ -74,11 +74,9 @@ describe('Server Tests', () => {
         {
           price: 50,
           payment: 0,
-          balance: 50,
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
           appointment_date: new Date('2021-01-02T00:00:00.000Z'),
-          patient_id: 12,
         },
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
@@ -167,11 +165,9 @@ describe('Server Tests', () => {
             {
               price: 50,
               payment: 0,
-              balance: 50,
               description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
               appointment_date: '2021-01-02T00:00:00.000Z',
-              patient_id: 12,
             },
           ],
         },
@@ -180,7 +176,7 @@ describe('Server Tests', () => {
       const res = await request(app)
         .get('/api/v1/patients/12')
         .expect('Content-Type', /json/)
-        .expect(201);
+        .expect(200);
 
       return expect(expected).toEqual(res.body);
     });
@@ -191,7 +187,7 @@ describe('Server Tests', () => {
         message: 'Please send a correct one',
       };
       const res = await request(app)
-        .get('/api/v1/patients/11222')
+        .get('/api/v1/patients/1a')
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);

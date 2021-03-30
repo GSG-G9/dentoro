@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/GSG-G9/dentoro#readme",
   "dependencies": {
-    "@hapi/boom": "^9.1.2",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
