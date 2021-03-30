@@ -111,7 +111,8 @@ describe('Server Tests', () => {
     test('getAppointmentsByPatientName query should return available appointments', async () => {
       const expected = [
         {
-          id: 1,
+          appointment_id: 1,
+          patient_id: 2,
           appointment_date: new Date('2021-12-02T00:00:00.000Z'),
           appointment_time: '22:30:00',
           firstname: 'Alexie',
@@ -119,7 +120,8 @@ describe('Server Tests', () => {
           phone: '0599010102',
         },
         {
-          id: 4,
+          appointment_id: 4,
+          patient_id: 2,
           appointment_date: new Date('2021-12-02T00:00:00.000Z'),
           appointment_time: '22:30:00',
           firstname: 'Alexie',
@@ -127,7 +129,8 @@ describe('Server Tests', () => {
           phone: '0599010102',
         },
         {
-          id: 8,
+          appointment_id: 8,
+          patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
           appointment_time: '20:30:00',
           firstname: 'Alexie',
