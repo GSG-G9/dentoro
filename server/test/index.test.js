@@ -7,10 +7,9 @@ const {
   getPatientsQuery,
 } = require('../database/queries');
 
-beforeEach(() => dbBuild());
-afterAll(() => connection.end());
-
 describe('Server Tests', () => {
+  beforeEach(() => dbBuild());
+  afterAll(() => connection.end());
   describe('Database Tests', () => {
     test('getAppointmentsByDate query should return appointment objects joined with patients data', async () => {
       const expected = [
@@ -51,6 +50,23 @@ describe('Server Tests', () => {
       ];
       const { rows } = await getAppointmentsByDateQuery('2020-12-02');
       return expect(expected).toEqual(rows);
+    });
+    test('getPatientsQuery query should return patient object with patient details', async () => {
+      const expected = {
+        birthday: new Date('1936-12-02T00:00:00.000Z'),
+        diseases:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
+        email: 'Francesco.Weissnat55@yahoo.com',
+        firstname: 'Easton',
+        id: 1,
+        lastname: 'Brekke',
+        phone: '(331) 439-6451 x329',
+      };
+
+      const {
+        rows: [data],
+      } = await getPatientsQuery();
+      return expect(expected).toEqual(data);
     });
   });
   describe('Routes Tests', () => {
@@ -115,30 +131,6 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
-  });
-});
-
-describe('Get Patients Tests', () => {
-  describe('Database Tests', () => {
-    test('getPatientsQuery query should return patient object with patient details', async () => {
-      const expected = {
-        birthday: new Date('1936-12-02T00:00:00.000Z'),
-        diseases:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-        email: 'Francesco.Weissnat55@yahoo.com',
-        firstname: 'Easton',
-        id: 1,
-        lastname: 'Brekke',
-        phone: '(331) 439-6451 x329',
-      };
-
-      const {
-        rows: [rows],
-      } = await getPatientsQuery();
-      return expect(expected).toEqual(rows);
-    });
-  });
-  describe('Get all patients', () => {
     test('Route /patients status 200, json header', async () => {
       const res = await request(app)
         .get('/api/v1/patients')
