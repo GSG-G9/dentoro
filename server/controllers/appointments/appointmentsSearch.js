@@ -1,4 +1,6 @@
-const { getAppointmentsByPatientName } = require('../../database/queries');
+const {
+  getAppointmentsByPatientNameOrPhone,
+} = require('../../database/queries');
 const { appointmentsSearchSchema } = require('../../utils/validation');
 const { boomify } = require('../../utils');
 
@@ -13,7 +15,7 @@ const appointmentsSearch = async (req, res, next) => {
     });
 
     if (firstName || lastName || phone) {
-      const { rows: data } = await getAppointmentsByPatientName({
+      const { rows: data } = await getAppointmentsByPatientNameOrPhone({
         firstName,
         lastName,
         phone,

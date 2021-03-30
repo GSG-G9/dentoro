@@ -5,7 +5,7 @@ const connection = require('../database/config/connection');
 const {
   getAppointmentsByDateQuery,
   getPatientByNameOrPhoneQuery,
-  getAppointmentsByPatientName,
+  getAppointmentsByPatientNameOrPhone,
   getPatientProfileData,
   getHistoryLogs,
 } = require('../database/queries');
@@ -135,7 +135,7 @@ describe('Server Tests', () => {
           phone: '0599010102',
         },
       ];
-      const { rows } = await getAppointmentsByPatientName({
+      const { rows } = await getAppointmentsByPatientNameOrPhone({
         firstName: 'Alexie',
         lastName: 'Jenkins',
       });

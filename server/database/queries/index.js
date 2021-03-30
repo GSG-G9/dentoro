@@ -1,4 +1,4 @@
-module.exports.getAppointmentsByPatientName = require('./getAppointmentsByPatientName');
+module.exports.getAppointmentsByPatientNameOrPhone = require('./getAppointmentsByPatientName');
 module.exports.getHistoryLogs = require('./getHistoryLogs');
 module.exports.getPatientProfileData = require('./getPatientProfileData');
 module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhoneQuery');
