@@ -3,14 +3,7 @@
   "[javascript]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": true
-<<<<<<< HEAD
-    },
-||||||| da67130
-    },
-    "editor.formatOnSave": false
-=======
     }
->>>>>>> 5ebbace91f989c46c16412743d244387e11a7364
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
