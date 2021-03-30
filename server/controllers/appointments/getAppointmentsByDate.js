@@ -1,5 +1,5 @@
-const { getAppointmentsByDateQuery } = require('../../../database/queries');
-const { appointmentDateValidation, boomify } = require('../../../utils');
+const { getAppointmentsByDateQuery } = require('../../database/queries');
+const { appointmentDateValidation, boomify } = require('../../utils');
 
 const getAppointmentsByDate = async (req, res, next) => {
   try {
