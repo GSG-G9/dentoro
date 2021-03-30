@@ -12,7 +12,7 @@ const appointmentsSearch = async (req, res, next) => {
       abortEarly: false,
     });
 
-    if ((firstName && lastName) || phone) {
+    if (firstName || lastName || phone) {
       const { rows: data } = await getAppointmentsByPatientName({
         firstName,
         lastName,
