@@ -650,6 +650,33 @@ describe('Server Tests', () => {
       };
       return expect(expected).toEqual(res.body);
     });
+    test('POST /api/v1/appointments with patientData - choose unavailable time outside the working ours from 8:00-18:00', async () => {
+      const patientData = {
+        firstName: 'test',
+        lastName: 'test',
+        phone: '0599010102',
+        email: 'test@test.com',
+        birthday: '1989-08-08',
+        appointmentDate: '2021-12-02',
+        appointmentTime: '19:00:00',
+        complaints: 'teeth pain',
+      };
+      const res = await request(app)
+        .post('/api/v1/appointments')
+        .set({
+          'Content-Type': 'application/json',
+        })
+        .send(patientData)
+        .expect(400)
+        .expect('Content-Type', /json/);
+      const expected = {
+        statusCode: 400,
+        error: 'Unavailable Time',
+        message:
+          'please choose another appointment time through the working hours',
+      };
+      return expect(expected).toEqual(res.body);
+    });
     test('DELETE /api/v1/appointment/:appointmentId should return a message "appointment deleted successfully"', async () => {
       const message = 'appointment deleted successfully';
       const res = await request(app)
