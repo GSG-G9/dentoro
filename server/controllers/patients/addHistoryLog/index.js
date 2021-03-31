@@ -2,20 +2,21 @@ const { boomify, historyLogSchema } = require('../../../utils');
 
 const {
   addHistoryLogQuery,
-  getAppointmentsStatusByIdQuery,
-  updateAppointmentStatusQuery,
+  getPatientProfileData,
+  // getAppointmentsStatusByIdQuery,
+  // updateAppointmentStatusQuery,
 } = require('../../../database/queries');
 
 const addHistoryLog = async (req, res, next) => {
   try {
     const {
       body: { description, price, payment },
-      params: { appointmentId },
+      params: { patientId },
     } = req;
 
     await historyLogSchema.validate(
       {
-        appointmentId,
+        patientId,
         description,
         price,
         payment,
@@ -25,29 +26,25 @@ const addHistoryLog = async (req, res, next) => {
       },
     );
     const {
-      rows: [appointmentData],
-    } = await getAppointmentsStatusByIdQuery({ appointmentId });
+      rows: [patientData],
+    } = await getPatientProfileData({ patientId });
 
-    if (!appointmentData) {
+    if (!patientData) {
       return next(
         boomify(
           404,
-          'appointment not found',
-          'Wrong appointment Id, check your data and try again',
+          'patientData not found',
+          'Wrong patientData Id, check your data and try again',
         ),
       );
     }
 
     const { rows: data } = await addHistoryLogQuery({
-      appointmentId,
+      patientId,
       description,
       price,
       payment,
     });
-
-    if (!appointmentData.is_done) {
-      await updateAppointmentStatusQuery({ appointmentId });
-    }
 
     return res.status(201).json({
       title: 'adding a history log',

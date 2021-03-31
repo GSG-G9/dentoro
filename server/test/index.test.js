@@ -224,14 +224,15 @@ describe('Server Tests', () => {
       const expected = [
         {
           id: 3,
-          appointment_id: 8,
+          patient_id: 12,
           description: 'some sort fo treatment',
           price: 200,
           payment: 200,
+          log_date: new Date('2021-03-30T21:00:00.000Z'),
         },
       ];
       const { rows } = await addHistoryLogQuery({
-        appointmentId: 8,
+        patientId: 12,
         description: 'some sort fo treatment',
         price: '200',
         payment: '200',
@@ -510,22 +511,23 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
-    test('POST /api/v1/patients/:appointmentId/history should add a log to the database', async () => {
+    test('POST /api/v1/patients/:patientId/history should add a log to the database', async () => {
       const expected = {
         title: 'adding a history log',
         detail: 'data added Successfully',
         data: [
           {
             id: 3,
-            appointment_id: 8,
+            patient_id: 12,
             description: 'some sort fo treatment',
             price: 200,
             payment: 200,
+            log_date: '2021-03-30T21:00:00.000Z',
           },
         ],
       };
       const res = await request(app)
-        .post('/api/v1/patients/8/history')
+        .post('/api/v1/patients/12/history')
         .send({
           description: 'some sort fo treatment',
           price: '200',
@@ -535,12 +537,12 @@ describe('Server Tests', () => {
         .expect(201);
       return expect(expected).toEqual(res.body);
     });
-    test('POST /api/v1/patients/:appointmentId/history  should return boomify Object Error when invalid input is added', async () => {
+    test('POST /api/v1/patients/:patientId/history  should return boomify Object Error when invalid input is added', async () => {
       const expected = {
         statusCode: 400,
         error: 'Validation Error',
         message: [
-          'appointmentId must be a `number` type, but the final value was: `NaN` (cast from the value `"8s"`).',
+          'patientId must be a `number` type, but the final value was: `NaN` (cast from the value `"8s"`).',
         ],
       };
       const res = await request(app)
