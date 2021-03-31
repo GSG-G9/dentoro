@@ -4,7 +4,11 @@ const {
   addAppointmentQuery,
   getUnavailableTimes,
 } = require('../../../database/queries');
-const { appointmentDataValidation, boomify } = require('../../../utils');
+const {
+  appointmentDataValidation,
+  boomify,
+  checkAvailableTimes,
+} = require('../../../utils');
 
 const addAppointment = async (req, res, next) => {
   try {
@@ -37,6 +41,15 @@ const addAppointment = async (req, res, next) => {
         ),
       );
 
+    if (!checkAvailableTimes(appointmentTime)) {
+      return next(
+        boomify(
+          400,
+          'Unavailable Time',
+          'please choose another appointment time through the working hours',
+        ),
+      );
+    }
     let patientId;
 
     const {
