@@ -201,7 +201,7 @@ describe('Server Tests', () => {
           payment: 0,
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-          appointment_date: new Date('2021-01-02T00:00:00.000Z'),
+          log_date: new Date('2021-01-02T00:00:00.000Z'),
         },
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
@@ -489,7 +489,7 @@ describe('Server Tests', () => {
               payment: 0,
               description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-              appointment_date: '2021-01-02T00:00:00.000Z',
+              log_date: '2021-01-02T00:00:00.000Z',
             },
           ],
         },
@@ -658,24 +658,24 @@ describe('Server Tests', () => {
         .expect(200);
       return expect(message).toEqual(res.body.message);
     });
-  });
-  test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
-    const res = await request(app)
-      .delete('/api/v1/appointments/"8"')
-      .expect(400)
-      .expect('Content-Type', /json/);
-    return expect(res.body.error).toEqual('Validation Error');
-  });
-  test('DELETE /api/v1/appointment/:appointmentId should not delete the appointments because it has an history', async () => {
-    const expected = {
-      statusCode: 400,
-      error: 'Bad request',
-      message: 'You cannot complete the process at the moment',
-    };
-    const res = await request(app)
-      .delete('/api/v1/appointments/2')
-      .expect(400)
-      .expect('Content-Type', /json/);
-    return expect(expected).toEqual(res.body);
+    test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
+      const res = await request(app)
+        .delete('/api/v1/appointments/"8"')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(res.body.error).toEqual('Validation Error');
+    });
+    test('DELETE /api/v1/appointment/:appointmentId should not delete the appointments because it has an history', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Bad request',
+        message: 'You cannot complete the process at the moment',
+      };
+      const res = await request(app)
+        .delete('/api/v1/appointments/2')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(expected).toEqual(res.body);
+    });
   });
 });
