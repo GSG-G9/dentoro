@@ -8,3 +8,4 @@ module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhone
 module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
 module.exports.addPatientQuery = require('./addPatientQuery');
 module.exports.addAppointmentQuery = require('./addAppointmentQuery');
+module.exports.deleteAppointmentsQueries = require('./deleteAppointmentsQueries');
