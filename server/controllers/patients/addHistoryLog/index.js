@@ -2,31 +2,31 @@ const { boomify, historyLogSchema } = require('../../../utils');
 
 const {
   addHistoryLogQuery,
-  getAppointmentsByIdQuery,
+  getAppointmentsStatusByIdQuery,
   updateAppointmentStatusQuery,
 } = require('../../../database/queries');
 
 const addHistoryLog = async (req, res, next) => {
   try {
-    const { appointmentId } = req.params;
-    const { description, price, payment } = req.body;
+    const {
+      body: { description, price, payment },
+      params: { appointmentId },
+    } = req;
 
-    const isValid = await historyLogSchema.isValid({
-      appointmentId,
-      description,
-      price,
-      payment,
-    });
-
-    if (!isValid) {
-      return next(
-        boomify(400, 'Invalid input', 'please Correct the input and try again'),
-      );
-    }
-
+    await historyLogSchema.validate(
+      {
+        appointmentId,
+        description,
+        price,
+        payment,
+      },
+      {
+        abortEarly: false,
+      },
+    );
     const {
       rows: [appointmentData],
-    } = await getAppointmentsByIdQuery({ appointmentId });
+    } = await getAppointmentsStatusByIdQuery({ appointmentId });
 
     if (!appointmentData) {
       return next(
@@ -49,12 +49,15 @@ const addHistoryLog = async (req, res, next) => {
       await updateAppointmentStatusQuery({ appointmentId });
     }
 
-    return res.json({
+    return res.status(201).json({
       title: 'adding a history log',
       detail: 'data added Successfully',
       data,
     });
   } catch (error) {
+    if (error.name === 'ValidationError') {
+      return next(boomify(400, 'Validation Error', error.errors));
+    }
     return next(error);
   }
 };

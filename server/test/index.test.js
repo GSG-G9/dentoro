@@ -10,7 +10,7 @@ const {
   getPatientProfileData,
   getHistoryLogs,
   addHistoryLogQuery,
-  getAppointmentsByIdQuery,
+  getAppointmentsStatusByIdQuery,
   updateAppointmentStatusQuery,
 } = require('../database/queries');
 
@@ -189,14 +189,18 @@ describe('Server Tests', () => {
       return expect(expected).toEqual(rows);
     });
     test('getAppointmentsByIdQuery query should return appointment id and status', async () => {
-      const expected = [{ id: 8, is_done: false }];
-      const { rows } = await getAppointmentsByIdQuery({ appointmentId: 8 });
+      const expected = [{ is_done: false }];
+      const { rows } = await getAppointmentsStatusByIdQuery({
+        appointmentId: 8,
+      });
       return expect(expected).toEqual(rows);
     });
     test('updateAppointmentStatusQuery query should change the status of an appointment to true', async () => {
-      const expected = [{ id: 8, is_done: true }];
+      const expected = [{ is_done: true }];
       await updateAppointmentStatusQuery({ appointmentId: 8 });
-      const { rows } = await getAppointmentsByIdQuery({ appointmentId: 8 });
+      const { rows } = await getAppointmentsStatusByIdQuery({
+        appointmentId: 8,
+      });
       return expect(expected).toEqual(rows);
     });
     test('addHistoryLogQuery query should add a history log', async () => {
@@ -512,14 +516,16 @@ describe('Server Tests', () => {
           payment: '200',
         })
         .expect('Content-Type', /json/)
-        .expect(200);
+        .expect(201);
       return expect(expected).toEqual(res.body);
     });
     test('POST /api/v1/patients/:appointmentId/history  should return boomify Object Error when invalid input is added', async () => {
       const expected = {
         statusCode: 400,
-        error: 'Invalid input',
-        message: 'please Correct the input and try again',
+        error: 'Validation Error',
+        message: [
+          'appointmentId must be a `number` type, but the final value was: `NaN` (cast from the value `"8s"`).',
+        ],
       };
       const res = await request(app)
         .post('/api/v1/patients/8s/history')
