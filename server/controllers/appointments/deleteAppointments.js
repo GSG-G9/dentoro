@@ -12,7 +12,11 @@ const deleteAppointments = async (req, res, next) => {
     } = await deleteAppointmentsQueries(appointmentId);
     if (!appointment) {
       return next(
-        boomify(400, 'bad request', 'there is no appointment with this id'),
+        boomify(
+          400,
+          'Bad request',
+          'You cannot complete the process at the moment',
+        ),
       );
     }
 

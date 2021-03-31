@@ -492,14 +492,14 @@ describe('Server Tests', () => {
       .expect('Content-Type', /json/);
     return expect(res.body.error).toEqual('Validation Error');
   });
-  test('DELETE /api/v1/appointment/:appointmentId should return 404 appointment not found', async () => {
+  test('DELETE /api/v1/appointment/:appointmentId should not delete the appointments because it has an history', async () => {
     const expected = {
       statusCode: 400,
-      error: 'bad request',
-      message: 'there is no appointment with this id',
+      error: 'Bad request',
+      message: 'You cannot complete the process at the moment',
     };
     const res = await request(app)
-      .delete('/api/v1/appointments/90')
+      .delete('/api/v1/appointments/2')
       .expect(400)
       .expect('Content-Type', /json/);
     return expect(expected).toEqual(res.body);
