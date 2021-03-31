@@ -1,6 +1,5 @@
-const { object, string, date } = require('yup');
+const { object, string } = require('yup');
 const { format, parse } = require('date-fns');
-const { parseDateString } = require('../appointmentDateValidation');
 
 const appointmentDataValidation = object({
   firstName: string().required(),
@@ -8,7 +7,12 @@ const appointmentDataValidation = object({
   phone: string().min(9).max(14).required(),
   email: string().email(),
   diseases: string(),
-  birthday: date().transform(parseDateString),
+  birthday: string()
+    .min(8)
+    .transform((value) =>
+      format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
+    )
+    .required(),
   appointmentTime: string()
     .min(4)
     .transform((value) =>
@@ -17,6 +21,7 @@ const appointmentDataValidation = object({
     .required(),
   complaints: string(),
   appointmentDate: string()
+    .min(8)
     .transform((value) =>
       format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
     )
