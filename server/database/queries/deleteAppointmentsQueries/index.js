@@ -1,10 +1,10 @@
 const connection = require('../../config/connection');
 
-const deleteAppointmentsQueries = (patientId, appointmentId) => {
+const deleteAppointmentsQueries = (appointmentId) => {
   const sql = {
     text:
-      'DELETE FROM appointments WHERE patient_id = (SELECT id FROM patients WHERE id = $1) AND id = $2 RETURNING * ;',
-    values: [patientId, appointmentId],
+      'DELETE FROM appointments WHERE id = $1 AND is_done =false RETURNING *',
+    values: [appointmentId],
   };
   return connection.query(sql);
 };

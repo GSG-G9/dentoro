@@ -71,7 +71,7 @@ describe('Server Tests', () => {
       return expect(expected).toEqual(actual);
     });
     test('deleteAppointmentsQueries query for specific patient should return an array with deleted appointment', async () => {
-      const { rows: actual } = await deleteAppointmentsQueries(2, 8);
+      const { rows: actual } = await deleteAppointmentsQueries(8);
 
       const expected = [
         {
@@ -479,7 +479,7 @@ describe('Server Tests', () => {
     test('DELETE /api/v1/patients/:patientId/appointment/:appointmentId should return a message "appointment deleted successfully"', async () => {
       const message = 'appointment deleted successfully';
       const res = await request(app)
-        .delete('/api/v1/patients/2/appointments/8')
+        .delete('/api/v1/appointments/8')
         .expect('Content-Type', /json/)
         .expect(200);
       return expect(message).toEqual(res.body.message);

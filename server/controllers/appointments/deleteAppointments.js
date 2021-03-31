@@ -2,9 +2,9 @@ const { deleteAppointmentsQueries } = require('../../database/queries');
 
 const deleteAppointments = async (req, res, next) => {
   try {
-    const { patientId, appointmentId } = req.params;
+    const { appointmentId } = req.params;
 
-    const { rows } = await deleteAppointmentsQueries(patientId, appointmentId);
+    const { rows } = await deleteAppointmentsQueries(appointmentId);
     return res.json({
       statusCode: 200,
       message: 'appointment deleted successfully',
