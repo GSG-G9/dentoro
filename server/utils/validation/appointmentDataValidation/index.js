@@ -7,6 +7,7 @@ const appointmentDataValidation = object({
   lastName: string().required(),
   phone: string().min(9).max(14).required(),
   email: string().email(),
+  diseases: string(),
   birthday: date().transform(parseDateString),
   appointmentTime: string()
     .min(4)
@@ -15,7 +16,11 @@ const appointmentDataValidation = object({
     )
     .required(),
   complaints: string(),
-  appointmentDate: date().transform(parseDateString),
+  appointmentDate: string()
+    .transform((value) =>
+      format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
+    )
+    .required(),
 });
 
 module.exports = appointmentDataValidation;

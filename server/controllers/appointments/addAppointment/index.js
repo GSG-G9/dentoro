@@ -9,20 +9,16 @@ const { appointmentDataValidation, boomify } = require('../../../utils');
 const addAppointment = async (req, res, next) => {
   try {
     const {
-      body: {
-        firstName,
-        lastName,
-        email,
-        birthday,
-        phone,
-        diseases,
-        appointmentDate,
-        appointmentTime,
-        complaints,
-      },
-    } = req;
-
-    await appointmentDataValidation.validate(req.body, {
+      firstName,
+      lastName,
+      email,
+      birthday,
+      phone,
+      diseases,
+      appointmentDate,
+      appointmentTime,
+      complaints,
+    } = await appointmentDataValidation.validate(req.body, {
       abortEarly: false,
     });
 

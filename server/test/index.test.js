@@ -533,7 +533,7 @@ describe('Server Tests', () => {
         phone: '0599020202',
         email: 'test@test.com',
         birthday: '1989-08-08',
-        appointmentDate: '2021-3-31',
+        appointmentDate: '2021-4-2',
         appointmentTime: '16:00:00',
         complaints: 'teeth pain',
       };
