@@ -27,6 +27,7 @@ const addHistoryLog = async (req, res, next) => {
     const {
       rows: [appointmentData],
     } = await getAppointmentsByIdQuery({ appointmentId });
+    console.log(appointmentData);
 
     if (!appointmentData) {
       return next(

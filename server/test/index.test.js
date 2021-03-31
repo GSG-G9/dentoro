@@ -9,6 +9,9 @@ const {
   getUnavailableTimes,
   getPatientProfileData,
   getHistoryLogs,
+  addHistoryLogQuery,
+  getAppointmentsByIdQuery,
+  updateAppointmentStatusQuery,
 } = require('../database/queries');
 
 describe('Server Tests', () => {
@@ -145,7 +148,6 @@ describe('Server Tests', () => {
       });
       return expect(expected).toEqual(rows);
     });
-
     test('getUnavailableTimes query should return appointment objects times', async () => {
       const expected = [
         { appointment_time: '08:00:00' },
@@ -184,6 +186,35 @@ describe('Server Tests', () => {
         },
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
+      return expect(expected).toEqual(rows);
+    });
+    test('getAppointmentsByIdQuery query should return appointment id and status', async () => {
+      const expected = [{ id: 8, is_done: false }];
+      const { rows } = await getAppointmentsByIdQuery({ appointmentId: 8 });
+      return expect(expected).toEqual(rows);
+    });
+    test('updateAppointmentStatusQuery query should change the status of an appointment to true', async () => {
+      const expected = [{ id: 8, is_done: true }];
+      await updateAppointmentStatusQuery({ appointmentId: 8 });
+      const { rows } = await getAppointmentsByIdQuery({ appointmentId: 8 });
+      return expect(expected).toEqual(rows);
+    });
+    test('addHistoryLogQuery query should add a history log', async () => {
+      const expected = [
+        {
+          id: 3,
+          appointment_id: 8,
+          description: 'some sort fo treatment',
+          price: 200,
+          payment: 200,
+        },
+      ];
+      const { rows } = await addHistoryLogQuery({
+        appointmentId: 8,
+        description: 'some sort fo treatment',
+        price: '200',
+        payment: '200',
+      });
       return expect(expected).toEqual(rows);
     });
   });
@@ -357,7 +388,6 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
-
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
@@ -455,6 +485,49 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/patients/1a')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      return expect(expected).toEqual(res.body);
+    });
+    test('POST /api/v1/patients/:appointmentId/history should add a log to the database', async () => {
+      const expected = {
+        title: 'adding a history log',
+        detail: 'data added Successfully',
+        data: [
+          {
+            id: 3,
+            appointment_id: 8,
+            description: 'some sort fo treatment',
+            price: 200,
+            payment: 200,
+          },
+        ],
+      };
+
+      const res = await request(app)
+        .post('/api/v1/patients/8/history')
+        .send({
+          description: 'some sort fo treatment',
+          price: '200',
+          payment: '200',
+        })
+        .expect('Content-Type', /json/)
+        .expect(200);
+      return expect(expected).toEqual(res.body);
+    });
+    test('POST /api/v1/patients/:appointmentId/history  should return boomify Object Error when invalid input is added', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Invalid input',
+        message: 'please Correct the input and try again',
+      };
+      const res = await request(app)
+        .post('/api/v1/patients/8s/history')
+        .send({
+          description: 'some sort fo treatment',
+          price: '200',
+          payment: '200',
+        })
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
