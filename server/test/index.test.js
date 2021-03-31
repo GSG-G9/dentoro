@@ -476,7 +476,7 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
-    test('DELETE /api/v1/patients/:patientId/appointment/:appointmentId should return a message "appointment deleted successfully"', async () => {
+    test('DELETE /api/v1/appointment/:appointmentId should return a message "appointment deleted successfully"', async () => {
       const message = 'appointment deleted successfully';
       const res = await request(app)
         .delete('/api/v1/appointments/8')
@@ -484,5 +484,24 @@ describe('Server Tests', () => {
         .expect(200);
       return expect(message).toEqual(res.body.message);
     });
+  });
+  test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
+    const res = await request(app)
+      .delete('/api/v1/appointments/"8"')
+      .expect(400)
+      .expect('Content-Type', /json/);
+    return expect(res.body.error).toEqual('Validation Error');
+  });
+  test('DELETE /api/v1/appointment/:appointmentId should return 404 appointment not found', async () => {
+    const expected = {
+      statusCode: 400,
+      error: 'bad request',
+      message: 'there is no appointment with this id',
+    };
+    const res = await request(app)
+      .delete('/api/v1/appointments/90')
+      .expect(400)
+      .expect('Content-Type', /json/);
+    return expect(expected).toEqual(res.body);
   });
 });
