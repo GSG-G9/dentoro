@@ -1,5 +1,5 @@
 const {
-  getPatientByNameOrPhoneQuery,
+  checkPatientExistence,
   addPatientQuery,
   addAppointmentQuery,
   getUnavailableTimes,
@@ -46,7 +46,7 @@ const addAppointment = async (req, res, next) => {
     const {
       rows: existPatient,
       rowCount: isPatientExist,
-    } = await getPatientByNameOrPhoneQuery({
+    } = await checkPatientExistence({
       phone,
     });
     if (!isPatientExist) {

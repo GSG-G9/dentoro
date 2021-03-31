@@ -13,6 +13,7 @@ const {
   addPatientQuery,
   getPatientsQuery,
   deleteAppointmentsQueries,
+  checkPatientExistence,
 } = require('../database/queries');
 
 describe('Server Tests', () => {
@@ -243,6 +244,14 @@ describe('Server Tests', () => {
         rows: [{ id: appointmentId }],
       } = await addAppointmentQuery(appointmentData);
       return expect(appointmentId).toBeTruthy();
+    });
+    test('checkPatientExistence(phone) query should return patient Id', async () => {
+      const patientPhone = '0599010101';
+      const patientId = 1;
+      const {
+        rows: [{ id }],
+      } = await checkPatientExistence({ phone: patientPhone });
+      return expect(id).toBe(patientId);
     });
   });
   describe('Routes Tests', () => {
