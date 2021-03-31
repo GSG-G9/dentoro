@@ -9,3 +9,4 @@ module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuer
 module.exports.addHistoryLogQuery = require('./addHistoryLogQuery');
 module.exports.getAppointmentsStatusByIdQuery = require('./getAppointmentsStatusByIdQuery');
 module.exports.updateAppointmentStatusQuery = require('./updateAppointmentStatusQuery');
+module.exports.deleteAppointmentsQueries = require('./deleteAppointmentsQueries');

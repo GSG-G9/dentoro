@@ -23,10 +23,11 @@ CREATE TABLE appointments(
 
 CREATE TABLE history(
   id SERIAL PRIMARY KEY,
-  appointment_id INTEGER REFERENCES appointments(id) ON UPDATE CASCADE,
+  patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE,
   description TEXT NOT NULL,
   price FLOAT DEFAULT 0,
-  payment FLOAT DEFAULT 0
+  payment FLOAT DEFAULT 0,
+  log_date TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE users(

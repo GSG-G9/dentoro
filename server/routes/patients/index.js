@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { getPatients } = require('../../controllers');
 const {
+  getPatients,
   getAllProfileData,
   getPatientByNameOrPhone,
   addHistoryLog,
@@ -9,8 +9,9 @@ const {
 router.get('/', getPatients);
 router.get('/search', getPatientByNameOrPhone);
 router.route('/:patientId').get(getAllProfileData).patch();
-router.post('/:appointmentId/history', addHistoryLog);
+router.post('/:patientId/history', addHistoryLog);
 router.delete('/:patientId/appointment');
+router.post('/:patientId/history');
 router.patch('/:patientId/appointment/:appointmentId');
 
 module.exports = router;
