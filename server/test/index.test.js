@@ -9,9 +9,6 @@ const {
   getUnavailableTimes,
   getPatientProfileData,
   getHistoryLogs,
-  addHistoryLogQuery,
-  getAppointmentsStatusByIdQuery,
-  updateAppointmentStatusQuery,
   deleteAppointmentsQueries,
   patchPatientDataByIdQuery,
 } = require('../database/queries');
@@ -166,6 +163,7 @@ describe('Server Tests', () => {
       });
       return expect(expected).toEqual(rows);
     });
+
     test('getUnavailableTimes query should return appointment objects times', async () => {
       const expected = [
         { appointment_time: '08:00:00' },
@@ -213,8 +211,8 @@ describe('Server Tests', () => {
         lastname: 'cina',
         phone: '0599887782',
         email: 'john@cina.com',
-        birthday: new Date('1994-09-01T22:00:00.000Z'),
-        diseases: 'no diseyases',
+        birthday: new Date('1994-09-02T00:00:00.000Z'),
+        diseases: 'no diseases',
       };
       const {
         rows: [data],
@@ -224,43 +222,10 @@ describe('Server Tests', () => {
         '0599887782',
         'john@cina.com',
         '1994-09-02',
-        'no diseyases',
+        'no diseases',
         1,
       );
       return expect(expected).toEqual(data);
-    });
-    test('getAppointmentsByIdQuery query should return appointment id and status', async () => {
-      const expected = [{ is_done: false }];
-      const { rows } = await getAppointmentsStatusByIdQuery({
-        appointmentId: 8,
-      });
-      return expect(expected).toEqual(rows);
-    });
-    test('updateAppointmentStatusQuery query should change the status of an appointment to true', async () => {
-      const expected = [{ is_done: true }];
-      await updateAppointmentStatusQuery({ appointmentId: 8 });
-      const { rows } = await getAppointmentsStatusByIdQuery({
-        appointmentId: 8,
-      });
-      return expect(expected).toEqual(rows);
-    });
-    test('addHistoryLogQuery query should add a history log', async () => {
-      const expected = [
-        {
-          id: 3,
-          patient_id: 12,
-          description: 'some sort fo treatment',
-          price: 200,
-          payment: 200,
-        },
-      ];
-      const { rows } = await addHistoryLogQuery({
-        patientId: 12,
-        description: 'some sort fo treatment',
-        price: '200',
-        payment: '200',
-      });
-      return expect(rows).toMatchObject(expected);
     });
   });
   describe('Routes Tests', () => {
@@ -433,6 +398,7 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
+
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
@@ -530,50 +496,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/patients/1a')
-        .expect('Content-Type', /json/)
-        .expect(400);
-      return expect(expected).toEqual(res.body);
-    });
-    test('POST /api/v1/patients/:patientId/history should add a log to the database', async () => {
-      const expected = {
-        title: 'adding a history log',
-        detail: 'data added Successfully',
-        data: [
-          {
-            id: 3,
-            patient_id: 12,
-            description: 'some sort fo treatment',
-            price: 200,
-            payment: 200,
-          },
-        ],
-      };
-      const res = await request(app)
-        .post('/api/v1/patients/12/history')
-        .send({
-          description: 'some sort fo treatment',
-          price: '200',
-          payment: '200',
-        })
-        .expect('Content-Type', /json/)
-        .expect(201);
-      return expect(res.body).toMatchObject(expected);
-    });
-    test('POST /api/v1/patients/:patientId/history  should return boomify Object Error when invalid input is added', async () => {
-      const expected = {
-        statusCode: 400,
-        error: 'Validation Error',
-        message: [
-          'patientId must be a `number` type, but the final value was: `NaN` (cast from the value `"8s"`).',
-        ],
-      };
-      const res = await request(app)
-        .post('/api/v1/patients/8s/history')
-        .send({
-          description: 'some sort fo treatment',
-          price: '200',
-          payment: '200',
-        })
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
