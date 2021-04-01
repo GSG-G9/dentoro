@@ -25,6 +25,15 @@ const addAppointment = async (req, res, next) => {
     } = await appointmentDataValidation.validate(req.body, {
       abortEarly: false,
     });
+    if (!checkAvailableTimes(appointmentTime)) {
+      return next(
+        boomify(
+          400,
+          'Unavailable Time',
+          'please choose another appointment time through the working hours',
+        ),
+      );
+    }
 
     const { rows: UnavailableTimes } = await getUnavailableTimes({
       date: appointmentDate,
@@ -41,15 +50,6 @@ const addAppointment = async (req, res, next) => {
         ),
       );
 
-    if (!checkAvailableTimes(appointmentTime)) {
-      return next(
-        boomify(
-          400,
-          'Unavailable Time',
-          'please choose another appointment time through the working hours',
-        ),
-      );
-    }
     let patientId;
 
     const {
