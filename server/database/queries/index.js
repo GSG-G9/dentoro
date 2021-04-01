@@ -7,3 +7,6 @@ module.exports.getPatientProfileData = require('./getPatientProfileData');
 module.exports.getPatientByNameOrPhoneQuery = require('./getPatientByNameOrPhoneQuery');
 module.exports.getAppointmentsByDateQuery = require('./getAppointmentsByDateQuery');
 module.exports.deleteAppointmentsQueries = require('./deleteAppointmentsQueries');
+module.exports.updateAppointmentTimeQuery = require('./updateAppointmentTimeQuery');
+module.exports.getAppointmentsStatusByIdQuery = require('./getAppointmentsStatusByIdQuery');
+module.exports.updateAppointmentStatusQuery = require('./updateAppointmentStatusQuery');

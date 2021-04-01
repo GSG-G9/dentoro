@@ -10,6 +10,9 @@ const {
   getPatientProfileData,
   getHistoryLogs,
   deleteAppointmentsQueries,
+  updateAppointmentTimeQuery,
+  getAppointmentsStatusByIdQuery,
+  updateAppointmentStatusQuery,
 } = require('../database/queries');
 
 describe('Server Tests', () => {
@@ -202,6 +205,45 @@ describe('Server Tests', () => {
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
       return expect(expected).toEqual(rows);
+    });
+    test('updateAppointmentTimeQuery query should the edit the appointment date and time and return appointment id - updated Date - Time', async () => {
+      const appointmentId = 1;
+      const appointmentDate = '2021-4-1';
+      const appointmentTime = '18:00:00';
+      const expected = {
+        id: 1,
+        appointment_date: new Date('2021-4-1'),
+        appointment_time: '18:00:00',
+      };
+
+      const {
+        rows: [updateAppointmentObject],
+      } = await updateAppointmentTimeQuery({
+        appointmentId,
+        appointmentDate,
+        appointmentTime,
+      });
+      return expect(expected).toEqual(updateAppointmentObject);
+    });
+    test('getAppointmentsStatusByIdQuery query should return the appointment recored id containing the status of this appointment', async () => {
+      const appointmentId = 1;
+      const expected = { is_done: false };
+      const {
+        rows: [appointmentRecord],
+      } = await getAppointmentsStatusByIdQuery({
+        appointmentId,
+      });
+      return expect(expected).toEqual(appointmentRecord);
+    });
+    test('updateAppointmentStatusQuery query should return the appointment recored id containing the updated status of this appointment', async () => {
+      const appointmentId = 1;
+      const expected = { is_done: true };
+      const {
+        rows: [appointmentRecord],
+      } = await updateAppointmentStatusQuery({
+        appointmentId,
+      });
+      return expect(expected).toEqual(appointmentRecord);
     });
   });
   describe('Routes Tests', () => {
@@ -484,24 +526,137 @@ describe('Server Tests', () => {
         .expect(200);
       return expect(message).toEqual(res.body.message);
     });
-  });
-  test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
-    const res = await request(app)
-      .delete('/api/v1/appointments/"8"')
-      .expect(400)
-      .expect('Content-Type', /json/);
-    return expect(res.body.error).toEqual('Validation Error');
-  });
-  test('DELETE /api/v1/appointment/:appointmentId should not delete the appointments because it has an history', async () => {
-    const expected = {
-      statusCode: 400,
-      error: 'Bad request',
-      message: 'You cannot complete the process at the moment',
-    };
-    const res = await request(app)
-      .delete('/api/v1/appointments/2')
-      .expect(400)
-      .expect('Content-Type', /json/);
-    return expect(expected).toEqual(res.body);
+    test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
+      const res = await request(app)
+        .delete('/api/v1/appointments/"8"')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(res.body.error).toEqual('Validation Error');
+    });
+    test('DELETE /api/v1/appointment/:appointmentId should not delete the appointments because it has an history', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Bad request',
+        message: 'You cannot complete the process at the moment',
+      };
+      const res = await request(app)
+        .delete('/api/v1/appointments/2')
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(expected).toEqual(res.body);
+    });
+    describe('PATCH /api/v1/appointments/:appointmentId/time', () => {
+      test('PATCH /api/v1/appointments/:appointmentId/time with correct body should update the appointment and return a success message', async () => {
+        const appointmentId = 1;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(200);
+        const expected = { status: 200, message: 'success' };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with a completed appointment should return error with status code 400 and message This appointment is completed', async () => {
+        const appointmentId = 2;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'Closed Appointment',
+          message: 'This appointment is completed',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with a non exist appointmentId should return error with status code 400 and message This appointmentId not exist', async () => {
+        const appointmentId = 150;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'Invalid Appiontment id',
+          message: 'This appointment is not exist',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with invalid appointment Date should return error message', async () => {
+        const appointmentId = 1;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021', appointmentTime: '18:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'RangeError',
+          message: 'Invalid time value',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with invalid appointment Time should return error message', async () => {
+        const appointmentId = 1;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-4-3', appointmentTime: '18' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'RangeError',
+          message: 'Invalid time value',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with invalid appointmentId should return error message', async () => {
+        const appointmentId = 'invaildAppointmentId';
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-4-3', appointmentTime: '18' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'Validation Error',
+          message: [
+            'appointmentId must be a `number` type, but the final value was: `NaN` (cast from the value `"invaildAppointmentId"`).',
+          ],
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with unavailable time should return error message', async () => {
+        const appointmentId = 1;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-12-02', appointmentTime: '08:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(409);
+        const expected = {
+          statusCode: 409,
+          error: 'Unavailable Time',
+          message: 'please choose another appointment time',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('PATCH /api/v1/appointments/:appointmentId/time with time outside the working hours should return error message', async () => {
+        const appointmentId = 1;
+        const res = await request(app)
+          .patch(`/api/v1/appointments/${appointmentId}/time`)
+          .send({ appointmentDate: '2021-12-02', appointmentTime: '01:00:00' })
+          .expect('Content-Type', /json/)
+          .expect(400);
+        const expected = {
+          statusCode: 400,
+          error: 'Unavailable Time',
+          message:
+            'please choose another appointment time through the working hours',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+    });
   });
 });
