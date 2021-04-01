@@ -11,8 +11,7 @@ const appointmentDataValidation = object({
     .min(8)
     .transform((value) =>
       format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
-    )
-    .required(),
+    ),
   appointmentTime: string()
     .min(4)
     .transform((value) =>
