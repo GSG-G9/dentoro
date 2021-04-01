@@ -1,6 +1,6 @@
 const connection = require('../../config/connection');
 
-const patchPatientDataByIdQuery = ({
+const patchPatientDataByIdQuery = (
   firstName,
   lastName,
   phone,
@@ -8,7 +8,7 @@ const patchPatientDataByIdQuery = ({
   birthday,
   diseases,
   patientId,
-}) => {
+) => {
   const sql = {
     text:
       'UPDATE patients SET firstname =$1, lastname = $2, phone = $3, email = $4, birthday = $5, diseases= $6 WHERE id = $7 RETURNING *',

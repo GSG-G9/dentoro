@@ -1,4 +1,7 @@
-const { patchPatientDataByIdQuery } = require('../../database/queries');
+const {
+  patchPatientDataByIdQuery,
+  patientCheckPhone,
+} = require('../../database/queries');
 const { boomify, patientDataValidation } = require('../../utils');
 
 const patchPatientData = async (req, res, next) => {
@@ -6,7 +9,14 @@ const patchPatientData = async (req, res, next) => {
   const { patientId } = req.params;
 
   try {
-    const isValid = await patientDataValidation.validate(
+    const {
+      rows: [patient],
+    } = await patientCheckPhone({ phone });
+    if (patient) {
+      return next(boomify(401, 'edit Error', 'phone number is exist'));
+    }
+
+    await patientDataValidation.validate(
       { firstName, lastName, phone, email, diseases, birthday, patientId },
       {
         abortEarly: false,
@@ -23,14 +33,14 @@ const patchPatientData = async (req, res, next) => {
       diseases,
       patientId,
     );
-    if (isValid) {
-      res.json({
-        msg: 'Updated successfully',
-        data,
-      });
-    }
+
+    return res.json({
+      statusCode: 200,
+      msg: 'Updated successfully',
+      data,
+    });
   } catch (error) {
-    next(
+    return next(
       error.name === 'ValidationError'
         ? boomify(400, 'Validation Error', error.errors)
         : error,
