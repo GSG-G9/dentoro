@@ -32,10 +32,10 @@ values
 (12,false,'2021-12-02T00:00:00.000Z','15:00','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
 (2,false,'2020-12-02T00:00:00.000Z','11:00','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad');
 
-insert into history(appointment_id,price,payment,description) 
+insert into history(patient_id,price,payment,description,log_date) 
 values
-(2,50,50,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'),
-(5,50,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad');
+(1,50,50,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad','2020-12-02T00:00:00.000Z'),
+(12,50,0,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad','2021-01-02T00:00:00.000Z');
 
 insert into users(email,password) 
 values

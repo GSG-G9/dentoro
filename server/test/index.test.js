@@ -200,7 +200,7 @@ describe('Server Tests', () => {
           payment: 0,
           description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-          appointment_date: new Date('2021-01-02T00:00:00.000Z'),
+          log_date: new Date('2021-01-02T00:00:00.000Z'),
         },
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
@@ -481,7 +481,7 @@ describe('Server Tests', () => {
               payment: 0,
               description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-              appointment_date: '2021-01-02T00:00:00.000Z',
+              log_date: '2021-01-02T00:00:00.000Z',
             },
           ],
         },
