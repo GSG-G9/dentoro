@@ -228,7 +228,6 @@ describe('Server Tests', () => {
           description: 'some sort fo treatment',
           price: 200,
           payment: 200,
-          // log_date: new Date('2021-03-31T00:00:00.000Z'),
         },
       ];
       const { rows } = await addHistoryLogQuery({
@@ -522,7 +521,6 @@ describe('Server Tests', () => {
             description: 'some sort fo treatment',
             price: 200,
             payment: 200,
-            // log_date: '2021-03-30T21:00:00.000Z',
           },
         ],
       };

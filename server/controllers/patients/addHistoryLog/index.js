@@ -3,8 +3,6 @@ const { boomify, historyLogSchema } = require('../../../utils');
 const {
   addHistoryLogQuery,
   getPatientProfileData,
-  // getAppointmentsStatusByIdQuery,
-  // updateAppointmentStatusQuery,
 } = require('../../../database/queries');
 
 const addHistoryLog = async (req, res, next) => {
