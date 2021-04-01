@@ -27,7 +27,7 @@ CREATE TABLE history(
   description TEXT NOT NULL,
   price FLOAT DEFAULT 0,
   payment FLOAT DEFAULT 0,
-  log_date TIMESTAMPTZ NOT NULL
+  log_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP::timestamp::date
 );
 
 CREATE TABLE users(
