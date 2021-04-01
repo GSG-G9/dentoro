@@ -10,6 +10,7 @@ const {
   getPatientProfileData,
   getHistoryLogs,
   deleteAppointmentsQueries,
+  patchPatientDataByIdQuery,
 } = require('../database/queries');
 
 describe('Server Tests', () => {
@@ -202,6 +203,29 @@ describe('Server Tests', () => {
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
       return expect(expected).toEqual(rows);
+    });
+    test('patchPatientDataByIdQuery query should return Patient Data updated', async () => {
+      const expected = {
+        id: 1,
+        firstname: 'john',
+        lastname: 'cina',
+        phone: '0599887782',
+        email: 'john@cina.com',
+        birthday: new Date('1994-09-01T22:00:00.000Z'),
+        diseases: 'no diseyases',
+      };
+      const {
+        rows: [data],
+      } = await patchPatientDataByIdQuery(
+        'john',
+        'cina',
+        '0599887782',
+        'john@cina.com',
+        '1994-09-02',
+        'no diseyases',
+        1,
+      );
+      return expect(expected).toEqual(data);
     });
   });
   describe('Routes Tests', () => {
@@ -502,6 +526,38 @@ describe('Server Tests', () => {
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(expected).toEqual(res.body);
+    });
+    test('/api/v1/patients/:patientId route should return message Updated successfully', async () => {
+      const message = 'Updated successfully';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          diseases: '1994-09-02',
+          patientId: 'no diseyases',
+        })
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
+    });
+    test('/api/v1/patients/:patientId route should return error phone number is exist', async () => {
+      const message = 'phone number is exist';
+      const res = await request(app)
+        .patch('/api/v1/patients/1')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0599010102',
+          email: 'alasa@lhaser.com',
+          diseases: '1994-09-02',
+          patientId: 'no diseyases',
+        })
+        .expect(409)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
     });
   });
 });

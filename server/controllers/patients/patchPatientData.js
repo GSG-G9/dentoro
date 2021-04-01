@@ -13,7 +13,7 @@ const patchPatientData = async (req, res, next) => {
       rows: [patient],
     } = await patientCheckPhone({ phone });
     if (patient) {
-      return next(boomify(401, 'edit Error', 'phone number is exist'));
+      return next(boomify(409, 'edit Error', 'phone number is exist'));
     }
 
     await patientDataValidation.validate(
@@ -36,7 +36,7 @@ const patchPatientData = async (req, res, next) => {
 
     return res.json({
       statusCode: 200,
-      msg: 'Updated successfully',
+      message: 'Updated successfully',
       data,
     });
   } catch (error) {
