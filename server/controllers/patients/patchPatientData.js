@@ -20,11 +20,8 @@ const patchPatientData = async (req, res, next) => {
       msg: 'Updated successfully',
       data,
     });
-
-    console.log(data);
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 
