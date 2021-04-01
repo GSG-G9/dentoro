@@ -228,7 +228,7 @@ describe('Server Tests', () => {
           description: 'some sort fo treatment',
           price: 200,
           payment: 200,
-          log_date: new Date('2021-03-30T21:00:00.000Z'),
+          // log_date: new Date('2021-03-31T00:00:00.000Z'),
         },
       ];
       const { rows } = await addHistoryLogQuery({
@@ -237,7 +237,7 @@ describe('Server Tests', () => {
         price: '200',
         payment: '200',
       });
-      return expect(expected).toEqual(rows);
+      return expect(rows).toMatchObject(expected);
     });
   });
   describe('Routes Tests', () => {
@@ -522,7 +522,7 @@ describe('Server Tests', () => {
             description: 'some sort fo treatment',
             price: 200,
             payment: 200,
-            log_date: '2021-03-30T21:00:00.000Z',
+            // log_date: '2021-03-30T21:00:00.000Z',
           },
         ],
       };
@@ -535,7 +535,7 @@ describe('Server Tests', () => {
         })
         .expect('Content-Type', /json/)
         .expect(201);
-      return expect(expected).toEqual(res.body);
+      return expect(res.body).toMatchObject(expected);
     });
     test('POST /api/v1/patients/:patientId/history  should return boomify Object Error when invalid input is added', async () => {
       const expected = {
