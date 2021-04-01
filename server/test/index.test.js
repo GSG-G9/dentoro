@@ -536,8 +536,8 @@ describe('Server Tests', () => {
           lastName: 'alser',
           phone: '0592623088',
           email: 'alasa@lhaser.com',
-          diseases: '1994-09-02',
-          patientId: 'no diseyases',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
         })
         .expect(200)
         .expect('Content-Type', /json/);
@@ -552,8 +552,8 @@ describe('Server Tests', () => {
           lastName: 'alser',
           phone: '0599010102',
           email: 'alasa@lhaser.com',
-          diseases: '1994-09-02',
-          patientId: 'no diseyases',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
         })
         .expect(409)
         .expect('Content-Type', /json/);
