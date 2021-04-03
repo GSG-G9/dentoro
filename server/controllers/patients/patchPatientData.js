@@ -30,7 +30,7 @@ const patchPatientData = async (req, res, next) => {
 
     const {
       rows: [data],
-    } = await patchPatientDataByIdQuery(
+    } = await patchPatientDataByIdQuery({
       firstName,
       lastName,
       phone,
@@ -38,7 +38,7 @@ const patchPatientData = async (req, res, next) => {
       birthday,
       diseases,
       patientId,
-    );
+    });
 
     return res.json({
       statusCode: 200,
