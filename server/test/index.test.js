@@ -216,15 +216,15 @@ describe('Server Tests', () => {
       };
       const {
         rows: [data],
-      } = await patchPatientDataByIdQuery(
-        'john',
-        'cina',
-        '0599887782',
-        'john@cina.com',
-        '1994-09-02',
-        'no diseases',
-        1,
-      );
+      } = await patchPatientDataByIdQuery({
+        patientId: 1,
+        firstName: 'john',
+        lastName: 'cina',
+        phone: '0599887782',
+        email: 'john@cina.com',
+        birthday: '1994-09-02',
+        diseases: 'no diseases',
+      });
       return expect(expected).toEqual(data);
     });
   });
@@ -496,6 +496,50 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/patients/1a')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      return expect(expected).toEqual(res.body);
+    });
+    test('POST /api/v1/patients/:patientId/history should add a log to the database', async () => {
+      const expected = {
+        title: 'adding a history log',
+        detail: 'data added Successfully',
+        data: [
+          {
+            id: 3,
+            patient_id: 12,
+            description: 'some sort fo treatment',
+            price: 200,
+            payment: 200,
+          },
+        ],
+      };
+      const res = await request(app)
+        .post('/api/v1/patients/12/history')
+        .send({
+          description: 'some sort fo treatment',
+          price: '200',
+          payment: '200',
+        })
+        .expect('Content-Type', /json/)
+        .expect(201);
+      return expect(res.body).toMatchObject(expected);
+    });
+    test('POST /api/v1/patients/:patientId/history  should return boomify Object Error when invalid input is added', async () => {
+      const expected = {
+        statusCode: 400,
+        error: 'Validation Error',
+        message: [
+          'patientId must be a `number` type, but the final value was: `NaN` (cast from the value `"8s"`).',
+        ],
+      };
+      const res = await request(app)
+        .post('/api/v1/patients/8s/history')
+        .send({
+          description: 'some sort fo treatment',
+          price: '200',
+          payment: '200',
+        })
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
