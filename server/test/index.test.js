@@ -603,5 +603,37 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.message);
     });
+    test('/api/v1/patients/:patientId route should return Invalid time value for wrong date', async () => {
+      const message = 'Invalid time value';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '02-09-1994',
+          diseases: 'no diseases',
+        })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
+    });
+    test('/api/v1/patients/:patientId route should return Validation Error for invalid name', async () => {
+      const message = 'Validation Error';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'aa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.error);
+    });
   });
 });

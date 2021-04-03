@@ -49,8 +49,8 @@ const patchPatientData = async (req, res, next) => {
     if (error.name === 'RangeError') {
       return next(boomify(400, 'RangeError', error.message));
     }
-    if (error.name === 'Validation') {
-      return next(boomify(400, 'Validation error', error.errors));
+    if (error.name === 'ValidationError') {
+      return next(boomify(400, 'Validation Error', error.errors));
     }
     return next(error);
   }
