@@ -25,14 +25,6 @@ const editAppointmentTime = async (req, res, next) => {
       return next(
         boomify(400, 'Closed Appointment', 'This appointment is completed'),
       );
-    if (isDone !== false)
-      return next(
-        boomify(
-          409,
-          'Unavailable Time',
-          'please choose another appointment time',
-        ),
-      );
     if (!checkAvailableTimes(appointmentTime)) {
       return next(
         boomify(
