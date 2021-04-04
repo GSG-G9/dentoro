@@ -17,11 +17,12 @@ const login = async (req, res, next) => {
       const { id: userId, password: hashedPassword } = user;
       const comparedPasswords = await compare(password, hashedPassword);
       if (!comparedPasswords) {
-        return next(boomify(400, 'Login Error', ' Incorrect password'));
+        return next(boomify(400, 'Login Error', 'Incorrect password'));
       }
       const token = await sign({ userId });
       return res
         .cookie('token', token, { httpOnly: true })
+        .status(201)
         .json({ statusCode: 201, message: 'logged in successfully' });
     }
     return next(boomify(400, 'Login Error', 'Incorrect email'));
