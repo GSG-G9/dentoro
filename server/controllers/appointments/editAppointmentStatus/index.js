@@ -1,38 +1,44 @@
-const { boomify, appointmentIdValidation } = require('../../../utils');
+const { boomify, appointmentStatusValidation } = require('../../../utils');
 
-const {
-  updateAppointmentStatusQuery,
-  getAppointmentsStatusByIdQuery,
-} = require('../../../database/queries');
+const { updateAppointmentStatusQuery } = require('../../../database/queries');
 
 const editAppointmentStatus = async (req, res, next) => {
   try {
-    const { appointmentId } = await appointmentIdValidation.validate(
-      req.params,
+    const {
+      appointmentId,
+      isDone,
+    } = await appointmentStatusValidation.validate(
+      {
+        ...req.params,
+        ...req.body,
+      },
+      { abortEarly: false },
     );
 
-    const {
-      rows: appointmentById,
-      rowCount: isAppointmentExist,
-    } = await getAppointmentsStatusByIdQuery({
-      appointmentId,
-    });
-
-    if (!isAppointmentExist) {
-      return next(
-        boomify(400, 'Invalid Appointment id', 'This appointment is not exist'),
-      );
-    }
-    const { is_done: isAppointmentDone } = appointmentById[0];
-
-    if (isAppointmentDone) {
+    if (isDone === true)
       return next(
         boomify(400, 'Closed Appointment', 'This appointment is completed'),
       );
-    }
-    await updateAppointmentStatusQuery({
+    if (isDone !== false)
+      return next(
+        boomify(
+          409,
+          'Unavailable Time',
+          'please choose another appointment time',
+        ),
+      );
+    const { rowCount: isUpdateSuccess } = await updateAppointmentStatusQuery({
       appointmentId,
     });
+    if (!isUpdateSuccess) {
+      return next(
+        boomify(
+          400,
+          'Bad request',
+          'Please make sure you are sending a rightful request',
+        ),
+      );
+    }
     return res.json({
       status: 200,
       message: 'success',

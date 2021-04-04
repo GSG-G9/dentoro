@@ -1,7 +1,9 @@
-const { object, string } = require('yup');
+const { object, string, boolean, number } = require('yup');
 const { format, parse } = require('date-fns');
 
 const appointmentDateTimeValidation = object({
+  appointmentId: number().required(),
+  isDone: boolean().required(),
   appointmentTime: string()
     .min(4)
     .transform((value) =>

@@ -2,25 +2,37 @@ const {
   appointmentDateTimeValidation,
   checkAvailableTimes,
   boomify,
-  appointmentIdValidation,
 } = require('../../../utils');
 
 const {
   getUnavailableTimes,
   updateAppointmentTimeQuery,
-  getAppointmentsStatusByIdQuery,
 } = require('../../../database/queries');
 
 const editAppointmentTime = async (req, res, next) => {
   try {
-    const { appointmentId } = await appointmentIdValidation.validate(
-      req.params,
-    );
     const {
       appointmentDate,
       appointmentTime,
-    } = await appointmentDateTimeValidation.validate(req.body);
+      appointmentId,
+      isDone,
+    } = await appointmentDateTimeValidation.validate({
+      ...req.body,
+      ...req.params,
+    });
 
+    if (isDone === true)
+      return next(
+        boomify(400, 'Closed Appointment', 'This appointment is completed'),
+      );
+    if (isDone !== false)
+      return next(
+        boomify(
+          409,
+          'Unavailable Time',
+          'please choose another appointment time',
+        ),
+      );
     if (!checkAvailableTimes(appointmentTime)) {
       return next(
         boomify(
@@ -44,31 +56,19 @@ const editAppointmentTime = async (req, res, next) => {
           'please choose another appointment time',
         ),
       );
-
-    const {
-      rows: appointmentById,
-      rowCount: isAppointmentExist,
-    } = await getAppointmentsStatusByIdQuery({
-      appointmentId,
-    });
-
-    if (!isAppointmentExist) {
-      return next(
-        boomify(400, 'Invalid Appointment id', 'This appointment is not exist'),
-      );
-    }
-    const { is_done: isAppointmentDone } = appointmentById[0];
-
-    if (isAppointmentDone) {
-      return next(
-        boomify(400, 'Closed Appointment', 'This appointment is completed'),
-      );
-    }
-    await updateAppointmentTimeQuery({
+    const { rowCount: isUpdateSuccess } = await updateAppointmentTimeQuery({
       appointmentId,
       appointmentDate,
       appointmentTime,
     });
+    if (!isUpdateSuccess)
+      return next(
+        boomify(
+          400,
+          'Bad request',
+          'Please make sure you are sending a rightful request',
+        ),
+      );
     return res.json({
       status: 200,
       message: 'success',

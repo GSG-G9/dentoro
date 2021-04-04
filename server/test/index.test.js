@@ -828,7 +828,11 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+            .send({
+              appointmentDate: '2021-4-3',
+              appointmentTime: '18:00:00',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(200);
           const expected = { status: 200, message: 'success' };
@@ -838,13 +842,17 @@ describe('Server Tests', () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+            .send({
+              appointmentDate: '2021-4-3',
+              appointmentTime: '18:00:00',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Closed Appointment',
-            message: 'This appointment is completed',
+            error: 'Bad request',
+            message: 'Please make sure you are sending a rightful request',
           };
           return expect(expected).toEqual(res.body);
         });
@@ -852,13 +860,17 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021-4-3', appointmentTime: '18:00:00' })
+            .send({
+              appointmentDate: '2021-4-3',
+              appointmentTime: '18:00:00',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Invalid Appointment id',
-            message: 'This appointment is not exist',
+            error: 'Bad request',
+            message: 'Please make sure you are sending a rightful request',
           };
           return expect(expected).toEqual(res.body);
         });
@@ -866,7 +878,11 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021', appointmentTime: '18:00:00' })
+            .send({
+              appointmentDate: '2021',
+              appointmentTime: '18:00:00',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
@@ -880,7 +896,11 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021-4-3', appointmentTime: '18' })
+            .send({
+              appointmentDate: '2021-4-3',
+              appointmentTime: '18',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
@@ -894,7 +914,11 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
-            .send({ appointmentDate: '2021-4-3', appointmentTime: '18' })
+            .send({
+              appointmentDate: '2021-4-3',
+              appointmentTime: '18:00:00',
+              isDone: false,
+            })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
@@ -913,6 +937,7 @@ describe('Server Tests', () => {
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '08:00:00',
+              isDone: false,
             })
             .expect('Content-Type', /json/)
             .expect(409);
@@ -930,6 +955,7 @@ describe('Server Tests', () => {
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '01:00:00',
+              isDone: false,
             })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -947,21 +973,23 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(200);
           const expected = { status: 200, message: 'success' };
           return expect(expected).toEqual(res.body);
         });
-        test('with a completed appointment should return error with status code 400 and message This appointment is completed', async () => {
+        test('with a completed appointment should return error with status code 400 and error message', async () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Closed Appointment',
-            message: 'This appointment is completed',
+            error: 'Bad request',
+            message: 'Please make sure you are sending a rightful request',
           };
           return expect(expected).toEqual(res.body);
         });
@@ -969,12 +997,13 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Invalid Appointment id',
-            message: 'This appointment is not exist',
+            error: 'Bad request',
+            message: 'Please make sure you are sending a rightful request',
           };
           return expect(expected).toEqual(res.body);
         });
@@ -982,6 +1011,7 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
           const expected = {
