@@ -20,6 +20,9 @@ const {
   checkPatientExistence,
 } = require('../database/queries');
 
+const token =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYxNzU1MDM2NX0.uFpS6FXrS3t33HJweXH3AZJzWU1vk8ShqYiWjzYa6xE';
+
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
   afterAll(() => connection.end());
@@ -318,6 +321,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?firstName="Easton"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?firstName=Easton')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -341,6 +345,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?lastName="Jenkins"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?lastName=Jenkins')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -364,6 +369,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?phone="0599010105"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=0599010105')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -387,6 +393,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=invalidPhone')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -400,6 +407,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?firstName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?firstName=2invalidName@')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -413,6 +421,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?lastName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?lastName=2invalidName@')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -467,6 +476,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/appointments/2020-12-02')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -480,6 +490,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -488,6 +499,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
+        .set('Cookie', [`token=${token}`])
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(res.body.data).toHaveLength(3);
@@ -495,6 +507,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search?phone=0599010102 should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?phone=0599010102')
+        .set('Cookie', [`token=${token}`])
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(res.body.data).toHaveLength(3);
@@ -502,6 +515,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search should return Validation Error enter a name or phone', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(res.body.error).toBe('Validation Error');
@@ -522,6 +536,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/appointments/available/2021-12-02')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -557,6 +572,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/patients/12')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -570,6 +586,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -582,6 +599,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/patients/1a')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -599,6 +617,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -621,6 +640,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -645,6 +665,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -671,6 +692,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -697,6 +719,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -723,6 +746,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
+        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -753,6 +777,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/patients/12/history')
+        .set('Cookie', [`token=${token}`])
         .send({
           description: 'some sort fo treatment',
           price: '200',
@@ -772,6 +797,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/patients/8s/history')
+        .set('Cookie', [`token=${token}`])
         .send({
           description: 'some sort fo treatment',
           price: '200',
@@ -785,6 +811,7 @@ describe('Server Tests', () => {
       const message = 'appointment deleted successfully';
       const res = await request(app)
         .delete('/api/v1/appointments/8')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       return expect(message).toEqual(res.body.message);
@@ -792,6 +819,7 @@ describe('Server Tests', () => {
     test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
       const res = await request(app)
         .delete('/api/v1/appointments/"8"')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(res.body.error).toEqual('Validation Error');
@@ -804,6 +832,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .delete('/api/v1/appointments/2')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(expected).toEqual(res.body);
@@ -812,6 +841,7 @@ describe('Server Tests', () => {
       const message = 'Updated successfully';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -828,6 +858,7 @@ describe('Server Tests', () => {
       const message = 'Key (phone)=(0599010102) already exists.';
       const res = await request(app)
         .patch('/api/v1/patients/1')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -844,6 +875,7 @@ describe('Server Tests', () => {
       const message = 'Invalid time value';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -860,6 +892,7 @@ describe('Server Tests', () => {
       const message = 'Validation Error';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'aa',
           lastName: 'alser',
@@ -876,6 +909,7 @@ describe('Server Tests', () => {
       const message = `There's no patient with this Id`;
       const res = await request(app)
         .patch('/api/v1/patients/9999')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'aaaa',
           lastName: 'alser',
