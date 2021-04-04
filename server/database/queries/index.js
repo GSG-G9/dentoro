@@ -14,4 +14,5 @@ module.exports.updateAppointmentStatusQuery = require('./updateAppointmentStatus
 module.exports.deleteAppointmentsQueries = require('./deleteAppointmentsQueries');
 module.exports.checkUserIdByEmail = require('./checkUserIdByEmail');
 module.exports.addUserQuery = require('./addUserQuery');
+module.exports.patchPatientDataByIdQuery = require('./patchPatientDataByIdQuery');
 module.exports.checkPatientExistence = require('./checkPatientExistence');
