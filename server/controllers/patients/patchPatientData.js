@@ -1,7 +1,4 @@
-const {
-  patchPatientDataByIdQuery,
-  patientCheckPhone,
-} = require('../../database/queries');
+const { patchPatientDataByIdQuery } = require('../../database/queries');
 const { boomify, patientDataValidation } = require('../../utils');
 
 const patchPatientData = async (req, res, next) => {
@@ -22,14 +19,8 @@ const patchPatientData = async (req, res, next) => {
     );
 
     const {
-      rows: [patient],
-    } = await patientCheckPhone({ phone });
-    if (patient) {
-      return next(boomify(409, 'Edit Error', 'phone number is exist'));
-    }
-
-    const {
       rows: [data],
+      rowCount,
     } = await patchPatientDataByIdQuery({
       firstName,
       lastName,
@@ -40,17 +31,23 @@ const patchPatientData = async (req, res, next) => {
       patientId,
     });
 
-    return res.json({
-      statusCode: 200,
-      message: 'Updated successfully',
-      data,
-    });
+    if (rowCount === 1) {
+      return res.json({
+        statusCode: 200,
+        message: 'Updated successfully',
+        data,
+      });
+    }
+    return next(boomify(404, `There's no patient with this Id`));
   } catch (error) {
     if (error.name === 'RangeError') {
       return next(boomify(400, 'RangeError', error.message));
     }
     if (error.name === 'ValidationError') {
       return next(boomify(400, 'Validation Error', error.errors));
+    }
+    if (error.constraint === 'patients_phone_key') {
+      return next(boomify(409, 'Phone already exists.', error.detail));
     }
     return next(error);
   }

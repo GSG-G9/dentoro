@@ -11,4 +11,3 @@ module.exports.getAppointmentsStatusByIdQuery = require('./getAppointmentsStatus
 module.exports.updateAppointmentStatusQuery = require('./updateAppointmentStatusQuery');
 module.exports.deleteAppointmentsQueries = require('./deleteAppointmentsQueries');
 module.exports.patchPatientDataByIdQuery = require('./patchPatientDataByIdQuery');
-module.exports.patientCheckPhone = require('./patientCheckPhone');

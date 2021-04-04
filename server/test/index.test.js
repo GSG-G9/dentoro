@@ -587,8 +587,8 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.message);
     });
-    test('/api/v1/patients/:patientId route should return error phone number is exist', async () => {
-      const message = 'phone number is exist';
+    test('/api/v1/patients/:patientId route should return error Key (phone)=(0599010102) already exists.', async () => {
+      const message = 'Key (phone)=(0599010102) already exists.';
       const res = await request(app)
         .patch('/api/v1/patients/1')
         .send({
@@ -632,6 +632,22 @@ describe('Server Tests', () => {
           diseases: 'no diseases',
         })
         .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.error);
+    });
+    test('/api/v1/patients/:patientId route should return error for invalid id', async () => {
+      const message = `There's no patient with this Id`;
+      const res = await request(app)
+        .patch('/api/v1/patients/9999')
+        .send({
+          firstName: 'aaaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(404)
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
     });
