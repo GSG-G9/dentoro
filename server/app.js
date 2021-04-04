@@ -15,14 +15,13 @@ const router = require('./routes');
 const app = express();
 
 app.set('port', PORT || 5000);
-
+app.disable('x-powered-by');
 const middlewares = [
   compression(),
   cookieParser(),
   express.urlencoded({ extended: false }),
   express.json(),
 ];
-
 app.use(middlewares);
 app.use('/api/v1/', router);
 
