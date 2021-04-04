@@ -883,6 +883,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -897,6 +898,7 @@ describe('Server Tests', () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -915,6 +917,7 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -933,6 +936,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021',
               appointmentTime: '18:00:00',
@@ -951,6 +955,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18',
@@ -969,6 +974,7 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -989,6 +995,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '08:00:00',
@@ -1007,6 +1014,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '01:00:00',
@@ -1028,6 +1036,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(200);
@@ -1038,6 +1047,7 @@ describe('Server Tests', () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1052,6 +1062,7 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1066,6 +1077,7 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1164,6 +1176,34 @@ describe('Server Tests', () => {
         .expect(404)
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
+    });
+    describe('Authentication Test', () => {
+      test('Should return 401 and error message when send a request without token', async () => {
+        const res = await request(app)
+          .get('/api/v1/patients/search?firstName=Easton')
+          .expect('Content-Type', /json/)
+          .expect(401);
+        const expected = {
+          message: 'You are not registered yet',
+          statusCode: 401,
+          error: 'Authentication Error',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('Should return 401 and error message when send a request invalid Token', async () => {
+        const invalidToken = `000${token}`;
+        const res = await request(app)
+          .get('/api/v1/patients/search?firstName=Easton')
+          .set('Cookie', [`token=${invalidToken}`])
+          .expect('Content-Type', /json/)
+          .expect(401);
+        const expected = {
+          message: 'You are not Authorized',
+          statusCode: 401,
+          error: 'Authentication Error',
+        };
+        return expect(expected).toEqual(res.body);
+      });
     });
   });
 });
