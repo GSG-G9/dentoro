@@ -31,14 +31,14 @@ const patchPatientData = async (req, res, next) => {
       patientId,
     });
 
-    if (rowCount === 1) {
-      return res.json({
-        statusCode: 200,
-        message: 'Updated successfully',
-        data,
-      });
+    if (rowCount === 0) {
+      return next(boomify(404, `There's no patient with this Id`));
     }
-    return next(boomify(404, `There's no patient with this Id`));
+    return res.json({
+      statusCode: 200,
+      message: 'Updated successfully',
+      data,
+    });
   } catch (error) {
     if (error.name === 'RangeError') {
       return next(boomify(400, 'RangeError', error.message));
