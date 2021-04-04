@@ -6,4 +6,4 @@ const appointmentDateValidationSchema = object({
     format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
   ),
 });
-module.exports.appointmentDateValidationSchema = appointmentDateValidationSchema;
+module.exports = appointmentDateValidationSchema;
