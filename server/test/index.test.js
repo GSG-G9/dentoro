@@ -884,6 +884,7 @@ describe('Server Tests', () => {
         .send({
           email: 'test2@test.com',
           password: 'password',
+          passwordConfirm: 'password',
         })
         .expect('Content-Type', /json/)
         .expect(201);
@@ -900,6 +901,7 @@ describe('Server Tests', () => {
         .send({
           email: 'someemail@admin.com',
           password: 'password',
+          passwordConfirm: 'password',
         })
         .expect('Content-Type', /json/)
         .expect(409);
