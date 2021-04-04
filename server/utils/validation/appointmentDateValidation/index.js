@@ -1,15 +1,9 @@
-const { date, object } = require('yup');
-const { parse, isDate } = require('date-fns');
+const { string, object } = require('yup');
+const { parse, format } = require('date-fns');
 
-const parseDateString = (value, originalValue) => {
-  const parsedDate = isDate(originalValue)
-    ? originalValue
-    : parse(originalValue, 'yyyy-MM-dd', new Date());
-  return parsedDate;
-};
-
-const schema = object({
-  appointmentDate: date().transform(parseDateString),
+const appointmentDateValidationSchema = object({
+  appointmentDate: string().transform((value) =>
+    format(parse(value, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd'),
+  ),
 });
-
-module.exports = schema;
+module.exports.appointmentDateValidationSchema = appointmentDateValidationSchema;
