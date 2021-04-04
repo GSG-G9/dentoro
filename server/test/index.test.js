@@ -16,6 +16,7 @@ const {
   getAppointmentsStatusByIdQuery,
   updateAppointmentStatusQuery,
   deleteAppointmentsQueries,
+  patchPatientDataByIdQuery,
   checkPatientExistence,
 } = require('../database/queries');
 
@@ -169,6 +170,7 @@ describe('Server Tests', () => {
       });
       return expect(expected).toEqual(rows);
     });
+
     test('getUnavailableTimes query should return appointment objects times', async () => {
       const expected = [
         { appointment_time: '08:00:00' },
@@ -208,6 +210,29 @@ describe('Server Tests', () => {
       ];
       const { rows } = await getHistoryLogs({ patientId: 12 });
       return expect(expected).toEqual(rows);
+    });
+    test('patchPatientDataByIdQuery query should return Patient Data updated', async () => {
+      const expected = {
+        id: 1,
+        firstname: 'john',
+        lastname: 'cina',
+        phone: '0599887782',
+        email: 'john@cina.com',
+        birthday: new Date('1994-09-02T00:00:00.000Z'),
+        diseases: 'no diseases',
+      };
+      const {
+        rows: [data],
+      } = await patchPatientDataByIdQuery({
+        patientId: 1,
+        firstName: 'john',
+        lastName: 'cina',
+        phone: '0599887782',
+        email: 'john@cina.com',
+        birthday: '1994-09-02',
+        diseases: 'no diseases',
+      });
+      return expect(expected).toEqual(data);
     });
     test('addPatientQuery(patientData) query should return new patient id', async () => {
       const patientData = {
@@ -459,6 +484,7 @@ describe('Server Tests', () => {
         .expect(400);
       return expect(expected).toEqual(res.body);
     });
+
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
@@ -781,6 +807,86 @@ describe('Server Tests', () => {
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(expected).toEqual(res.body);
+    });
+    test('/api/v1/patients/:patientId route should return message Updated successfully', async () => {
+      const message = 'Updated successfully';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
+    });
+    test('/api/v1/patients/:patientId route should return error Key (phone)=(0599010102) already exists.', async () => {
+      const message = 'Key (phone)=(0599010102) already exists.';
+      const res = await request(app)
+        .patch('/api/v1/patients/1')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0599010102',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(409)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
+    });
+    test('/api/v1/patients/:patientId route should return Invalid time value for wrong date', async () => {
+      const message = 'Invalid time value';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'alaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '02-09-1994',
+          diseases: 'no diseases',
+        })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.message);
+    });
+    test('/api/v1/patients/:patientId route should return Validation Error for invalid name', async () => {
+      const message = 'Validation Error';
+      const res = await request(app)
+        .patch('/api/v1/patients/9')
+        .send({
+          firstName: 'aa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.error);
+    });
+    test('/api/v1/patients/:patientId route should return error for invalid id', async () => {
+      const message = `There's no patient with this Id`;
+      const res = await request(app)
+        .patch('/api/v1/patients/9999')
+        .send({
+          firstName: 'aaaa',
+          lastName: 'alser',
+          phone: '0592623088',
+          email: 'alasa@lhaser.com',
+          birthday: '1994-09-02',
+          diseases: 'no diseases',
+        })
+        .expect(404)
+        .expect('Content-Type', /json/);
+      return expect(message).toEqual(res.body.error);
     });
   });
 });
