@@ -7,3 +7,4 @@ module.exports.historyLogSchema = require('./historyLogValidation');
 module.exports.appointmentIdValidation = require('./appointmentIdValidation');
 module.exports.appointmentDateTimeValidation = require('./appointmentDateTimeValidation');
 module.exports.appointmentStatusValidation = require('./appointmentStatusValidation');
+module.exports.patientDataValidation = require('./patientDataValidation');
