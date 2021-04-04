@@ -857,7 +857,7 @@ describe('Server Tests', () => {
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Invalid Appiontment id',
+            error: 'Invalid Appointment id',
             message: 'This appointment is not exist',
           };
           return expect(expected).toEqual(res.body);
@@ -973,7 +973,7 @@ describe('Server Tests', () => {
             .expect(400);
           const expected = {
             statusCode: 400,
-            error: 'Invalid Appiontment id',
+            error: 'Invalid Appointment id',
             message: 'This appointment is not exist',
           };
           return expect(expected).toEqual(res.body);

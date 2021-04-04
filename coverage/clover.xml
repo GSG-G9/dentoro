@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1617383931122" clover="3.2.0">
-  <project timestamp="1617383931123" name="All files">
-    <metrics statements="366" coveredstatements="341" conditionals="60" coveredconditionals="43" methods="38" coveredmethods="34" elements="464" coveredelements="418" complexity="0" loc="366" ncloc="366" packages="40" files="48" classes="48"/>
+<coverage generated="1617529050459" clover="3.2.0">
+  <project timestamp="1617529050459" name="All files">
+    <metrics statements="426" coveredstatements="399" conditionals="78" coveredconditionals="59" methods="44" coveredmethods="40" elements="548" coveredelements="498" complexity="0" loc="426" ncloc="426" packages="44" files="52" classes="52"/>
     <package name="server">
       <metrics statements="24" coveredstatements="19" conditionals="6" coveredconditionals="4" methods="2" coveredmethods="0"/>
       <file name="app.js" path="/home/hassanelnajjar/code/dentoro/server/app.js">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="server.controllers.appointments">
-      <metrics statements="39" coveredstatements="38" conditionals="13" coveredconditionals="9" methods="3" coveredmethods="3"/>
+      <metrics statements="41" coveredstatements="40" conditionals="13" coveredconditionals="9" methods="3" coveredmethods="3"/>
       <file name="appointmentsSearch.js" path="/home/hassanelnajjar/code/dentoro/server/controllers/appointments/appointmentsSearch.js">
         <metrics statements="11" coveredstatements="10" conditionals="7" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
@@ -86,7 +86,7 @@
         <line num="20" count="1" type="stmt"/>
       </file>
       <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/controllers/appointments/index.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -94,6 +94,8 @@
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.controllers.appointments.addAppointment">
@@ -125,6 +127,62 @@
         <line num="88" count="1" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
         <line num="94" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="server.controllers.appointments.editAppointmentStatus">
+      <metrics statements="17" coveredstatements="16" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+      <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/controllers/appointments/editAppointmentStatus/index.js">
+        <metrics statements="17" coveredstatements="16" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="21" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="41" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="server.controllers.appointments.editAppointmentTime">
+      <metrics statements="27" coveredstatements="26" conditionals="12" coveredconditionals="11" methods="2" coveredmethods="2"/>
+      <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/controllers/appointments/editAppointmentTime/index.js">
+        <metrics statements="27" coveredstatements="26" conditionals="12" coveredconditionals="11" methods="2" coveredmethods="2"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="22" count="7" type="stmt"/>
+        <line num="24" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="39" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="55" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="62" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="77" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="80" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.controllers.appointments.getAvailableAppointments">
@@ -245,9 +303,9 @@
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="41" type="stmt"/>
-        <line num="7" count="41" type="stmt"/>
-        <line num="8" count="41" type="stmt"/>
+        <line num="6" count="56" type="stmt"/>
+        <line num="7" count="56" type="stmt"/>
+        <line num="8" count="56" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
       <file name="connection.js" path="/home/hassanelnajjar/code/dentoro/server/database/config/connection.js">
@@ -372,8 +430,8 @@
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
     </package>
@@ -427,8 +485,8 @@
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
     </package>
@@ -438,9 +496,20 @@
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="server.database.queries.updateAppointmentTimeQuery">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/database/queries/updateAppointmentTimeQuery/index.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.middlewares">
@@ -460,8 +529,8 @@
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="14" type="cond" truecount="1" falsecount="1"/>
-        <line num="13" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="10" count="24" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="24" type="cond" truecount="1" falsecount="1"/>
         <line num="16" count="1" type="stmt"/>
       </file>
     </package>
@@ -480,23 +549,26 @@
       </file>
     </package>
     <package name="server.routes.appointments">
-      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/routes/appointments/index.js">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.routes.patients">
-      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/routes/patients/index.js">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -504,8 +576,7 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.routes.users">
@@ -525,21 +596,21 @@
       <file name="availableTimes.js" path="/home/hassanelnajjar/code/dentoro/server/utils/availableTimes.js">
         <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="6" count="96" type="stmt"/>
-        <line num="7" count="96" type="cond" truecount="4" falsecount="0"/>
-        <line num="8" count="44" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="8" type="stmt"/>
-        <line num="11" count="44" type="stmt"/>
-        <line num="13" count="96" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
+        <line num="2" count="9" type="stmt"/>
+        <line num="3" count="9" type="stmt"/>
+        <line num="4" count="9" type="stmt"/>
+        <line num="6" count="216" type="stmt"/>
+        <line num="7" count="216" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="99" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="18" type="stmt"/>
+        <line num="11" count="99" type="stmt"/>
+        <line num="13" count="216" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
       </file>
       <file name="boomify.js" path="/home/hassanelnajjar/code/dentoro/server/utils/boomify.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="14" type="stmt"/>
+        <line num="1" count="24" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
       </file>
       <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/utils/index.js">
@@ -551,9 +622,9 @@
       </file>
     </package>
     <package name="server.utils.validation">
-      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/utils/validation/index.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -561,6 +632,7 @@
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.utils.validation.appointmentDataValidation">
@@ -574,6 +646,18 @@
         <line num="18" count="6" type="stmt"/>
         <line num="25" count="6" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="server.utils.validation.appointmentDateTimeValidation">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="index.js" path="/home/hassanelnajjar/code/dentoro/server/utils/validation/appointmentDateTimeValidation/index.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.utils.validation.appointmentDateValidation">

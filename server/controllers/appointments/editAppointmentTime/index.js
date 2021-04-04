@@ -54,7 +54,7 @@ const editAppointmentTime = async (req, res, next) => {
 
     if (!isAppointmentExist) {
       return next(
-        boomify(400, 'Invalid Appiontment id', 'This appointment is not exist'),
+        boomify(400, 'Invalid Appointment id', 'This appointment is not exist'),
       );
     }
     const { is_done: isAppointmentDone } = appointmentById[0];
