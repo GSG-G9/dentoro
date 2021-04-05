@@ -1,4 +1,4 @@
-const { verify } = require('jsonwebtoken');
+const { verify, sign } = require('jsonwebtoken');
 
 const {
   env: { SECRET_TOKEN },
@@ -13,4 +13,14 @@ const verifyToken = (token) =>
       }
     });
   });
-module.exports = { verifyToken };
+const signToken = (payload) =>
+  new Promise((resolve, reject) => {
+    sign(payload, SECRET_TOKEN, (err, token) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(token);
+    });
+  });
+
+module.exports = { signToken, verifyToken };

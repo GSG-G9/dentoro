@@ -16,6 +16,8 @@ const {
   getAppointmentsStatusByIdQuery,
   updateAppointmentStatusQuery,
   deleteAppointmentsQueries,
+  checkUserIdByEmail,
+  addUserQuery,
   updateAppointmentTimeQuery,
   patchPatientDataByIdQuery,
   checkPatientExistence,
@@ -355,6 +357,30 @@ describe('Server Tests', () => {
         payment: '200',
       });
       return expect(rows).toMatchObject(expected);
+    });
+    test('addUserQuery query should add a user', async () => {
+      const expected = [
+        {
+          id: 2,
+        },
+      ];
+      const { rows } = await addUserQuery({
+        email: 'test@test.com',
+        password:
+          '$2b$10$yrP4Qea4Mdu0rKkWHAnBw.Trkj4YNl8a1X7yQm5AVA.1ZNu1THnD2',
+      });
+      return expect(rows).toEqual(expected);
+    });
+    test('checkUserIdByEmail query should return id to that email', async () => {
+      const expected = [
+        {
+          id: 1,
+        },
+      ];
+      const { rows } = await checkUserIdByEmail({
+        email: 'someemail@admin.com',
+      });
+      return expect(rows).toEqual(expected);
     });
   });
   describe('Routes Tests', () => {
@@ -875,6 +901,39 @@ describe('Server Tests', () => {
         .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
+      return expect(expected).toEqual(res.body);
+    });
+    test('POST /api/v1/users/signup should add a user to the database', async () => {
+      const expected = {
+        title: 'User Registration',
+        detail: 'Successfully registered new dentist',
+      };
+      const res = await request(app)
+        .post('/api/v1/users/signup')
+        .send({
+          email: 'test2@test.com',
+          password: 'password',
+          passwordConfirm: 'password',
+        })
+        .expect('Content-Type', /json/)
+        .expect(201);
+      return expect(res.body).toEqual(expected);
+    });
+    test('POST /api/v1/users/signup  should return boomify Object Error when invalid input is added', async () => {
+      const expected = {
+        statusCode: 409,
+        error: 'checking email',
+        message: 'This email already exists',
+      };
+      const res = await request(app)
+        .post('/api/v1/users/signup')
+        .send({
+          email: 'someemail@admin.com',
+          password: 'password',
+          passwordConfirm: 'password',
+        })
+        .expect('Content-Type', /json/)
+        .expect(409);
       return expect(expected).toEqual(res.body);
     });
     describe('PATCH /api/v1/appointments/:appointmentId', () => {
