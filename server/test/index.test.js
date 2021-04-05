@@ -24,6 +24,9 @@ const {
   getUserDataQeury,
 } = require('../database/queries');
 
+const token =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYxNzU1MDM2NX0.uFpS6FXrS3t33HJweXH3AZJzWU1vk8ShqYiWjzYa6xE';
+
 describe('Server Tests', () => {
   beforeEach(() => dbBuild());
   afterAll(() => connection.end());
@@ -399,6 +402,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?firstName="Easton"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?firstName=Easton')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -422,6 +426,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?lastName="Jenkins"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?lastName=Jenkins')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -445,6 +450,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?phone="0599010105"', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=0599010105')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       const expected = {
@@ -468,6 +474,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?phone=invalidPhone')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -481,6 +488,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?firstName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?firstName=2invalidName@')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -494,6 +502,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/patients/search?lastName="2invalidName@" should return boomify object error', async () => {
       const res = await request(app)
         .get('/api/v1/patients/search?lastName=2invalidName@')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       const expected = {
@@ -548,6 +557,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/appointments/2020-12-02')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -561,6 +571,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -569,6 +580,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search?firstName=Alexie&lastName=Jenkins should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?firstName=Alexie&lastName=Jenkins')
+        .set('Cookie', [`token=${token}`])
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(res.body.data).toHaveLength(3);
@@ -576,6 +588,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search?phone=0599010102 should return an array with 3 appointments', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search?phone=0599010102')
+        .set('Cookie', [`token=${token}`])
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(res.body.data).toHaveLength(3);
@@ -583,6 +596,7 @@ describe('Server Tests', () => {
     test('GET /api/v1/appointments/search should return Validation Error enter a name or phone', async () => {
       const res = await request(app)
         .get('/api/v1/appointments/search')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(res.body.error).toBe('Validation Error');
@@ -603,6 +617,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/appointments/available/2021-12-02')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -638,6 +653,7 @@ describe('Server Tests', () => {
 
       const res = await request(app)
         .get('/api/v1/patients/12')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
 
@@ -651,6 +667,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/appointments/5952awd-59')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -663,6 +680,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .get('/api/v1/patients/1a')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
       return expect(expected).toEqual(res.body);
@@ -834,6 +852,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/patients/12/history')
+        .set('Cookie', [`token=${token}`])
         .send({
           description: 'some sort fo treatment',
           price: '200',
@@ -853,6 +872,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/patients/8s/history')
+        .set('Cookie', [`token=${token}`])
         .send({
           description: 'some sort fo treatment',
           price: '200',
@@ -866,6 +886,7 @@ describe('Server Tests', () => {
       const message = 'appointment deleted successfully';
       const res = await request(app)
         .delete('/api/v1/appointments/8')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(200);
       return expect(message).toEqual(res.body.message);
@@ -873,6 +894,7 @@ describe('Server Tests', () => {
     test('DELETE /api/v1/appointment/:appointmentId should return Validation Error appointmentId must be a number', async () => {
       const res = await request(app)
         .delete('/api/v1/appointments/"8"')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(res.body.error).toEqual('Validation Error');
@@ -885,17 +907,19 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .delete('/api/v1/appointments/2')
+        .set('Cookie', [`token=${token}`])
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(expected).toEqual(res.body);
     });
-    test('POST /api/v1/users/signup should add a user to the database', async () => {
+    test('POST /api/v1/signup should add a user to the database', async () => {
       const expected = {
         title: 'User Registration',
         detail: 'Successfully registered new dentist',
       };
       const res = await request(app)
-        .post('/api/v1/users/signup')
+        .post('/api/v1/signup')
+        .set('Cookie', [`token=${token}`])
         .send({
           email: 'test2@test.com',
           password: 'password',
@@ -905,14 +929,15 @@ describe('Server Tests', () => {
         .expect(201);
       return expect(res.body).toEqual(expected);
     });
-    test('POST /api/v1/users/signup  should return boomify Object Error when invalid input is added', async () => {
+    test('POST /api/v1/signup  should return boomify Object Error when invalid input is added', async () => {
       const expected = {
         statusCode: 409,
         error: 'checking email',
         message: 'This email already exists',
       };
       const res = await request(app)
-        .post('/api/v1/users/signup')
+        .post('/api/v1/signup')
+        .set('Cookie', [`token=${token}`])
         .send({
           email: 'someemail@admin.com',
           password: 'password',
@@ -928,6 +953,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -942,6 +968,7 @@ describe('Server Tests', () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -960,6 +987,7 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -978,6 +1006,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021',
               appointmentTime: '18:00:00',
@@ -996,6 +1025,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18',
@@ -1014,6 +1044,7 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-4-3',
               appointmentTime: '18:00:00',
@@ -1034,6 +1065,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '08:00:00',
@@ -1052,6 +1084,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/time`)
+            .set('Cookie', [`token=${token}`])
             .send({
               appointmentDate: '2021-12-02',
               appointmentTime: '01:00:00',
@@ -1073,6 +1106,7 @@ describe('Server Tests', () => {
           const appointmentId = 1;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(200);
@@ -1083,6 +1117,7 @@ describe('Server Tests', () => {
           const appointmentId = 2;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1097,6 +1132,7 @@ describe('Server Tests', () => {
           const appointmentId = 150;
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1111,6 +1147,7 @@ describe('Server Tests', () => {
           const appointmentId = 'invaildAppointmentId';
           const res = await request(app)
             .patch(`/api/v1/appointments/${appointmentId}/status`)
+            .set('Cookie', [`token=${token}`])
             .send({ isDone: false })
             .expect('Content-Type', /json/)
             .expect(400);
@@ -1129,6 +1166,7 @@ describe('Server Tests', () => {
       const message = 'Updated successfully';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -1145,6 +1183,7 @@ describe('Server Tests', () => {
       const message = 'Key (phone)=(0599010102) already exists.';
       const res = await request(app)
         .patch('/api/v1/patients/1')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -1161,6 +1200,7 @@ describe('Server Tests', () => {
       const message = 'Invalid time value';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'alaa',
           lastName: 'alser',
@@ -1177,6 +1217,7 @@ describe('Server Tests', () => {
       const message = 'Validation Error';
       const res = await request(app)
         .patch('/api/v1/patients/9')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'aa',
           lastName: 'alser',
@@ -1193,6 +1234,7 @@ describe('Server Tests', () => {
       const message = `There's no patient with this Id`;
       const res = await request(app)
         .patch('/api/v1/patients/9999')
+        .set('Cookie', [`token=${token}`])
         .send({
           firstName: 'aaaa',
           lastName: 'alser',
@@ -1205,46 +1247,46 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
     });
-    test('POST /api/v1/users/login should return status code 201 and message = logged in successfully', async () => {
+    test('POST /api/v1/login should return status code 201 and message = logged in successfully', async () => {
       const message = 'logged in successfully';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'password' })
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and message = Incorrect email', async () => {
+    test('POST /api/v1/login should return status code 400 and message = Incorrect email', async () => {
       const message = 'Incorrect email or password';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail1111@admin.com', password: 'password' })
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and message = Incorrect password', async () => {
+    test('POST /api/v1/login should return status code 400 and message = Incorrect password', async () => {
       const message = 'Incorrect email or password';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'password111' })
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and validtion error message = Must be a valid email', async () => {
+    test('POST /api/v1/login should return status code 400 and validtion error message = Must be a valid email', async () => {
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail', password: 'password' })
         .expect(400)
         .expect('Content-Type', /json/);
       const { message } = res.body;
       return expect(message[0]).toBe('Must be a valid email');
     });
-    test('POST /api/v1/users/login should return status code 400 and validtion error message = Password must be at least 8 char', async () => {
+    test('POST /api/v1/login should return status code 400 and validtion error message = Password must be at least 8 char', async () => {
       const message = 'Password must be at least 8 char';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'passwor' })
         .expect(400)
         .expect('Content-Type', /json/);
@@ -1256,11 +1298,40 @@ describe('Server Tests', () => {
           'set-cookie': [cookies],
         },
       } = await request(app)
-        .get('/api/v1/users/logout')
+        .get('/api/v1/logout')
+        .set('Cookie', [`token=${token}`])
         .expect('Content-type', /json/)
         .expect(200);
-      const [, token] = cookies.split(';')[0].split('=');
-      return expect(token).toBe('');
+      const [, responseToken] = cookies.split(';')[0].split('=');
+      return expect(responseToken).toBe('');
+    });
+    describe('Authentication Test', () => {
+      test('Should return 401 and error message when send a request without token', async () => {
+        const res = await request(app)
+          .get('/api/v1/patients/search?firstName=Easton')
+          .expect('Content-Type', /json/)
+          .expect(401);
+        const expected = {
+          message: 'You are not registered yet',
+          statusCode: 401,
+          error: 'Authentication Error',
+        };
+        return expect(expected).toEqual(res.body);
+      });
+      test('Should return 401 and error message when send a request invalid Token', async () => {
+        const invalidToken = `000${token}`;
+        const res = await request(app)
+          .get('/api/v1/patients/search?firstName=Easton')
+          .set('Cookie', [`token=${invalidToken}`])
+          .expect('Content-Type', /json/)
+          .expect(401);
+        const expected = {
+          message: 'You are not Authorized',
+          statusCode: 401,
+          error: 'Authentication Error',
+        };
+        return expect(expected).toEqual(res.body);
+      });
     });
   });
 });

@@ -5,7 +5,7 @@ const {
   checkUserIdByEmail,
   addUserQuery,
 } = require('../../../database/queries');
-const { sign } = require('../../../utils/jwt');
+const { signToken } = require('../../../utils');
 
 const addUser = async (req, res, next) => {
   try {
@@ -27,7 +27,7 @@ const addUser = async (req, res, next) => {
       rows: [{ id: userId }],
     } = await addUserQuery({ email, password: hashedPassword });
 
-    const token = await sign({ userId });
+    const token = await signToken({ userId });
     return res
       .cookie('token', token, {
         httpOnly: true,

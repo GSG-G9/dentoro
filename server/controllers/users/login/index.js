@@ -1,7 +1,7 @@
 const { compare } = require('bcrypt');
 const { loginSchema, boomify } = require('../../../utils');
 const { getUserDataQeury } = require('../../../database/queries');
-const { sign } = require('../../../utils/jwt');
+const { signToken } = require('../../../utils');
 
 const login = async (req, res, next) => {
   try {
@@ -24,7 +24,7 @@ const login = async (req, res, next) => {
       return next(boomify(400, 'Login Error', 'Incorrect email or password'));
     }
 
-    const token = await sign({ userId });
+    const token = await signToken({ userId });
     return res
       .cookie('token', token, {
         httpOnly: true,
