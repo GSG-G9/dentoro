@@ -698,7 +698,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -721,7 +720,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -746,7 +744,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -773,7 +770,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -800,7 +796,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -827,7 +822,6 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/appointments')
-        .set('Cookie', [`token=${token}`])
         .set({
           'Content-Type': 'application/json',
         })
@@ -918,13 +912,13 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(expected).toEqual(res.body);
     });
-    test('POST /api/v1/users/signup should add a user to the database', async () => {
+    test('POST /api/v1/signup should add a user to the database', async () => {
       const expected = {
         title: 'User Registration',
         detail: 'Successfully registered new dentist',
       };
       const res = await request(app)
-        .post('/api/v1/users/signup')
+        .post('/api/v1/signup')
         .send({
           email: 'test2@test.com',
           password: 'password',
@@ -934,14 +928,14 @@ describe('Server Tests', () => {
         .expect(201);
       return expect(res.body).toEqual(expected);
     });
-    test('POST /api/v1/users/signup  should return boomify Object Error when invalid input is added', async () => {
+    test('POST /api/v1/signup  should return boomify Object Error when invalid input is added', async () => {
       const expected = {
         statusCode: 409,
         error: 'checking email',
         message: 'This email already exists',
       };
       const res = await request(app)
-        .post('/api/v1/users/signup')
+        .post('/api/v1/signup')
         .send({
           email: 'someemail@admin.com',
           password: 'password',
@@ -1251,46 +1245,46 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
     });
-    test('POST /api/v1/users/login should return status code 201 and message = logged in successfully', async () => {
+    test('POST /api/v1/login should return status code 201 and message = logged in successfully', async () => {
       const message = 'logged in successfully';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'password' })
         .expect(200)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and message = Incorrect email', async () => {
+    test('POST /api/v1/login should return status code 400 and message = Incorrect email', async () => {
       const message = 'Incorrect email or password';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail1111@admin.com', password: 'password' })
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and message = Incorrect password', async () => {
+    test('POST /api/v1/login should return status code 400 and message = Incorrect password', async () => {
       const message = 'Incorrect email or password';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'password111' })
         .expect(400)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
-    test('POST /api/v1/users/login should return status code 400 and validtion error message = Must be a valid email', async () => {
+    test('POST /api/v1/login should return status code 400 and validtion error message = Must be a valid email', async () => {
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail', password: 'password' })
         .expect(400)
         .expect('Content-Type', /json/);
       const { message } = res.body;
       return expect(message[0]).toBe('Must be a valid email');
     });
-    test('POST /api/v1/users/login should return status code 400 and validtion error message = Password must be at least 8 char', async () => {
+    test('POST /api/v1/login should return status code 400 and validtion error message = Password must be at least 8 char', async () => {
       const message = 'Password must be at least 8 char';
       const res = await request(app)
-        .post('/api/v1/users/login')
+        .post('/api/v1/login')
         .send({ email: 'someemail@admin.com', password: 'passwor' })
         .expect(400)
         .expect('Content-Type', /json/);
@@ -1302,7 +1296,7 @@ describe('Server Tests', () => {
           'set-cookie': [cookies],
         },
       } = await request(app)
-        .get('/api/v1/users/logout')
+        .get('/api/v1/logout')
         .set('Cookie', [`token=${token}`])
         .expect('Content-type', /json/)
         .expect(200);
