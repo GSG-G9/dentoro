@@ -39,4 +39,4 @@ values
 
 insert into users(email,password) 
 values
-('someemail@admin.com','password');
+('someemail@admin.com','$2b$10$tKU3mWh6lSjVd6TppnPcku6qlcyWV0fgraYYi8bvUk2ATIEtpk6AO');

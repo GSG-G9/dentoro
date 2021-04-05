@@ -1,9 +1,9 @@
 const router = require('express').Router();
 require('../../controllers');
-const { addUser, logout } = require('../../controllers');
+const { addUser, login, logout } = require('../../controllers');
 
-router.post('/login');
-router.get('/logout', logout);
 router.post('/signup', addUser);
+router.post('/login', login);
+router.get('/logout', logout);
 
 module.exports = router;
