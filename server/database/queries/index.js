@@ -16,3 +16,4 @@ module.exports.addUserQuery = require('./addUserQuery');
 module.exports.updateAppointmentTimeQuery = require('./updateAppointmentTimeQuery');
 module.exports.patchPatientDataByIdQuery = require('./patchPatientDataByIdQuery');
 module.exports.checkPatientExistence = require('./checkPatientExistence');
+module.exports.getUserDataQeury = require('./getUserDataQeury');

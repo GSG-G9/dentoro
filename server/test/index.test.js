@@ -21,6 +21,7 @@ const {
   updateAppointmentTimeQuery,
   patchPatientDataByIdQuery,
   checkPatientExistence,
+  getUserDataQeury,
 } = require('../database/queries');
 
 const token =
@@ -378,6 +379,20 @@ describe('Server Tests', () => {
         },
       ];
       const { rows } = await checkUserIdByEmail({
+        email: 'someemail@admin.com',
+      });
+      return expect(rows).toEqual(expected);
+    });
+    test('getUserDataQeury query should return user data', async () => {
+      const expected = [
+        {
+          id: 1,
+          email: 'someemail@admin.com',
+          password:
+            '$2b$10$tKU3mWh6lSjVd6TppnPcku6qlcyWV0fgraYYi8bvUk2ATIEtpk6AO',
+        },
+      ];
+      const { rows } = await getUserDataQeury({
         email: 'someemail@admin.com',
       });
       return expect(rows).toEqual(expected);
@@ -1151,7 +1166,7 @@ describe('Server Tests', () => {
         });
       });
     });
-    test('/api/v1/patients/:patientId route should return message Updated successfully', async () => {
+    test('PATCH /api/v1/patients/:patientId route should return message Updated successfully', async () => {
       const message = 'Updated successfully';
       const res = await request(app)
         .patch('/api/v1/patients/9')
@@ -1168,7 +1183,7 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.message);
     });
-    test('/api/v1/patients/:patientId route should return error Key (phone)=(0599010102) already exists.', async () => {
+    test('PATCH /api/v1/patients/:patientId route should return error Key (phone)=(0599010102) already exists.', async () => {
       const message = 'Key (phone)=(0599010102) already exists.';
       const res = await request(app)
         .patch('/api/v1/patients/1')
@@ -1185,7 +1200,7 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.message);
     });
-    test('/api/v1/patients/:patientId route should return Invalid time value for wrong date', async () => {
+    test('PATCH /api/v1/patients/:patientId route should return Invalid time value for wrong date', async () => {
       const message = 'Invalid time value';
       const res = await request(app)
         .patch('/api/v1/patients/9')
@@ -1202,7 +1217,7 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.message);
     });
-    test('/api/v1/patients/:patientId route should return Validation Error for invalid name', async () => {
+    test('PATCH /api/v1/patients/:patientId route should return Validation Error for invalid name', async () => {
       const message = 'Validation Error';
       const res = await request(app)
         .patch('/api/v1/patients/9')
@@ -1219,7 +1234,7 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
     });
-    test('/api/v1/patients/:patientId route should return error for invalid id', async () => {
+    test('PATCH /api/v1/patients/:patientId route should return error for invalid id', async () => {
       const message = `There's no patient with this Id`;
       const res = await request(app)
         .patch('/api/v1/patients/9999')
@@ -1235,6 +1250,64 @@ describe('Server Tests', () => {
         .expect(404)
         .expect('Content-Type', /json/);
       return expect(message).toEqual(res.body.error);
+    });
+    test('POST /api/v1/users/login should return status code 201 and message = logged in successfully', async () => {
+      const message = 'logged in successfully';
+      const res = await request(app)
+        .post('/api/v1/users/login')
+        .send({ email: 'someemail@admin.com', password: 'password' })
+        .expect(200)
+        .expect('Content-Type', /json/);
+      return expect(message).toBe(res.body.message);
+    });
+    test('POST /api/v1/users/login should return status code 400 and message = Incorrect email', async () => {
+      const message = 'Incorrect email or password';
+      const res = await request(app)
+        .post('/api/v1/users/login')
+        .send({ email: 'someemail1111@admin.com', password: 'password' })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toBe(res.body.message);
+    });
+    test('POST /api/v1/users/login should return status code 400 and message = Incorrect password', async () => {
+      const message = 'Incorrect email or password';
+      const res = await request(app)
+        .post('/api/v1/users/login')
+        .send({ email: 'someemail@admin.com', password: 'password111' })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toBe(res.body.message);
+    });
+    test('POST /api/v1/users/login should return status code 400 and validtion error message = Must be a valid email', async () => {
+      const res = await request(app)
+        .post('/api/v1/users/login')
+        .send({ email: 'someemail', password: 'password' })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      const { message } = res.body;
+      return expect(message[0]).toBe('Must be a valid email');
+    });
+    test('POST /api/v1/users/login should return status code 400 and validtion error message = Password must be at least 8 char', async () => {
+      const message = 'Password must be at least 8 char';
+      const res = await request(app)
+        .post('/api/v1/users/login')
+        .send({ email: 'someemail@admin.com', password: 'passwor' })
+        .expect(400)
+        .expect('Content-Type', /json/);
+      return expect(message).toBe(res.body.message[0]);
+    });
+    test('Logout Route should return header set-cookie for token equal to empty value', async () => {
+      const {
+        header: {
+          'set-cookie': [cookies],
+        },
+      } = await request(app)
+        .get('/api/v1/users/logout')
+        .set('Cookie', [`token=${token}`])
+        .expect('Content-type', /json/)
+        .expect(200);
+      const [, responseToken] = cookies.split(';')[0].split('=');
+      return expect(responseToken).toBe('');
     });
     describe('Authentication Test', () => {
       test('Should return 401 and error message when send a request without token', async () => {

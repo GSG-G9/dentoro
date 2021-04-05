@@ -9,3 +9,4 @@ module.exports.addUserSchema = require('./addUserValidation');
 module.exports.appointmentDateTimeValidation = require('./appointmentDateTimeValidation');
 module.exports.appointmentStatusValidation = require('./appointmentStatusValidation');
 module.exports.patientDataValidation = require('./patientDataValidation');
+module.exports.loginSchema = require('./loginSchema');
