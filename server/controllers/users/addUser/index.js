@@ -39,7 +39,6 @@ const addUser = async (req, res, next) => {
         detail: 'Successfully registered new dentist',
       });
   } catch (error) {
-    console.log(error);
     return next(
       error.name === 'ValidationError'
         ? boomify(409, 'Validation Error', error.errors)
