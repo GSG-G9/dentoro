@@ -5,6 +5,7 @@ module.exports.patientIdSchema = require('./patientIdValidation');
 module.exports.appointmentDataValidation = require('./appointmentDataValidation');
 module.exports.historyLogSchema = require('./historyLogValidation');
 module.exports.appointmentIdValidation = require('./appointmentIdValidation');
+module.exports.addUserSchema = require('./addUserValidation');
 module.exports.appointmentDateTimeValidation = require('./appointmentDateTimeValidation');
 module.exports.appointmentStatusValidation = require('./appointmentStatusValidation');
 module.exports.patientDataValidation = require('./patientDataValidation');
