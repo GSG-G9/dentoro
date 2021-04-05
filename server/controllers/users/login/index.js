@@ -13,19 +13,24 @@ const login = async (req, res, next) => {
       rows: [user],
     } = await getUserDataQeury({ email });
 
-    if (user) {
-      const { id: userId, password: hashedPassword } = user;
-      const comparedPasswords = await compare(password, hashedPassword);
-      if (!comparedPasswords) {
-        return next(boomify(400, 'Login Error', 'Incorrect password'));
-      }
-      const token = await sign({ userId });
-      return res
-        .cookie('token', token, { httpOnly: true })
-        .status(201)
-        .json({ statusCode: 201, message: 'logged in successfully' });
+    if (!user) {
+      return next(boomify(400, 'Login Error', 'Incorrect email or password'));
     }
-    return next(boomify(400, 'Login Error', 'Incorrect email'));
+
+    const { id: userId, password: hashedPassword } = user;
+    const comparedPasswords = await compare(password, hashedPassword);
+
+    if (!comparedPasswords) {
+      return next(boomify(400, 'Login Error', 'Incorrect email or password'));
+    }
+
+    const token = await sign({ userId });
+    return res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .json({ statusCode: 200, message: 'logged in successfully' });
   } catch (error) {
     return next(
       error.name === 'ValidationError'

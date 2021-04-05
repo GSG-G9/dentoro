@@ -1210,12 +1210,12 @@ describe('Server Tests', () => {
       const res = await request(app)
         .post('/api/v1/users/login')
         .send({ email: 'someemail@admin.com', password: 'password' })
-        .expect(201)
+        .expect(200)
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message);
     });
     test('POST /api/v1/users/login should return status code 400 and message = Incorrect email', async () => {
-      const message = 'Incorrect email';
+      const message = 'Incorrect email or password';
       const res = await request(app)
         .post('/api/v1/users/login')
         .send({ email: 'someemail1111@admin.com', password: 'password' })
@@ -1224,7 +1224,7 @@ describe('Server Tests', () => {
       return expect(message).toBe(res.body.message);
     });
     test('POST /api/v1/users/login should return status code 400 and message = Incorrect password', async () => {
-      const message = 'Incorrect password';
+      const message = 'Incorrect email or password';
       const res = await request(app)
         .post('/api/v1/users/login')
         .send({ email: 'someemail@admin.com', password: 'password111' })
