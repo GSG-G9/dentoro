@@ -1250,5 +1250,17 @@ describe('Server Tests', () => {
         .expect('Content-Type', /json/);
       return expect(message).toBe(res.body.message[0]);
     });
+    test('Logout Route should return header set-cookie for token equal to empty value', async () => {
+      const {
+        header: {
+          'set-cookie': [cookies],
+        },
+      } = await request(app)
+        .get('/api/v1/users/logout')
+        .expect('Content-type', /json/)
+        .expect(200);
+      const [, token] = cookies.split(';')[0].split('=');
+      return expect(token).toBe('');
+    });
   });
 });
