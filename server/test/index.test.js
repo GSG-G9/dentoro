@@ -919,6 +919,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/signup')
+        .set('Cookie', [`token=${token}`])
         .send({
           email: 'test2@test.com',
           password: 'password',
@@ -936,6 +937,7 @@ describe('Server Tests', () => {
       };
       const res = await request(app)
         .post('/api/v1/signup')
+        .set('Cookie', [`token=${token}`])
         .send({
           email: 'someemail@admin.com',
           password: 'password',
