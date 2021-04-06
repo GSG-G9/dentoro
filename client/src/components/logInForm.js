@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
+import IsAuthContext from './context/isAuthContext';
 
 const layout = {
   labelCol: {
@@ -21,6 +22,7 @@ const tailLayout = {
 
 const LoginForm = () => {
   const [error, setError] = useState('');
+  const { setIsAuth } = useContext(IsAuthContext);
 
   const history = useHistory();
   // eslint-disable-next-line consistent-return
@@ -30,9 +32,10 @@ const LoginForm = () => {
         email,
         password,
       });
+      setIsAuth(true);
       history.push('/');
     } catch (srvError) {
-      setError(srvError.res);
+      setError('Something went wrong');
     }
   };
 
