@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from '../logo.svg';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
+
+import Sidebar from '../components/Sidebar';
+
+const TodaySchedule = () => <h3>Today Schedule</h3>;
+const Patients = () => <h3>Patients</h3>;
+const Calender = () => <h3>Calender</h3>;
+
+const options = [<TodaySchedule />, <Patients />, <Calender />];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <Route exact path="/">
+        Home
+      </Route>
+      <Route exact path="/dashboard">
+        <Sidebar contentComponents={options} />;
+      </Route>
+    </Switch>
   );
 }
 

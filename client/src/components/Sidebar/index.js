@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './style.css';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Typography } from 'antd';
+
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -9,24 +11,31 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons';
-import { arrayOf, element, func } from 'prop-types';
-import logoImage from '../../assets/images/logo.png';
+import { arrayOf, element } from 'prop-types';
+import logo from '../../assets/images/logo.png';
+import LogoImage from '../common/LogoImage';
 
 const { Header, Content, Footer, Sider } = Layout;
-function Sidebar({ contentComponents, logoutFunction }) {
+const { Title } = Typography;
+function Sidebar({ contentComponents }) {
   const [collapsed, setCollapsed] = useState(false);
   const [itemKey, setItemKey] = useState('1');
+  const history = useHistory();
 
   const onCollapse = (collapsedValue) => setCollapsed(collapsedValue);
+  const logoutFunction = () => history.push('/');
 
   return (
     <Layout className="page-layout">
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className={collapsed ? 'logo logo-hidden' : 'logo'}>
-          <div>
-            <img src={logoImage} alt="" />
-          </div>
-          <h3 className="title-text">Dental Clinic</h3>
+          <LogoImage
+            src={logo}
+            alt="Dental Clinic logo image show a tooth inside a heart"
+          />
+          <Title className="title-text" level={3}>
+            Dental Clinic
+          </Title>
         </div>
         <Menu
           className="menu-items"
@@ -81,6 +90,5 @@ function Sidebar({ contentComponents, logoutFunction }) {
 
 Sidebar.propTypes = {
   contentComponents: arrayOf(element).isRequired,
-  logoutFunction: func.isRequired,
 };
 export default Sidebar;
