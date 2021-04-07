@@ -2,12 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Table, Typography, Input } from 'antd';
 import axios from 'axios';
 import { EditOutlined } from '@ant-design/icons';
+// import { parse, differenceInCalendarYears } from 'date-fns';
 
 const { Search } = Input;
 const { Title } = Typography;
 const { Column } = Table;
 
-const fetchPatients = async () => {
+function buildUrlQuery(params) {
+  const usp = new URLSearchParams();
+  const newParams = params || {};
+  Object.keys(newParams).forEach((key) => {
+    const value = newParams[key];
+    if (value) usp.set(key, value);
+  });
+  return usp.toString();
+}
+
+const fetchPatients = async (searchQuery) => {
+  if (typeof searchQuery === 'string' && searchQuery.trim().length) {
+    const {
+      data: { data },
+    } = await axios.get(
+      `/api/v1/patients/search?${buildUrlQuery({
+        firstName: searchQuery,
+        LastName: searchQuery,
+        phone: searchQuery,
+      })}`
+    );
+    return data;
+  }
+
   const {
     data: { data },
   } = await axios.get(`/api/v1/patients`);
@@ -25,6 +49,13 @@ const PatientsTable = () => {
     setLoading(false);
   };
 
+  const onSearch = async (value) => {
+    setLoading(true);
+    const data = await fetchPatients(value);
+    setDataSource(data);
+    setLoading(false);
+  };
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     initPatientList();
@@ -33,12 +64,20 @@ const PatientsTable = () => {
     };
   }, []);
 
+  // const date = {
+  //   birthday: differenceInCalendarYears(
+  //     new Date(),
+  //     parse('birthday'.substring(0, 10), 'yyyy-MM-dd', new Date())
+  //   ),
+  // };
+
   return (
     <>
       <Title level={3}>Patients</Title>
       <Search
-        placeholder="Search for patients ..."
+        placeholder="input search text"
         style={{ width: 300, float: 'right', paddingRight: '100px' }}
+        onSearch={onSearch}
       />
       {loading ? (
         'loading'
