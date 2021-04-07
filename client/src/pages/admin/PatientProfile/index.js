@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { get } from 'axios';
 import { number } from 'prop-types';
 
+import PatientTreatmentForm from '../../../components/PatientTreatmentForm';
 import PatientHistory from '../../../components/PatientHistory';
 
 function PatientProfile({ patientId }) {
@@ -17,6 +18,7 @@ function PatientProfile({ patientId }) {
   }, [patientId]);
   return (
     <div>
+      <PatientTreatmentForm />
       <PatientHistory historyData={historyData} />
     </div>
   );
