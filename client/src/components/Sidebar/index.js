@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { get } from 'axios';
 import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Menu, Typography } from 'antd';
@@ -13,17 +14,20 @@ import {
 } from '@ant-design/icons';
 import { arrayOf, element } from 'prop-types';
 import logo from '../../assets/images/logo.png';
-import LogoImage from '../common/LogoImage';
+import LogoImage from '../common/Image';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
-function Sidebar({ contentComponents }) {
+const Sidebar = ({ contentComponents }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [itemKey, setItemKey] = useState('1');
   const history = useHistory();
 
   const onCollapse = (collapsedValue) => setCollapsed(collapsedValue);
-  const logoutFunction = () => history.push('/');
+  const logoutFunction = async () => {
+    await get('/api/v1/logout');
+    history.push('/dashboard/login');
+  };
 
   return (
     <Layout className="page-layout">
@@ -81,12 +85,12 @@ function Sidebar({ contentComponents }) {
           </div>
         </Content>
         <Footer className="site-layout-footer">
-          Dental Clinic ©2021 Created by dentoro
+          Dental Clinic &copy;2021 Created by Dentoro
         </Footer>
       </Layout>
     </Layout>
   );
-}
+};
 
 Sidebar.propTypes = {
   contentComponents: arrayOf(element).isRequired,

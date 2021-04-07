@@ -10,17 +10,18 @@ const Calender = () => <h3>Calender</h3>;
 
 const options = [<TodaySchedule />, <Patients />, <Calender />];
 
-function App() {
-  return (
-    <Switch>
-      <Route exact path="/">
-        Home
-      </Route>
-      <Route exact path="/dashboard">
-        <Sidebar contentComponents={options} />;
-      </Route>
-    </Switch>
-  );
-}
+const App = () => (
+  <Switch>
+    <Route exact path="/">
+      Home
+    </Route>
+    <Route exact path="/dashboard">
+      <Sidebar contentComponents={options} />;
+    </Route>
+    <Route>
+      <h1>Error 404 Not Found !!</h1>
+    </Route>
+  </Switch>
+);
 
 export default App;
