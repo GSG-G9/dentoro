@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { get } from 'axios';
-import { number } from 'prop-types';
 
+import { useParams } from 'react-router-dom';
+
+import Title from '../../../components/common/Title';
 import PatientDetailsForm from '../../../components/PatientDetailsForm';
 import PatientTreatmentForm from '../../../components/PatientTreatmentForm';
 import PatientHistory from '../../../components/PatientHistory';
 
-function PatientProfile({ patientId }) {
+function PatientProfile() {
   const [historyData, setHistoryData] = useState([]);
   const [profileData, setProfileData] = useState([]);
+  const [updateDate, setUpdateDate] = useState(0);
+  const { patientId } = useParams();
   useEffect(() => {
     const getPatientHistory = async () => {
       const {
@@ -20,18 +24,18 @@ function PatientProfile({ patientId }) {
       setProfileData(profile);
     };
     getPatientHistory();
-  }, [patientId]);
+  }, [patientId, updateDate]);
   return (
-    <div style={{ width: '500px' }}>
-      <PatientDetailsForm profileData={profileData} />
-      <PatientTreatmentForm />
-      <PatientHistory historyData={historyData} />
+    <div style={{ width: '50%' }}>
+      <Title text="Patient Profile" />
+      <PatientDetailsForm profileData={profileData} patientId={patientId} />
+      <PatientTreatmentForm
+        patientId={patientId}
+        setUpdateDate={setUpdateDate}
+      />
+      <PatientHistory historyData={historyData} patientId={patientId} />
     </div>
   );
 }
-
-PatientProfile.propTypes = {
-  patientId: number.isRequired,
-};
 
 export default PatientProfile;

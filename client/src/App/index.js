@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import './App.css';
 
 import Sidebar from '../components/Sidebar';
@@ -7,6 +7,11 @@ import Sidebar from '../components/Sidebar';
 import PatientProfile from '../pages/admin/PatientProfile';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
+const Patients = () => (
+  <h3>
+    <Link to="/dashboard/patients/1">Go To Patient 1</Link> Patients
+  </h3>
+);
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => (
@@ -24,6 +29,9 @@ const App = () => (
             <Calender />
           </Route>
           <Route exact path="/dashboard/patients">
+            <Patients />
+          </Route>
+          <Route exact path="/dashboard/patients/:patientId">
             <PatientProfile />
           </Route>
           <Redirect to="/404" />

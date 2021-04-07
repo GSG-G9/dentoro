@@ -3,25 +3,33 @@ import './style.css';
 import { post } from 'axios';
 import { Form, Input, Button, InputNumber } from 'antd';
 
+import { number, func } from 'prop-types';
+
 const layout = {
   labelCol: {
     span: 0,
   },
   wrapperCol: {
-    span: 16,
+    span: 100,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 10,
+    span: 50,
   },
 };
 
-const PatientTreatmentForm = () => {
+const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
+  const [form] = Form.useForm();
   const onFinish = async (event) => {
-    await post('/api/v1/patients/patientId', { ...event });
-    // success
+    try {
+      await post(`/api/v1/patients/${patientId}/history`, { ...event });
+      form.resetFields();
+      setUpdateDate((update) => update + 1);
+    } catch (err) {
+      console.log(err.response);
+    }
   };
 
   const onFinishFailed = () => {
@@ -30,8 +38,9 @@ const PatientTreatmentForm = () => {
 
   return (
     <Form
+      form={form}
       style={{ width: '100%' }}
-      layout="horizontal"
+      layout="vertical"
       {...layout}
       name="basic"
       initialValues={{
@@ -53,7 +62,7 @@ const PatientTreatmentForm = () => {
               },
             ]}
           >
-            <Input.TextArea rows={5} style={{ width: '100%' }} />
+            <Input.TextArea rows={3} style={{ width: '100%' }} />
           </Form.Item>
         </div>
         <div
@@ -97,6 +106,11 @@ const PatientTreatmentForm = () => {
       </Form.Item>
     </Form>
   );
+};
+
+PatientTreatmentForm.propTypes = {
+  patientId: number.isRequired,
+  setUpdateDate: func.isRequired,
 };
 
 export default PatientTreatmentForm;

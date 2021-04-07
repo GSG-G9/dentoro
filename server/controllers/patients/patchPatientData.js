@@ -2,6 +2,7 @@ const { patchPatientDataByIdQuery } = require('../../database/queries');
 const { boomify, patientDataValidation } = require('../../utils');
 
 const patchPatientData = async (req, res, next) => {
+  console.log(req.body);
   try {
     const {
       firstName,
