@@ -18,12 +18,12 @@ const tailLayout = {
 };
 
 const PatientTreatmentForm = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const onFinish = () => {
+    // success
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = () => {
+    // failed
   };
 
   return (
