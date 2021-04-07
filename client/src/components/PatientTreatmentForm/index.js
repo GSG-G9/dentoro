@@ -1,10 +1,11 @@
 import React from 'react';
 import './style.css';
+import { post } from 'axios';
 import { Form, Input, Button, InputNumber } from 'antd';
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 0,
   },
   wrapperCol: {
     span: 16,
@@ -18,7 +19,8 @@ const tailLayout = {
 };
 
 const PatientTreatmentForm = () => {
-  const onFinish = () => {
+  const onFinish = async (event) => {
+    await post('/api/v1/patients/patientId', { ...event });
     // success
   };
 
@@ -28,7 +30,8 @@ const PatientTreatmentForm = () => {
 
   return (
     <Form
-      layout="vertical"
+      style={{ width: '100%' }}
+      layout="horizontal"
       {...layout}
       name="basic"
       initialValues={{
@@ -37,10 +40,10 @@ const PatientTreatmentForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <div style={{ display: 'flex' }}>
-        <div style={{ border: '1px solid black', width: '300px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <div style={{ width: '100%' }}>
           <Form.Item
-            style={{ border: '2px solid red', display: 'flex' }}
+            style={{ display: 'flex' }}
             label="Description"
             name="description"
             rules={[
@@ -50,14 +53,16 @@ const PatientTreatmentForm = () => {
               },
             ]}
           >
-            <Input.TextArea
-              rows={5}
-              cols={20}
-              style={{ border: '5px solid blue', width: '100%' }}
-            />
+            <Input.TextArea rows={5} style={{ width: '100%' }} />
           </Form.Item>
         </div>
-        <div style={{ border: '1px solid black', width: '300px' }}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-evenly',
+          }}
+        >
           <Form.Item
             label="Price"
             name="price"
