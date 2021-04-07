@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import { get } from 'axios';
+import { element } from 'prop-types';
 import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Menu, Typography } from 'antd';
@@ -9,20 +10,18 @@ import {
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
-  LogoutOutlined,
   MenuFoldOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
-import { arrayOf, element } from 'prop-types';
 import logo from '../../assets/images/logo.png';
 import LogoImage from '../common/Image';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
-const Sidebar = ({ contentComponents }) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [itemKey, setItemKey] = useState('1');
+const Sidebar = ({ children }) => {
+  const { pathname } = useLocation();
   const history = useHistory();
-
+  const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsedValue) => setCollapsed(collapsedValue);
   const logoutFunction = async () => {
     await get('/api/v1/logout');
@@ -44,18 +43,29 @@ const Sidebar = ({ contentComponents }) => {
         <Menu
           className="menu-items"
           theme="dark"
-          defaultSelectedKeys={[itemKey]}
+          selectedKeys={[pathname]}
           mode="inline"
-          onSelect={({ key }) => setItemKey(key)}
         >
-          <Menu.Item className="menu-item" key="1" icon={<PieChartOutlined />}>
-            Today&apos;s Schedule
+          <Menu.Item
+            className="menu-item"
+            key="/dashboard"
+            icon={<PieChartOutlined />}
+          >
+            <Link to="/dashboard">Today&apos;s Schedule </Link>
           </Menu.Item>
-          <Menu.Item className="menu-item" key="2" icon={<DesktopOutlined />}>
-            Calender
+          <Menu.Item
+            className="menu-item"
+            key="/dashboard/calender"
+            icon={<DesktopOutlined />}
+          >
+            <Link to="/dashboard/calender">Calender </Link>
           </Menu.Item>
-          <Menu.Item className="menu-item" key="3" icon={<FileOutlined />}>
-            Patients
+          <Menu.Item
+            className="menu-item"
+            key="/dashboard/patients"
+            icon={<FileOutlined />}
+          >
+            <Link to="/dashboard/patients">Patients</Link>
           </Menu.Item>
         </Menu>
         <Menu.Divider />
@@ -80,9 +90,7 @@ const Sidebar = ({ contentComponents }) => {
           </nav>
         </Header>
         <Content className="site-layout-content">
-          <div className="site-layout-content-body">
-            {contentComponents[+itemKey - 1]}
-          </div>
+          <div className="site-layout-content-body">{children}</div>
         </Content>
         <Footer className="site-layout-footer">
           Dental Clinic &copy;2021 Created by Dentoro
@@ -93,6 +101,7 @@ const Sidebar = ({ contentComponents }) => {
 };
 
 Sidebar.propTypes = {
-  contentComponents: arrayOf(element).isRequired,
+  children: element.isRequired,
 };
+
 export default Sidebar;
