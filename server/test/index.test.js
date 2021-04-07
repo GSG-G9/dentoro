@@ -473,7 +473,7 @@ describe('Server Tests', () => {
     });
     test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
       const res = await request(app)
-        .get('/api/v1/patients/search?phone=05')
+        .get('/api/v1/patients/search?phone=invalidPhone')
         .set('Cookie', [`token=${token}`])
         .expect('Content-Type', /json/)
         .expect(400);
