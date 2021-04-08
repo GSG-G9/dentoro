@@ -12,23 +12,29 @@ function PatientProfile() {
   const [historyData, setHistoryData] = useState([]);
   const [profileData, setProfileData] = useState([]);
   const [updateDate, setUpdateDate] = useState(0);
+  const [balanceValue, setBalanceValue] = useState(0);
   const { patientId } = useParams();
   useEffect(() => {
     const getPatientHistory = async () => {
       const {
         data: {
-          data: { profile, history },
+          data: { profile, history, balance },
         },
       } = await get(`/api/v1/patients/${patientId}`);
       setHistoryData(history);
       setProfileData(profile);
+      setBalanceValue(balance);
     };
     getPatientHistory();
   }, [patientId, updateDate]);
   return (
     <div style={{ width: '800px' }}>
       <Title text="Patient Profile" />
-      <PatientDetailsForm profileData={profileData} patientId={patientId} />
+      <PatientDetailsForm
+        profileData={{ ...profileData, balance: balanceValue }}
+        patientId={patientId}
+        setUpdateDate={setUpdateDate}
+      />
       <PatientTreatmentForm
         patientId={patientId}
         setUpdateDate={setUpdateDate}

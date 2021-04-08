@@ -21,13 +21,14 @@ const tailLayout = {
 };
 
 // eslint-disable-next-line react/prop-types
-const PatientDetailsForm = ({ profileData, patientId }) => {
+const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const {
     firstname: firstName,
     birthday,
     diseases,
     lastname: lastName,
     phone,
+    balance,
   } = profileData;
 
   const [form] = Form.useForm();
@@ -38,18 +39,19 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
         ...event,
         birthday: eventBirthday.format('YYYY-MM-DD'),
       });
+      setUpdateDate((x) => x + 1);
     } catch (error) {
       console.log(error.response);
     }
 
     //
   };
-
   form.setFieldsValue({
     firstName,
     lastName,
     diseases,
     phone,
+    balance,
     birthday: moment(new Date(birthday).toLocaleDateString(), 'DD/MM/YYYY'),
   });
   const onFinishFailed = () => {
@@ -80,7 +82,7 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
             },
           ]}
         >
-          <Input className="input-background-border-hidden" />
+          <Input bordered={false} className="input-background-border-hidden" />
         </Form.Item>
         <Form.Item
           style={{ width: '50%' }}
@@ -94,7 +96,7 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
             },
           ]}
         >
-          <Input className="input-background-border-hidden" />
+          <Input bordered={false} className="input-background-border-hidden" />
         </Form.Item>
       </div>
 
@@ -112,6 +114,7 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
           ]}
         >
           <DatePicker
+            bordered={false}
             format="YYYY-MM-DD"
             className="input-background-border-hidden"
           />
@@ -128,7 +131,7 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
             },
           ]}
         >
-          <Input className="input-background-border-hidden" />
+          <Input bordered={false} className="input-background-border-hidden" />
         </Form.Item>
       </div>
       <div style={{ display: 'flex' }}>
@@ -144,12 +147,16 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
             },
           ]}
         >
-          <Input.TextArea className="input-background-border-hidden" />
+          <Input.TextArea
+            bordered={false}
+            className="input-background-border-hidden"
+          />
         </Form.Item>
         <Form.Item
           style={{ width: '50%' }}
           label="Balance"
           name="balance"
+          initialValue={balance}
           rules={[
             {
               required: true,
@@ -157,7 +164,11 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
             },
           ]}
         >
-          <InputNumber value={0} className="input-background-border-hidden" />
+          <InputNumber
+            readOnly
+            bordered={false}
+            className="input-background-border-hidden"
+          />
         </Form.Item>
       </div>
 
