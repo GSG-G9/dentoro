@@ -5,10 +5,14 @@
 .patients-container .ant-input-group-wrapper {
     width: 260px !important;
     float:right !important;
-    padding-bottom: 30px !important;
+    padding-bottom: 1.8px !important;
 }
 
 .patients-container h3{
     text-align: center;
+}
+
+.patients-container .ant-spin-spinning{
+    padding: 10rem 0px 0px 34rem !important;
 }
 
