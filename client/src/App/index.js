@@ -28,35 +28,36 @@ const App = () => {
   return (
     <div className="App">
       <IsAuthContext.Provider value={{ setIsAuth }}>
-        <Switch>
-          <Route exact path="/">
-            Home
+        {isAuth ? (
+          <Route path="/dashboard">
+            <Sidebar>
+              <Switch>
+                <Route exact path="/dashboard">
+                  <TodaySchedule />
+                </Route>
+                <Route exact path="/dashboard/calender">
+                  <Calender />
+                </Route>
+                <Route exact path="/dashboard/patients">
+                  <Patients />
+                </Route>
+                <Redirect to="/404" />
+              </Switch>
+            </Sidebar>
           </Route>
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
-          {isAuth ? (
-            <Route path="/dashboard">
-              <Sidebar>
-                <Switch>
-                  <Route exact path="/dashboard">
-                    <TodaySchedule />
-                  </Route>
-                  <Route exact path="/dashboard/calender">
-                    <Calender />
-                  </Route>
-                  <Route exact path="/dashboard/patients">
-                    <Patients />
-                  </Route>
-                  <Redirect to="/404" />
-                </Switch>
-              </Sidebar>
+        ) : (
+          <Switch>
+            <Route exact path="/">
+              Home
             </Route>
-          ) : null}
-          <Route>
-            <h1>Error 404 Not Found !!</h1>
-          </Route>
-        </Switch>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+          </Switch>
+        )}
+        <Route>
+          <h1>Error 404 Not Found !!</h1>
+        </Route>
       </IsAuthContext.Provider>
     </div>
   );
