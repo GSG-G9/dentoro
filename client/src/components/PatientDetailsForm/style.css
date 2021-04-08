@@ -1,4 +1,4 @@
-.input-background-border-hidden {
+.input-background-transparent {
 	background-color: transparent;
 	font-weight: 800;
 }
@@ -15,9 +15,13 @@
 	width: 80px;
 }
 
-.balance-style {
+.balance-style-positive {
+	color:green;
+}
+.balance-style-negative {
 	color: red;
 }
+
 
 .form-item-width {
 	width: 50%;

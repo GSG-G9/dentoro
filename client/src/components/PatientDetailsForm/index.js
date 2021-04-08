@@ -70,7 +70,9 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     } catch (err) {
       if (err.response) {
         const { data } = err.response;
-        hideLoadingMessage.then(() => failedMessage(data.message));
+        hideLoadingMessage.then(() =>
+          failedMessage(data.message ? data.message : data)
+        );
       }
       hideLoadingMessage.then(() => failedMessage());
     }
@@ -120,7 +122,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           <Input
             readOnly={!isEditable}
             bordered={isEditable}
-            className="input-background-border-hidden"
+            className="input-background-transparent"
           />
         </Form.Item>
         <Form.Item
@@ -138,7 +140,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           <Input
             readOnly={!isEditable}
             bordered={isEditable}
-            className="input-background-border-hidden"
+            className="input-background-transparent"
           />
         </Form.Item>
       </div>
@@ -161,7 +163,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
             inputReadOnly={!isEditable}
             bordered={isEditable}
             format="YYYY-MM-DD"
-            className="input-background-border-hidden"
+            className="input-background-transparent"
           />
         </Form.Item>
         <Form.Item
@@ -179,7 +181,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           <Input
             readOnly={!isEditable}
             bordered={isEditable}
-            className="input-background-border-hidden"
+            className="input-background-transparent"
           />
         </Form.Item>
       </div>
@@ -199,7 +201,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           <Input.TextArea
             readOnly={!isEditable}
             bordered={isEditable}
-            className="input-background-border-hidden"
+            className="input-background-transparent"
           />
         </Form.Item>
         <Form.Item
@@ -212,13 +214,17 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
             formatter={(value) => `${parseFloat(value).toFixed(2)} ₪`}
             readOnly
             bordered={false}
-            className="input-background-border-hidden balance-style"
+            className={`input-background-transparent ${
+              parseFloat(balance) > 0
+                ? 'balance-style-negative'
+                : 'balance-style-positive'
+            }`}
           />
         </Form.Item>
       </div>
 
       <Form.Item {...tailLayout}>
-        <Button hidden={isEditable} type="primary" htmlType="submit">
+        <Button hidden={!isEditable} type="primary" htmlType="submit">
           Edit
         </Button>
       </Form.Item>

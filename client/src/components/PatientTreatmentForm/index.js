@@ -47,11 +47,11 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
     } catch (err) {
       if (err.response) {
         const {
-          response: {
-            data: { message: serverErrorMessage },
-          },
+          response: { data },
         } = err;
-        return hideLoadingMessage.then(() => failedMessage(serverErrorMessage));
+        return hideLoadingMessage.then(() =>
+          failedMessage(data.message ? data.message : data)
+        );
       }
       return hideLoadingMessage.then(failedMessage);
     }
