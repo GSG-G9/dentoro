@@ -22,7 +22,7 @@ const tailLayout = {
 
 const LoginForm = () => {
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { setIsAuth } = useContext(IsAuthContext);
 
   const history = useHistory();
@@ -37,7 +37,11 @@ const LoginForm = () => {
       setIsLoading(false);
       history.push('/dashboard');
     } catch (srvError) {
-      setError(srvError.response.data.message || `Something went wrong`);
+      setError(
+        srvError.response
+          ? srvError.response.data.message
+          : `Something went wrong`
+      );
       setIsLoading(false);
     }
   };

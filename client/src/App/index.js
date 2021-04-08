@@ -13,6 +13,8 @@ const Calender = () => <h3>Calender</h3>;
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
 
+  console.log(isAuth);
+
   const checkAuth = async () => {
     try {
       await axios('/api/v1/is-auth');
@@ -28,7 +30,13 @@ const App = () => {
   return (
     <div className="App">
       <IsAuthContext.Provider value={{ setIsAuth }}>
-        {isAuth ? (
+        <Switch>
+          <Route exact path="/">
+            Home
+          </Route>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
           <Route path="/dashboard">
             <Sidebar>
               <Switch>
@@ -45,19 +53,10 @@ const App = () => {
               </Switch>
             </Sidebar>
           </Route>
-        ) : (
-          <Switch>
-            <Route exact path="/">
-              Home
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-          </Switch>
-        )}
-        <Route>
-          <h1>Error 404 Not Found !!</h1>
-        </Route>
+          <Route>
+            <h1>Error 404 Not Found !!</h1>
+          </Route>
+        </Switch>
       </IsAuthContext.Provider>
     </div>
   );
