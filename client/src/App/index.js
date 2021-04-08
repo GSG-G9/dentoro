@@ -1,7 +1,9 @@
-import React from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-
+import axios from 'axios';
+import LoginPage from '../pages/logIn';
+import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
 
 import PatientProfile from '../pages/admin/PatientProfile';
@@ -14,34 +16,60 @@ const Patients = () => (
 );
 const Calender = () => <h3>Calender</h3>;
 
-const App = () => (
-  <Switch>
-    <Route exact path="/">
-      Home
-    </Route>
-    <Route path="/dashboard">
-      <Sidebar>
+const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  console.log(isAuth);
+
+  const checkAuth = async () => {
+    try {
+      await axios('/api/v1/is-auth');
+      setIsAuth(true);
+    } catch ({ response }) {
+      setIsAuth(false);
+    }
+  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  return (
+    <div className="App">
+      <IsAuthContext.Provider value={{ setIsAuth }}>
         <Switch>
-          <Route exact path="/dashboard">
-            <TodaySchedule />
+          <Route exact path="/">
+            Home
           </Route>
-          <Route exact path="/dashboard/calender">
-            <Calender />
+          <Route exact path="/login">
+            <LoginPage />
           </Route>
-          <Route exact path="/dashboard/patients">
-            <Patients />
+          <Route path="/dashboard">
+            <Sidebar>
+              <Switch>
+                <Route exact path="/dashboard">
+                  <TodaySchedule />
+                </Route>
+                <Route exact path="/dashboard/calender">
+                  <Calender />
+                </Route>
+                <Route exact path="/dashboard/patients">
+                  <Patients />
+                </Route>
+                <Route exact path="/dashboard/patients/:patientId">
+                  <PatientProfile />
+                </Route>
+                <Redirect to="/404" />
+              </Switch>
+            </Sidebar>
           </Route>
-          <Route exact path="/dashboard/patients/:patientId">
-            <PatientProfile />
+          <Route>
+            <h1>Error 404 Not Found !!</h1>
           </Route>
           <Redirect to="/404" />
         </Switch>
-      </Sidebar>
-    </Route>
-    <Route>
-      <h1>Error 404 Not Found !!</h1>
-    </Route>
-  </Switch>
-);
+      </IsAuthContext.Provider>
+    </div>
+  );
+};
 
 export default App;
