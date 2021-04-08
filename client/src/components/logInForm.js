@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
-import IsAuthContext from './context/isAuthContext';
+import IsAuthContext from '../Context/isAuthContext';
 
 const layout = {
   labelCol: {
@@ -22,7 +22,7 @@ const tailLayout = {
 
 const LoginForm = () => {
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { setIsAuth } = useContext(IsAuthContext);
 
   const history = useHistory();

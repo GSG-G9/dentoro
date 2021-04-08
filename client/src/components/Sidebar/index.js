@@ -14,7 +14,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 
-import IsAuthContext from '../context/isAuthContext';
+import IsAuthContext from '../../Context/isAuthContext';
 
 import logo from '../../assets/images/logo.png';
 import LogoImage from '../common/Image';
