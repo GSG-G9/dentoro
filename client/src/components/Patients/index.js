@@ -19,9 +19,9 @@ const Patients = () => {
         data: { data },
       } = await axios.get(`/api/v1/patients`);
       setDataSource(data);
-      setLoading(false);
       return data;
     } catch {
+      setLoading(false);
       return message.error('Sever error, please try again later');
     }
   };
