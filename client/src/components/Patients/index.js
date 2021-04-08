@@ -6,32 +6,28 @@ import { useHistory } from 'react-router-dom';
 const { Search } = Input;
 const { Title } = Typography;
 
-const PatientsTable = () => {
+const Patients = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   const fetchPatients = async () => {
     try {
+      setLoading(true);
       const {
         data: { data },
       } = await axios.get(`/api/v1/patients`);
+      setDataSource(data);
+      setLoading(false);
       return data;
     } catch {
       return message.error('Sever error, please try again later');
     }
   };
 
-  const initPatientList = async () => {
-    setLoading(true);
-    const data = await fetchPatients();
-    setDataSource(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
     const source = axios.CancelToken.source();
-    initPatientList();
+    fetchPatients();
     return () => {
       source.cancel('clean up axios');
     };
@@ -83,4 +79,4 @@ const PatientsTable = () => {
   );
 };
 
-export default PatientsTable;
+export default Patients;

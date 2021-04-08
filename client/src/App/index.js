@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
-import PatientsTable from '../components/PatientsTable';
+import Patients from '../components/Patients';
 import Sidebar from '../components/Sidebar';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
@@ -23,7 +23,7 @@ const App = () => (
             <Calender />
           </Route>
           <Route exact path="/dashboard/patients">
-            <PatientsTable />
+            <Patients />
           </Route>
           <Redirect to="/404" />
         </Switch>
