@@ -12,16 +12,7 @@ import {
 } from '@ant-design/icons';
 import axios from 'axios';
 
-const srvData = [
-  {
-    // the key here is the appointmentId
-    key: 4,
-    appointmentDateTime: '2021-12-02 17:00:00',
-    is_done: false,
-    firstName: 'Alexie',
-    lastName: 'Jenkins',
-    age: '1946',
-  },
+const srvData = 
   {
     key: 1,
     appointmentDateTime: '2021-12-02 08:00:00',
