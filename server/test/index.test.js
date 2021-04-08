@@ -1305,6 +1305,17 @@ describe('Server Tests', () => {
       const [, responseToken] = cookies.split(';')[0].split('=');
       return expect(responseToken).toBe('');
     });
+    test('GET /api/v1/is-auth Should return 200 when the token is valid', async () => {
+      const res = await request(app)
+        .get('/api/v1/is-auth')
+        .set('Cookie', [`token=${token}`])
+        .expect(200);
+      return expect(res.statusCode).toBe(200);
+    });
+    test('GET /api/v1/is-auth Should return 401 when the token is in-valid', async () => {
+      const res = await request(app).get('/api/v1/is-auth');
+      return expect(res.statusCode).toBe(401);
+    });
     describe('Authentication Test', () => {
       test('Should return 401 and error message when send a request without token', async () => {
         const res = await request(app)
