@@ -57,6 +57,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const [form] = Form.useForm();
   const onFinish = async (event) => {
     if (!isEditable) return;
+    const hideLoadingMessage = message.loading('Action in progress..', 1);
     const { birthday: eventBirthday } = event;
     try {
       await patch(`/api/v1/patients/${patientId}`, {
@@ -64,14 +65,14 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
         birthday: eventBirthday.format('YYYY-MM-DD'),
       });
       setIsEditable(false);
-      successMessage();
+      hideLoadingMessage.then(() => successMessage());
       setUpdateDate((x) => x + 1);
     } catch (err) {
       if (err.response) {
         const { data } = err.response;
-        failedMessage(data.message);
+        hideLoadingMessage.then(() => failedMessage(data.message));
       }
-      failedMessage();
+      hideLoadingMessage.then(() => failedMessage());
     }
   };
   form.setFieldsValue({
@@ -86,7 +87,6 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     <Form
       form={form}
       className="patient-details-form"
-      style={{ width: '100%' }}
       {...layout}
       name="basic"
       initialValues={{
@@ -94,21 +94,19 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
       }}
       onFinish={onFinish}
     >
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <EditOutlined style={{ fontSize: '1.5rem', color: '#0797DA' }} />
+      <div className="edit-icon-container">
+        <EditOutlined className="edit-icon-style" />
         <Switch
           checkedChildren={<CheckOutlined />}
           unCheckedChildren={<CloseOutlined />}
           defaultChecked={false}
           checked={isEditable}
-          onChange={(e) => {
-            setIsEditable(e);
-          }}
+          onChange={(e) => setIsEditable(e)}
         />
       </div>
-      <div style={{ display: 'flex' }}>
+      <div className="patient-details-form-flex-style">
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="First Name"
           name="firstName"
           initialValue={firstName}
@@ -126,7 +124,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           />
         </Form.Item>
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="Last Name"
           name="lastName"
           initialValue={lastName}
@@ -145,9 +143,9 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
         </Form.Item>
       </div>
 
-      <div className="date-picker-div" style={{ display: 'flex' }}>
+      <div className="date-picker-div">
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="Birthday"
           name="birthday"
           initialValue={moment()}
@@ -167,7 +165,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           />
         </Form.Item>
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="Phone"
           name="phone"
           initialValue={phone}
@@ -185,9 +183,9 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           />
         </Form.Item>
       </div>
-      <div style={{ display: 'flex' }}>
+      <div className="patient-details-form-flex-style">
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="Diseases"
           name="diseases"
           initialValue={diseases}
@@ -205,25 +203,22 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           />
         </Form.Item>
         <Form.Item
-          style={{ width: '50%' }}
+          className="form-item-width"
           label="Balance"
           name="balance"
           initialValue={balance}
         >
           <InputNumber
+            formatter={(value) => `${parseFloat(value).toFixed(2)} ₪`}
             readOnly
             bordered={false}
-            className="input-background-border-hidden"
+            className="input-background-border-hidden balance-style"
           />
         </Form.Item>
       </div>
 
       <Form.Item {...tailLayout}>
-        <Button
-          style={{ visibility: isEditable ? 'visible' : 'hidden' }}
-          type="primary"
-          htmlType="submit"
-        >
+        <Button hidden={isEditable} type="primary" htmlType="submit">
           Edit
         </Button>
       </Form.Item>

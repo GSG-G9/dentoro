@@ -95,6 +95,7 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
           <Form.Item
             label="Price"
             name="price"
+            initialValue={0}
             rules={[
               {
                 required: true,
@@ -102,11 +103,14 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber
+              formatter={(value) => `${parseFloat(value).toFixed(2)} ₪`}
+            />
           </Form.Item>
           <Form.Item
             label="Payment"
             name="payment"
+            initialValue={0}
             rules={[
               {
                 required: true,
@@ -114,7 +118,9 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber
+              formatter={(value) => `${parseFloat(value).toFixed(2)} ₪`}
+            />
           </Form.Item>
         </div>
       </div>

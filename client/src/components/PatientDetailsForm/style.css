@@ -3,10 +3,43 @@
 	font-weight: 800;
 }
 
-.date-picker-div .ant-picker-input > input[disabled] {
-  color:black
+.date-picker-div{
+	display: flex;
 }
 
-.patient-details-form label{
+.date-picker-div .ant-picker-input > input[disabled] {
+	color: black;
+}
+
+.patient-details-form label {
 	width: 80px;
+}
+
+.balance-style {
+	color: red;
+}
+
+.form-item-width {
+	width: 50%;
+}
+.patient-details-form{
+	width: 100%;
+}
+
+.patient-details-form .ant-input-number-input {
+	font-weight: 800;
+}
+
+.edit-icon-style {
+	font-size: 1.5rem;
+	color: #0797DA;
+}
+
+.edit-icon-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.patient-details-form-flex-style{
+	display: flex
 }
