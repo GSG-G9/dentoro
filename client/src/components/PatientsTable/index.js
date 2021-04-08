@@ -41,32 +41,27 @@ const PatientsTable = () => {
     {
       title: 'First Name',
       dataIndex: 'firstname',
-      render: (text) => <a href>{text}</a>,
     },
     {
       title: 'Last Name',
       dataIndex: 'lastname',
-      render: (text) => <a href>{text}</a>,
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      render: (text) => <a href>{text}</a>,
     },
     {
       title: 'Phone',
       dataIndex: 'phone',
-      render: (text) => <a href>{text}</a>,
     },
     {
       title: 'Diseases',
       dataIndex: 'diseases',
-      render: (text) => <a href>{text}</a>,
     },
   ];
 
   return (
-    <>
+    <div>
       <Title level={3}>Patients</Title>
       <Search
         placeholder="Search for patients ..."
@@ -78,13 +73,13 @@ const PatientsTable = () => {
         <Table
           dataSource={dataSource}
           columns={columns}
-          key="id"
+          rowKey="id"
           onRow={(record) => ({
             onClick: () => history.push(`patients/${record.id}`),
           })}
         />
       )}
-    </>
+    </div>
   );
 };
 

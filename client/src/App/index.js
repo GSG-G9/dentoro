@@ -6,7 +6,6 @@ import PatientsTable from '../components/PatientsTable';
 import Sidebar from '../components/Sidebar';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
-const Patients = () => <PatientsTable />;
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => (
@@ -24,7 +23,7 @@ const App = () => (
             <Calender />
           </Route>
           <Route exact path="/dashboard/patients">
-            <Patients />
+            <PatientsTable />
           </Route>
           <Redirect to="/404" />
         </Switch>
