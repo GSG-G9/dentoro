@@ -5,7 +5,7 @@
 .patients-container .ant-input-group-wrapper {
     width: 260px !important;
     float:right !important;
-    padding-bottom: 1.8px !important;
+    padding-bottom: 1.8rem !important;
 }
 
 .patients-container h3{
