@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import { post } from 'axios';
-import { Form, Input, Button, InputNumber } from 'antd';
+import { Form, Input, Button, InputNumber, message } from 'antd';
 
 import { number, func } from 'prop-types';
 
@@ -20,16 +20,41 @@ const tailLayout = {
   },
 };
 
+const successMessage = () => {
+  message.success({
+    content: 'Success! Your Patient Data has been saved ',
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! Your Patient Data not updated ${
+      errorMessage ? `because ${errorMessage}` : errorMessage
+    }`,
+  });
+};
+
 const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
   const [form] = Form.useForm();
   const onFinish = async (event) => {
-    await post(`/api/v1/patients/${patientId}/history`, { ...event });
-    form.resetFields();
-    setUpdateDate((update) => update + 1);
-  };
+    const hideLoadingMessage = message.loading('Action in progress..', 1);
+    try {
+      await post(`/api/v1/patients/${patientId}/history`, { ...event });
+      hideLoadingMessage.then(() => successMessage());
+      form.resetFields();
 
-  const onFinishFailed = () => {
-    // failed
+      return setUpdateDate((update) => update + 1);
+    } catch (err) {
+      if (err.response) {
+        const {
+          response: {
+            data: { message: serverErrorMessage },
+          },
+        } = err;
+        return hideLoadingMessage.then(() => failedMessage(serverErrorMessage));
+      }
+      return hideLoadingMessage.then(failedMessage);
+    }
   };
 
   return (
@@ -43,7 +68,6 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <div style={{ width: '100%' }}>

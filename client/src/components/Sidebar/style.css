@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 .page-layout {
-	min-height: 100vh;
+	min-height:100vh;
 }
 
 .header-navbar {
@@ -69,6 +69,9 @@
 .site-layout-content-body {
 	padding: 24;
 	min-height: 60vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .site-layout-footer {

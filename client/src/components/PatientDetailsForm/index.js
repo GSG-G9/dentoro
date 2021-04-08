@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Form, Input, Button, InputNumber, DatePicker } from 'antd';
+import { Form, Input, Button, InputNumber, DatePicker, message } from 'antd';
 import { patch } from 'axios';
 import './style.css';
 import { number, objectOf, oneOfType, string } from 'prop-types';
@@ -20,6 +20,20 @@ const tailLayout = {
   },
 };
 
+const successMessage = () => {
+  message.success({
+    content: 'Success! Your Patient Data has been updated ',
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! Your Patient Data not updated ${
+      errorMessage ? `because ${errorMessage}` : errorMessage
+    }`,
+  });
+};
+
 // eslint-disable-next-line react/prop-types
 const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const {
@@ -34,14 +48,20 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const [form] = Form.useForm();
   const onFinish = async (event) => {
     const { birthday: eventBirthday } = event;
-
-    await patch(`/api/v1/patients/${patientId}`, {
-      ...event,
-      birthday: eventBirthday.format('YYYY-MM-DD'),
-    });
-    setUpdateDate((x) => x + 1);
-
-    //
+    try {
+      await patch(`/api/v1/patients/${patientId}`, {
+        ...event,
+        birthday: eventBirthday.format('YYYY-MM-DD'),
+      });
+      successMessage();
+      return setUpdateDate((x) => x + 1);
+    } catch (err) {
+      if (err.response) {
+        const { data } = err.response;
+        return failedMessage(data.message);
+      }
+      return failedMessage();
+    }
   };
   form.setFieldsValue({
     firstName,
