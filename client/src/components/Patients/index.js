@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Typography, Input, message, Spin } from 'antd';
 import axios from 'axios';
+import './style.css';
 import { useHistory } from 'react-router-dom';
 
 const { Search } = Input;
@@ -50,23 +51,17 @@ const Patients = () => {
       title: 'Phone',
       dataIndex: 'phone',
     },
-    {
-      title: 'Diseases',
-      dataIndex: 'diseases',
-    },
   ];
 
   return (
-    <div>
+    <div className="patients-container">
       <Title level={3}>Patients</Title>
-      <Search
-        placeholder="Search for patients ..."
-        style={{ width: 300, float: 'right', paddingRight: '100px' }}
-      />
+      <Search placeholder="Search for patients ..." />
       {loading ? (
         <Spin />
       ) : (
         <Table
+          size="small"
           dataSource={dataSource}
           columns={columns}
           rowKey="id"
