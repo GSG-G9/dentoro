@@ -23,13 +23,9 @@ const tailLayout = {
 const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
   const [form] = Form.useForm();
   const onFinish = async (event) => {
-    try {
-      await post(`/api/v1/patients/${patientId}/history`, { ...event });
-      form.resetFields();
-      setUpdateDate((update) => update + 1);
-    } catch (err) {
-      console.log(err.response);
-    }
+    await post(`/api/v1/patients/${patientId}/history`, { ...event });
+    form.resetFields();
+    setUpdateDate((update) => update + 1);
   };
 
   const onFinishFailed = () => {

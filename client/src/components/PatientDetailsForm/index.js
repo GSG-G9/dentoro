@@ -34,15 +34,12 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const [form] = Form.useForm();
   const onFinish = async (event) => {
     const { birthday: eventBirthday } = event;
-    try {
-      await patch(`/api/v1/patients/${patientId}`, {
-        ...event,
-        birthday: eventBirthday.format('YYYY-MM-DD'),
-      });
-      setUpdateDate((x) => x + 1);
-    } catch (error) {
-      console.log(error.response);
-    }
+
+    await patch(`/api/v1/patients/${patientId}`, {
+      ...event,
+      birthday: eventBirthday.format('YYYY-MM-DD'),
+    });
+    setUpdateDate((x) => x + 1);
 
     //
   };
