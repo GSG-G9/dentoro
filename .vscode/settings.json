@@ -15,5 +15,5 @@
   "editor.formatOnSave": false,
   "files.eol": "\n",
   "cSpell.words": [],
-  "cSpell.ignoreWords": ["starticon", "boomify", "middlewares"]
+  "cSpell.ignoreWords": ["starticon", "boomify", "middlewares","antd"]
 }

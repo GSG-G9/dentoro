@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import './App.css';
 import axios from 'axios';
+import './App.css';
+
+import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
-const Patients = () => <h3>Patients</h3>;
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => {
