@@ -22,20 +22,23 @@ const tailLayout = {
 
 const LoginForm = () => {
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState('');
   const { setIsAuth } = useContext(IsAuthContext);
 
   const history = useHistory();
-  // eslint-disable-next-line consistent-return
   const onFinish = async ({ email, password }) => {
     try {
+      setIsLoading(true);
       await axios.post('/api/v1/login', {
         email,
         password,
       });
       setIsAuth(true);
-      history.push('/');
+      setIsLoading(false);
+      history.push('/dashboard');
     } catch (srvError) {
-      setError('Something went wrong');
+      setError(srvError.response.data.message || `Something went wrong`);
+      setIsLoading(false);
     }
   };
 
@@ -55,8 +58,11 @@ const LoginForm = () => {
         rules={[
           {
             required: true,
-            type: 'email',
             message: 'Please input your email!',
+          },
+          {
+            type: 'email',
+            message: 'Enter a valid email!',
           },
         ]}
       >
@@ -71,13 +77,17 @@ const LoginForm = () => {
             required: true,
             message: 'Please input your password!',
           },
+          {
+            min: 8,
+            message: 'Password must be at least 8 characters.',
+          },
         ]}
       >
         <Input.Password />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoading}>
           Submit
         </Button>
       </Form.Item>
