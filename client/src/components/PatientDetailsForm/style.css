@@ -1,4 +1,12 @@
-.input-background-border-hidden{
- background-color: transparent;
- font-weight: 800;
+.input-background-border-hidden {
+	background-color: transparent;
+	font-weight: 800;
+}
+
+.date-picker-div .ant-picker-input > input[disabled] {
+  color:black
+}
+
+.patient-details-form label{
+	width: 80px;
 }

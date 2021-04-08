@@ -33,7 +33,7 @@ function PatientProfile() {
   return (
     <div className="profile-page-container">
       {loading ? (
-        <Loading size="large" />
+        <Loading className="patient-profile-loading" size="large" />
       ) : (
         <>
           <Title text="Patient Profile" />

@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
-import { Form, Input, Button, InputNumber, DatePicker, message } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  InputNumber,
+  DatePicker,
+  message,
+  Switch,
+} from 'antd';
 import { patch } from 'axios';
 import './style.css';
-import { number, objectOf, oneOfType, string } from 'prop-types';
+import { number, objectOf, oneOfType, string, func } from 'prop-types';
+import { CloseOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons';
 
 const layout = {
   labelCol: {
     span: 5,
   },
   wrapperCol: {
-    span: 90,
+    span: 80,
   },
 };
 const tailLayout = {
@@ -34,7 +43,6 @@ const failedMessage = (errorMessage = '') => {
   });
 };
 
-// eslint-disable-next-line react/prop-types
 const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   const {
     firstname: firstName,
@@ -45,22 +53,25 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     balance,
   } = profileData;
 
+  const [isEditable, setIsEditable] = useState(false);
   const [form] = Form.useForm();
   const onFinish = async (event) => {
+    if (!isEditable) return;
     const { birthday: eventBirthday } = event;
     try {
       await patch(`/api/v1/patients/${patientId}`, {
         ...event,
         birthday: eventBirthday.format('YYYY-MM-DD'),
       });
+      setIsEditable(false);
       successMessage();
-      return setUpdateDate((x) => x + 1);
+      setUpdateDate((x) => x + 1);
     } catch (err) {
       if (err.response) {
         const { data } = err.response;
-        return failedMessage(data.message);
+        failedMessage(data.message);
       }
-      return failedMessage();
+      failedMessage();
     }
   };
   form.setFieldsValue({
@@ -71,12 +82,10 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     balance,
     birthday: moment(new Date(birthday).toLocaleDateString(), 'DD/MM/YYYY'),
   });
-  const onFinishFailed = () => {
-    // failed
-  };
   return (
     <Form
       form={form}
+      className="patient-details-form"
       style={{ width: '100%' }}
       {...layout}
       name="basic"
@@ -84,8 +93,19 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <EditOutlined style={{ fontSize: '1.5rem', color: '#0797DA' }} />
+        <Switch
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          defaultChecked={false}
+          checked={isEditable}
+          onChange={(e) => {
+            setIsEditable(e);
+          }}
+        />
+      </div>
       <div style={{ display: 'flex' }}>
         <Form.Item
           style={{ width: '50%' }}
@@ -99,7 +119,11 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
             },
           ]}
         >
-          <Input bordered={false} className="input-background-border-hidden" />
+          <Input
+            readOnly={!isEditable}
+            bordered={isEditable}
+            className="input-background-border-hidden"
+          />
         </Form.Item>
         <Form.Item
           style={{ width: '50%' }}
@@ -113,11 +137,15 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
             },
           ]}
         >
-          <Input bordered={false} className="input-background-border-hidden" />
+          <Input
+            readOnly={!isEditable}
+            bordered={isEditable}
+            className="input-background-border-hidden"
+          />
         </Form.Item>
       </div>
 
-      <div style={{ display: 'flex' }}>
+      <div className="date-picker-div" style={{ display: 'flex' }}>
         <Form.Item
           style={{ width: '50%' }}
           label="Birthday"
@@ -131,7 +159,9 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           ]}
         >
           <DatePicker
-            bordered={false}
+            disabled={!isEditable}
+            inputReadOnly={!isEditable}
+            bordered={isEditable}
             format="YYYY-MM-DD"
             className="input-background-border-hidden"
           />
@@ -148,7 +178,11 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
             },
           ]}
         >
-          <Input bordered={false} className="input-background-border-hidden" />
+          <Input
+            readOnly={!isEditable}
+            bordered={isEditable}
+            className="input-background-border-hidden"
+          />
         </Form.Item>
       </div>
       <div style={{ display: 'flex' }}>
@@ -165,7 +199,8 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           ]}
         >
           <Input.TextArea
-            bordered={false}
+            readOnly={!isEditable}
+            bordered={isEditable}
             className="input-background-border-hidden"
           />
         </Form.Item>
@@ -174,12 +209,6 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           label="Balance"
           name="balance"
           initialValue={balance}
-          rules={[
-            {
-              required: true,
-              message: 'Please input Balance!',
-            },
-          ]}
         >
           <InputNumber
             readOnly
@@ -190,15 +219,20 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
       </div>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button
+          style={{ visibility: isEditable ? 'visible' : 'hidden' }}
+          type="primary"
+          htmlType="submit"
+        >
+          Edit
         </Button>
       </Form.Item>
     </Form>
   );
 };
-
 PatientDetailsForm.propTypes = {
   profileData: objectOf(oneOfType([number, string])).isRequired,
+  patientId: number.isRequired,
+  setUpdateDate: func.isRequired,
 };
 export default PatientDetailsForm;
