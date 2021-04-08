@@ -1,11 +1,14 @@
+@import 'antd/dist/antd.css';
+
+
 .patients-container{
     width: 70vw 
 }
 
 .patients-container .ant-input-group-wrapper {
-    width: 260px !important;
-    float:right !important;
-    padding-bottom: 1.8rem !important;
+    width: 260px ;
+    float:right ;
+    padding-bottom: 1.8rem ;
 }
 
 .patients-container h3{
@@ -13,6 +16,9 @@
 }
 
 .patients-container .ant-spin-spinning{
-    padding: 10rem 0px 0px 34rem !important;
+    padding: 10rem 0px 0px 34rem ;
 }
 
+.patients-container .ant-table-row {
+    cursor: pointer;
+}
