@@ -14,6 +14,8 @@
   },
   "editor.formatOnSave": false,
   "files.eol": "\n",
-  "cSpell.words": [],
+  "cSpell.words": [
+    "Popconfirm"
+  ],
   "cSpell.ignoreWords": ["starticon", "boomify", "middlewares"]
 }
