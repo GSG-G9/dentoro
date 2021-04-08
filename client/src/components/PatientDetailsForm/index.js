@@ -32,15 +32,12 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
 
   const [form] = Form.useForm();
   const onFinish = async (event) => {
-    const { birthday: bb } = event;
-    console.log(bb);
-    console.log(bb.toDate());
+    const { birthday: eventBirthday } = event;
     try {
       await patch(`/api/v1/patients/${patientId}`, {
         ...event,
-        birthday: bb.format('YYYY/MM/DD'),
+        birthday: eventBirthday.format('YYYY-MM-DD'),
       });
-      console.log(event);
     } catch (error) {
       console.log(error.response);
     }
@@ -115,7 +112,7 @@ const PatientDetailsForm = ({ profileData, patientId }) => {
           ]}
         >
           <DatePicker
-            format="YYYY/MM/DD"
+            format="YYYY-MM-DD"
             className="input-background-border-hidden"
           />
         </Form.Item>

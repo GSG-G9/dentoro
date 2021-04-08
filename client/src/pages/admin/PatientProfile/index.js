@@ -26,7 +26,7 @@ function PatientProfile() {
     getPatientHistory();
   }, [patientId, updateDate]);
   return (
-    <div style={{ width: '50%' }}>
+    <div style={{ width: '800px' }}>
       <Title text="Patient Profile" />
       <PatientDetailsForm profileData={profileData} patientId={patientId} />
       <PatientTreatmentForm
