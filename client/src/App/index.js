@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 
-import Patients from '../components/Patients';
+import Patients from '../pages/admin/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
