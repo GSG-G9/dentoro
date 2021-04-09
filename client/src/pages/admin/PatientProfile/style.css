@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: flex-start;
   height: 80vh;
-  overflow: scroll;
+  overflow: auto;
   padding: 0 2rem;
   
 }
