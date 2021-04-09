@@ -16,7 +16,7 @@ import { CloseOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons';
 
 const layout = {
   labelCol: {
-    span: 5,
+    span: 0,
   },
   wrapperCol: {
     span: 80,
