@@ -11,13 +11,13 @@
 /* width */
 ::-webkit-scrollbar {
   width: 2px;
+  height: 2px;
 }
 
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #0797DA;
-  border-radius: 10px;
 }
 
 .patient-profile-loading{
