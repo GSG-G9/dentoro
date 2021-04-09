@@ -1,7 +1,9 @@
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
+
+import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
@@ -9,11 +11,6 @@ import Sidebar from '../components/Sidebar';
 import PatientProfile from '../pages/admin/PatientProfile';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
-const Patients = () => (
-  <h3>
-    <Link to="/dashboard/patients/1">Go To Patient 1</Link> Patients
-  </h3>
-);
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => {
