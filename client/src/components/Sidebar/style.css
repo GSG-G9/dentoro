@@ -77,3 +77,17 @@
 .site-layout-footer {
 	text-align: center;
 }
+
+@media only screen and (max-width: 720px) {
+	.ant-layout-sider{
+		max-width: 80px !important; min-width: 80px !important; width: 80px !important
+	}
+	.logo {
+		visibility: hidden;
+	}
+
+	.ant-layout-sider-trigger{
+		max-width: 80px !important; min-width: 80px !important; width: 80px !important
+
+	}
+}
