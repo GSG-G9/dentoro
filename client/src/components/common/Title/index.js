@@ -7,7 +7,7 @@ import { string } from 'prop-types';
 const { Title } = Typography;
 
 const CustomTitle = ({ text }) => (
-  <Title className="custom-title" level={1}>
+  <Title className="custom-title" level={2}>
     {text}
   </Title>
 );
