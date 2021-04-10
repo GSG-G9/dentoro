@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { get } from 'axios';
 import './style.css';
 import { useParams } from 'react-router-dom';
@@ -11,38 +11,40 @@ import Loading from '../../../components/common/Loading';
 import AlertMessage from '../../../components/common/AlertMessage';
 
 function PatientProfile() {
-  const [historyData, setHistoryData] = useState([]);
-  const [profileData, setProfileData] = useState([]);
+  const [profileData, setProfileData] = useState({
+    history: [],
+    profile: {},
+    balance: 0,
+  });
+  const { history, profile, balance } = profileData;
+
   const [updateDate, setUpdateDate] = useState(0);
-  const [balanceValue, setBalanceValue] = useState(0);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const { patientId } = useParams();
-  useEffect(() => {
-    const getPatientHistory = async () => {
-      try {
+
+  const getPatientProfileData = useCallback(async () => {
+    try {
+      const {
+        data: { data: patientProfileData },
+      } = await get(`/api/v1/patients/${patientId}`);
+      setLoading(false);
+      return setProfileData(patientProfileData);
+    } catch (err) {
+      setLoading(false);
+      if (err.response) {
         const {
-          data: {
-            data: { profile, history, balance },
-          },
-        } = await get(`/api/v1/patients/${patientId}`);
-        setLoading(false);
-        setHistoryData(history);
-        setProfileData(profile);
-        return setBalanceValue(balance);
-      } catch (err) {
-        setLoading(false);
-        if (err.response) {
-          const {
-            response: { data },
-          } = err;
-          return setErrorMessage(data.message ? data.message : data);
-        }
-        return setErrorMessage(err);
+          response: { data },
+        } = err;
+        return setErrorMessage(data.message ? data.message : data);
       }
-    };
-    getPatientHistory();
+      return setErrorMessage(err);
+    }
   }, [patientId, updateDate]);
+
+  useEffect(() => {
+    getPatientProfileData();
+  }, [getPatientProfileData]);
   return (
     <div className="profile-page-container">
       {loading ? (
@@ -61,7 +63,7 @@ function PatientProfile() {
             <>
               <Title text="Patient Profile" />
               <PatientDetailsForm
-                profileData={{ ...profileData, balance: balanceValue }}
+                profileData={{ ...profile, balance }}
                 patientId={patientId}
                 setUpdateDate={setUpdateDate}
               />
@@ -69,7 +71,7 @@ function PatientProfile() {
                 patientId={patientId}
                 setUpdateDate={setUpdateDate}
               />
-              <PatientHistory historyData={historyData} patientId={patientId} />
+              <PatientHistory historyData={history} patientId={patientId} />
             </>
           )}
         </>

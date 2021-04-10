@@ -11,7 +11,7 @@ const columns = ['Description', 'Price', 'Payment', 'Remaining', 'Time'].map(
   })
 );
 
-function PatientHistory({ historyData }) {
+const PatientHistory = ({ historyData }) => {
   const data = historyData.map(
     ({ description, payment, price, log_date: Time }, index) => ({
       key: `${index + 1}`,
@@ -27,7 +27,7 @@ function PatientHistory({ historyData }) {
       <Table columns={columns} dataSource={data} />
     </div>
   );
-}
+};
 
 PatientHistory.propTypes = {
   historyData: arrayOf(objectOf(oneOfType([number, string]))).isRequired,
