@@ -33,7 +33,7 @@ const Patients = () => {
         } = await axios.get(
           `/api/v1/patients/search?${buildUrlQuery({
             firstName: searchQuery,
-            LastName: searchQuery,
+            lastName: searchQuery,
             phone: searchQuery,
           })}`
         );
@@ -41,6 +41,7 @@ const Patients = () => {
         setLoading(false);
         return data;
       }
+      setLoading(true);
       const {
         data: { data },
       } = await axios.get(`/api/v1/patients`);
@@ -119,7 +120,6 @@ const Patients = () => {
         <Spin />
       ) : (
         <Table
-          responsive
           size="small"
           dataSource={dataSource}
           columns={columns}
