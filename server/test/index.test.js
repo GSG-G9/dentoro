@@ -471,48 +471,6 @@ describe('Server Tests', () => {
       };
       return expect(expected).toEqual(res.body);
     });
-    test('GET /api/v1/patients/search?phone="invalidPhone" should return boomify object error', async () => {
-      const res = await request(app)
-        .get('/api/v1/patients/search?phone=invalidPhone')
-        .set('Cookie', [`token=${token}`])
-        .expect('Content-Type', /json/)
-        .expect(400);
-      const expected = {
-        statusCode: 400,
-        error: 'Invalid Query String',
-        message:
-          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
-      };
-      return expect(expected).toEqual(res.body);
-    });
-    test('GET /api/v1/patients/search?firstName="2invalidName@" should return boomify object error', async () => {
-      const res = await request(app)
-        .get('/api/v1/patients/search?firstName=2invalidName@')
-        .set('Cookie', [`token=${token}`])
-        .expect('Content-Type', /json/)
-        .expect(400);
-      const expected = {
-        statusCode: 400,
-        error: 'Invalid Query String',
-        message:
-          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
-      };
-      return expect(expected).toEqual(res.body);
-    });
-    test('GET /api/v1/patients/search?lastName="2invalidName@" should return boomify object error', async () => {
-      const res = await request(app)
-        .get('/api/v1/patients/search?lastName=2invalidName@')
-        .set('Cookie', [`token=${token}`])
-        .expect('Content-Type', /json/)
-        .expect(400);
-      const expected = {
-        statusCode: 400,
-        error: 'Invalid Query String',
-        message:
-          'Please Send an valid firstName or lastName or valid phone with length of 10 like 0599010101',
-      };
-      return expect(expected).toEqual(res.body);
-    });
     test('GET /api/v1/appointments/:appointmentDate should return appointment objects joined with patients data', async () => {
       const expected = {
         statusCode: 200,
