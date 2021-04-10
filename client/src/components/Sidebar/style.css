@@ -69,6 +69,9 @@
 .site-layout-content-body {
 	padding: 24;
 	min-height: 60vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .site-layout-footer {
