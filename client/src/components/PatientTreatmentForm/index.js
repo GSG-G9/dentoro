@@ -60,7 +60,7 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
   return (
     <Form
       form={form}
-      style={{ width: '100%' }}
+      className="patient-treatment-form"
       layout="vertical"
       {...layout}
       name="basic"
@@ -69,10 +69,10 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
       }}
       onFinish={onFinish}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-        <div style={{ width: '100%' }}>
+      <div className="patient-treatment-form-div">
+        <div className="patient-treatment-form-description-div">
           <Form.Item
-            style={{ display: 'flex' }}
+            className="patient-treatment-form-flex"
             label="Description"
             name="description"
             rules={[
@@ -82,16 +82,13 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
               },
             ]}
           >
-            <Input.TextArea rows={3} style={{ width: '100%' }} />
+            <Input.TextArea
+              rows={3}
+              className="patient-treatment-form-full-width"
+            />
           </Form.Item>
         </div>
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-          }}
-        >
+        <div className="patient-treatment-form-full-width-flex">
           <Form.Item
             label="Price"
             name="price"

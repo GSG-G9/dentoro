@@ -1,0 +1,27 @@
+.patient-treatment-form {
+  width: 100%;
+}
+
+.patient-treatment-form-div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.patient-treatment-form-description-div {
+  width: 100%;
+}
+
+.patient-treatment-form-flex{
+  display: flex;
+}
+
+.patient-treatment-form-full-width{
+  width: 100%;
+}
+.patient-treatment-form-full-width-flex{
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+}
+

@@ -51,6 +51,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     lastname: lastName,
     phone,
     balance,
+    email,
   } = profileData;
 
   const [isEditable, setIsEditable] = useState(false);
@@ -83,6 +84,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
     diseases,
     phone,
     balance,
+    email,
     birthday: moment(new Date(birthday).toLocaleDateString(), 'DD/MM/YYYY'),
   });
   return (
@@ -188,17 +190,18 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
       <div className="patient-details-form-flex-style">
         <Form.Item
           className="form-item-width"
-          label="Diseases"
-          name="diseases"
-          initialValue={diseases}
+          label="Email"
+          name="email"
+          initialValue={email}
           rules={[
             {
-              required: true,
-              message: 'Please input Disease!',
+              required: false,
+              message: 'Please input email!',
             },
           ]}
         >
-          <Input.TextArea
+          <Input
+            type="email"
             readOnly={!isEditable}
             bordered={isEditable}
             className="input-background-transparent"
@@ -223,6 +226,26 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
         </Form.Item>
       </div>
 
+      <div className="patient-details-form-diseases">
+        <Form.Item
+          className="form-item-full-width"
+          label="Diseases"
+          name="diseases"
+          initialValue={diseases}
+          rules={[
+            {
+              required: true,
+              message: 'Please input Disease!',
+            },
+          ]}
+        >
+          <Input.TextArea
+            readOnly={!isEditable}
+            bordered={isEditable}
+            className="input-background-transparent"
+          />
+        </Form.Item>
+      </div>
       <Form.Item {...tailLayout}>
         <Button hidden={!isEditable} type="primary" htmlType="submit">
           Edit

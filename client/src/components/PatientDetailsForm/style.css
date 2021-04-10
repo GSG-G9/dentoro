@@ -47,3 +47,16 @@
 .patient-details-form-flex-style{
 	display: flex
 }
+
+.patient-details-form-diseases{
+	width: 100%;
+}
+
+
+.form-item-full-width{
+	width: 100%;
+}
+
+.patient-details-form-diseases .ant-form-item textarea.ant-input {
+    height: 100px;
+}
