@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import { get } from 'axios';
 import { element } from 'prop-types';
 import 'antd/dist/antd.css';
 import './style.css';
-import { Layout, Menu, Typography } from 'antd';
 
+import { Layout, Menu, Typography } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -13,6 +13,9 @@ import {
   MenuFoldOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
+
+import IsAuthContext from '../../Context/isAuthContext';
+
 import logo from '../../assets/images/logo.png';
 import LogoImage from '../common/Image';
 
@@ -20,12 +23,15 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 const Sidebar = ({ children }) => {
   const { pathname } = useLocation();
+  const { setIsAuth } = useContext(IsAuthContext);
+
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsedValue) => setCollapsed(collapsedValue);
   const logoutFunction = async () => {
     await get('/api/v1/logout');
-    history.push('/dashboard/login');
+    setIsAuth(false);
+    history.push('/login');
   };
 
   return (
