@@ -8,7 +8,8 @@ import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
 
-const TodaySchedule = () => <h3>Today Schedule</h3>;
+import TodaySchedule from '../pages/TodaySchedule';
+
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => {

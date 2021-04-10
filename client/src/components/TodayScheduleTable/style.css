@@ -1,0 +1,13 @@
+.editable-row .ant-form-item-explain {
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+  }
+
+.site-layout-content {
+  justify-content: end;
+}
+
+.ant-spin-container {
+  width: 70vw;
+}
