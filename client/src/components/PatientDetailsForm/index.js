@@ -89,6 +89,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
   });
   return (
     <Form
+      requiredMark={false}
       form={form}
       className="patient-details-form"
       {...layout}

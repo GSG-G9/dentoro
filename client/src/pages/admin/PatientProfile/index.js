@@ -64,14 +64,14 @@ function PatientProfile() {
               <Title text="Patient Profile" />
               <PatientDetailsForm
                 profileData={{ ...profile, balance }}
-                patientId={patientId}
+                patientId={+patientId}
                 setUpdateDate={setUpdateDate}
               />
               <PatientTreatmentForm
-                patientId={patientId}
+                patientId={+patientId}
                 setUpdateDate={setUpdateDate}
               />
-              <PatientHistory historyData={history} patientId={patientId} />
+              <PatientHistory historyData={history} patientId={+patientId} />
             </>
           )}
         </>

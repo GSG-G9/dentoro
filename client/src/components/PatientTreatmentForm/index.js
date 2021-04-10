@@ -59,6 +59,7 @@ const PatientTreatmentForm = ({ patientId, setUpdateDate }) => {
 
   return (
     <Form
+      requiredMark={false}
       form={form}
       className="patient-treatment-form"
       layout="vertical"
