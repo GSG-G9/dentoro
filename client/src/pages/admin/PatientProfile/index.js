@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { get } from 'axios';
 import './style.css';
 import { useParams } from 'react-router-dom';
@@ -23,7 +23,7 @@ function PatientProfile() {
   const [errorMessage, setErrorMessage] = useState('');
   const { patientId } = useParams();
 
-  const getPatientProfileData = useCallback(async () => {
+  const getPatientProfileData = async () => {
     try {
       const {
         data: { data: patientProfileData },
@@ -40,11 +40,11 @@ function PatientProfile() {
       }
       return setErrorMessage(err);
     }
-  }, [patientId, updateDate]);
+  };
 
   useEffect(() => {
     getPatientProfileData();
-  }, [getPatientProfileData]);
+  }, [patientId, updateDate]);
   return (
     <div className="profile-page-container">
       {loading ? (
