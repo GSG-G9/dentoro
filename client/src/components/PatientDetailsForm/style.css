@@ -1,0 +1,62 @@
+.input-background-transparent {
+	background-color: transparent;
+	font-weight: 800;
+}
+
+.date-picker-div{
+	display: flex;
+}
+
+.date-picker-div .ant-picker-input > input[disabled] {
+	color: black;
+}
+
+.patient-details-form label {
+	width: 80px;
+}
+
+.balance-style-positive {
+	color:green;
+}
+.balance-style-negative {
+	color: red;
+}
+
+
+.form-item-width {
+	width: 50%;
+}
+.patient-details-form{
+	width: 100%;
+}
+
+.patient-details-form .ant-input-number-input {
+	font-weight: 800;
+}
+
+.edit-icon-style {
+	font-size: 1.5rem;
+	color: #0797DA;
+}
+
+.edit-icon-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.patient-details-form-flex-style{
+	display: flex
+}
+
+.patient-details-form-diseases{
+	width: 100%;
+}
+
+
+.form-item-full-width{
+	width: 100%;
+}
+
+.patient-details-form-diseases .ant-form-item textarea.ant-input {
+    height: 100px;
+}

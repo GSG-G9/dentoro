@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import LoginPage from '../pages/logIn';
 import TodaySchedule from '../pages/TodaySchedule';
 import Patients from '../components/Patients';
+import PatientProfile from '../pages/admin/PatientProfile';
 
 import './App.css';
 
@@ -51,6 +52,9 @@ const App = () => {
                 <Route exact path="/dashboard/patients">
                   <Patients />
                 </Route>
+                <Route exact path="/dashboard/patients/:patientId">
+                  <PatientProfile />
+                </Route>
                 <Redirect to="/404" />
               </Switch>
             </Sidebar>
@@ -58,6 +62,7 @@ const App = () => {
           <Route>
             <h1>Error 404 Not Found !!</h1>
           </Route>
+          <Redirect to="/404" />
         </Switch>
       </IsAuthContext.Provider>
     </div>
