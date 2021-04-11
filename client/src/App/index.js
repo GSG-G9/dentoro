@@ -7,9 +7,10 @@ import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
+import Calender from '../pages/admin/Calender';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
-const Calender = () => <h3>Calender</h3>;
+// const Calender = () => <h3>Calender</h3>;
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
