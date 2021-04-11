@@ -7,6 +7,7 @@ import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
 const Calender = () => <h3>Calender</h3>;
@@ -33,7 +34,7 @@ const App = () => {
       <IsAuthContext.Provider value={{ setIsAuth }}>
         <Switch>
           <Route exact path="/">
-            Home
+            <Header />
           </Route>
           <Route exact path="/login">
             <LoginPage />
