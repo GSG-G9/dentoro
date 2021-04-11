@@ -37,14 +37,14 @@ const ADayScheduleTable = ({ dayDate }) => {
         if (!unmounted) {
           const newData = data.map((item) => ({
             key: item.appointments_id,
-            appointmentDate: item.appointment_date.slice(0, 10),
+            appointmentDate: moment(item.appointment_date).format('YYYY-MM-DD'),
             appointmentTime: item.appointment_time,
             firstName: item.firstname,
             lastName: item.lastname,
             isDone: item.is_done,
             age:
-              parseInt(dayDate.slice(0, 4), 10) -
-              parseInt(item.birthday.slice(0, 4), 10),
+              moment(dayDate).format('YYYY') -
+              moment(item.birthday).format('YYYY'),
           }));
           setAppointmentsData(newData);
           setLoading(false);

@@ -5,7 +5,7 @@ import CustomTitle from '../../components/common/Title';
 const TodaySchedule = () => (
   <div>
     <CustomTitle text="Today Schedule" />
-    <ADayScheduleTable />
+    <ADayScheduleTable dayDate="2021-12-02" />
   </div>
 );
 export default TodaySchedule;
