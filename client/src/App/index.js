@@ -1,19 +1,34 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
-
+import CalendarSearch from '../components/CalendarSearch';
 import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
-import Calender from '../pages/admin/Calender';
+import Calendar from '../pages/admin/Calendar';
 
 import PatientProfile from '../pages/admin/PatientProfile';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
-// const Calender = () => <h3>Calender</h3>;
+// const Calendar = () => <h3>Calendar</h3>;
+const AppointmentTable = () => <h3>AppointmentTable</h3>;
 
+const PatientsAppointmentTable = () => {
+  const {
+    state: { state },
+  } = useLocation();
+  return (
+    <div style={{ width: '100%' }}>
+      <h3>PatientsAppointmentTable</h3>
+      <CalendarSearch />
+      {state.map((item) => (
+        <p>{item.firstname}</p>
+      ))}
+    </div>
+  );
+};
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
 
@@ -47,8 +62,14 @@ const App = () => {
                 <Route exact path="/dashboard">
                   <TodaySchedule />
                 </Route>
-                <Route exact path="/dashboard/calender">
-                  <Calender />
+                <Route exact path="/dashboard/calendar">
+                  <Calendar />
+                </Route>
+                <Route exact path="/dashboard/calendar/appointmentsearch">
+                  <PatientsAppointmentTable />
+                </Route>
+                <Route exact path="/dashboard/calendar/:appointmentDate">
+                  <AppointmentTable />
                 </Route>
                 <Route exact path="/dashboard/patients">
                   <Patients />

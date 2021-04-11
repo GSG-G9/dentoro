@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './style.css';
+import { useHistory } from 'react-router-dom';
 
-import { Calendar, Alert } from 'antd';
+import { Calendar } from 'antd';
 import moment from 'moment';
 
-const Calender = () => {
+const CalendarComponent = () => {
   const [value, setValue] = useState(moment());
-  const [selectedValue, setSelectedValue] = useState(moment());
+  const history = useHistory();
 
   const onSelect = (date) => {
     setValue(date);
-    setSelectedValue(date);
+    history.push(`/dashboard/calendar/${date.format('YYYY-MM-DD')}`);
   };
 
   const onPanelChange = (date) => {
@@ -19,11 +20,6 @@ const Calender = () => {
 
   return (
     <div>
-      <Alert
-        message={`You selected date: ${
-          selectedValue && selectedValue.format('YYYY-MM-DD')
-        }`}
-      />
       <Calendar
         fullscreen={false}
         value={value}
@@ -34,4 +30,4 @@ const Calender = () => {
   );
 };
 
-export default Calender;
+export default CalendarComponent;
