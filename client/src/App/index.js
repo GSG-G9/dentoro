@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
+
+import PatientProfile from '../pages/admin/PatientProfile';
 
 const TodaySchedule = () => <h3>Today Schedule</h3>;
 const Calender = () => <h3>Calender</h3>;
@@ -50,6 +52,9 @@ const App = () => {
                 <Route exact path="/dashboard/patients">
                   <Patients />
                 </Route>
+                <Route exact path="/dashboard/patients/:patientId">
+                  <PatientProfile />
+                </Route>
                 <Redirect to="/404" />
               </Switch>
             </Sidebar>
@@ -57,6 +62,7 @@ const App = () => {
           <Route>
             <h1>Error 404 Not Found !!</h1>
           </Route>
+          <Redirect to="/404" />
         </Switch>
       </IsAuthContext.Provider>
     </div>
