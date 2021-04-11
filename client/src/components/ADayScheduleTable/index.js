@@ -34,8 +34,6 @@ const ADayScheduleTable = ({ dayDate }) => {
   const [checked, setChecked] = useState('false');
   const [error, setError] = useState('');
 
-  // const today = '2021-12-02';
-
   const isEditing = (record) => record.key === editingKey;
   useEffect(() => {
     let unmounted = false;
@@ -62,7 +60,6 @@ const ADayScheduleTable = ({ dayDate }) => {
       .catch((e) => {
         if (!unmounted) {
           setError(e.message);
-          // setErrorMessage(e.message);
           setLoading(false);
           if (axios.isCancel(e)) {
             console.log(`request cancelled:${e.message}`);
@@ -110,12 +107,12 @@ const ADayScheduleTable = ({ dayDate }) => {
 
       if (index > -1) {
         const { appointmentDate, appointmentTime } = row;
-        const res = await axios.patch(`/api/v1/appointments/${key}/time`, {
+        await axios.patch(`/api/v1/appointments/${key}/time`, {
           appointmentDate,
           appointmentTime,
           isDone: appointmentsData[index].isDone,
         });
-        console.log(res);
+
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         setAppointmentsData(newData);
@@ -192,7 +189,7 @@ const ADayScheduleTable = ({ dayDate }) => {
       render: (_, { key, isDone }) => (
         <Popconfirm
           disabled={isDone}
-          title="Sure to cancel?"
+          title="Sure to check?"
           onConfirm={() => {
             check(key);
           }}
@@ -294,7 +291,7 @@ const ADayScheduleTable = ({ dayDate }) => {
                   onClick={() => save(record.key)}
                 />
 
-                <Popconfirm title="Sure to check?" onConfirm={cancel}>
+                <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
                   <CloseOutlined className="cancel-edit-icon icon" />
                 </Popconfirm>
               </span>
@@ -314,7 +311,7 @@ const ADayScheduleTable = ({ dayDate }) => {
   return (
     <div>
       {loading ? (
-        <Loading />
+        <Loading size="large" />
       ) : error ? (
         <AlertMessage
           message="Error"
@@ -341,7 +338,11 @@ const ADayScheduleTable = ({ dayDate }) => {
 };
 
 ADayScheduleTable.propTypes = {
-  dayDate: PropTypes.string.isRequired,
+  dayDate: PropTypes.string,
+};
+
+ADayScheduleTable.defaultProps = {
+  dayDate: moment().format('YYYY-MM-DD').toString(),
 };
 
 export default ADayScheduleTable;
