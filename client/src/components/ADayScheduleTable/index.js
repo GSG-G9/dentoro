@@ -3,14 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-import {
-  Table,
-  Popconfirm,
-  Form,
-  DatePicker,
-  TimePicker,
-  Checkbox,
-} from 'antd';
+import { Table, Popconfirm, DatePicker, TimePicker, Checkbox } from 'antd';
 import {
   EditOutlined,
   CheckOutlined,
@@ -25,7 +18,6 @@ import Loading from '../common/Loading';
 import AlertMessage from '../common/AlertMessage';
 
 const ADayScheduleTable = ({ dayDate }) => {
-  const [form] = Form.useForm();
   const [appointmentsData, setAppointmentsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
@@ -33,6 +25,7 @@ const ADayScheduleTable = ({ dayDate }) => {
   const [time, setTime] = useState('');
   const [checked, setChecked] = useState('false');
   const [error, setError] = useState('');
+  const [update, setUpdate] = useState(false);
 
   const isEditing = (record) => record.key === editingKey;
   useEffect(() => {
@@ -55,6 +48,7 @@ const ADayScheduleTable = ({ dayDate }) => {
           }));
           setAppointmentsData(newData);
           setLoading(false);
+          setUpdate(false);
         }
       })
       .catch((e) => {
@@ -72,7 +66,7 @@ const ADayScheduleTable = ({ dayDate }) => {
       unmounted = true;
       source.cancel('Cancelling in cleanup');
     };
-  }, []);
+  }, [update]);
 
   const onDateChange = (_, dateStr) => {
     setDate(dateStr);
@@ -83,13 +77,6 @@ const ADayScheduleTable = ({ dayDate }) => {
   };
 
   const edit = (record) => {
-    form.setFieldsValue({
-      name: '',
-      age: '',
-      appointmentTime: '',
-      appointmentDate: '',
-      ...record,
-    });
     setEditingKey(record.key);
     setDate(record.appointmentDate);
     setTime(record.appointmentTime);
@@ -113,15 +100,17 @@ const ADayScheduleTable = ({ dayDate }) => {
           isDone: appointmentsData[index].isDone,
         });
 
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setAppointmentsData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setAppointmentsData(newData);
+        // const item = newData[index];
+        // newData.splice(index, 1, { ...item, ...row });
+        // setAppointmentsData(newData);
+        setUpdate(true);
         setEditingKey('');
       }
+      //  else {
+      //   newData.push(row);
+      //   setAppointmentsData(newData);
+      //   setEditingKey('');
+      // }
     } catch (errInfo) {
       setError(
         errInfo.response
@@ -140,12 +129,7 @@ const ADayScheduleTable = ({ dayDate }) => {
         await axios.patch(`/api/v1/appointments/${key}/status`, {
           isDone: appointmentsData[index].isDone,
         });
-        const item = newData[index];
-        newData.splice(index, 1);
-        newData.push({ ...item, ...{ isDone: true } });
-        setAppointmentsData(newData);
-      } else {
-        setAppointmentsData(newData);
+        setUpdate(true);
       }
     } catch (errInfo) {
       setError(
@@ -158,15 +142,9 @@ const ADayScheduleTable = ({ dayDate }) => {
 
   const deleteCell = async (key) => {
     try {
-      const newData = [...appointmentsData];
-      const index = newData.findIndex((item) => key === item.key);
-
-      if (index > -1) {
-        await axios.delete(`/api/v1/appointments/${key}`);
-        newData.splice(index, 1);
-        setAppointmentsData(newData);
-        setEditingKey('');
-      }
+      await axios.delete(`/api/v1/appointments/${key}`);
+      setUpdate(true);
+      setEditingKey('');
     } catch (errInfo) {
       setError(
         errInfo.response
