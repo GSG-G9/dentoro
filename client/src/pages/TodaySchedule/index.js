@@ -1,14 +1,12 @@
 import React from 'react';
-import { Typography } from 'antd';
-import TodayScheduleTable from '../../components/TodayScheduleTable';
-import './style.css';
+import ADayScheduleTable from '../../components/ADayScheduleTable';
+import CustomTitle from '../../components/common/Title';
 
-const { Title } = Typography;
-
+const dayDate = '2021-12-02';
 const TodaySchedule = () => (
-  <div className="loginBody">
-    <Title level={2}>Today Schedule</Title>
-    <TodayScheduleTable />
+  <div>
+    <CustomTitle text="Today Schedule" />
+    <ADayScheduleTable dayDate={dayDate} />
   </div>
 );
 export default TodaySchedule;

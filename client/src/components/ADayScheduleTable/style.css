@@ -11,3 +11,20 @@
 .ant-spin-container {
   width: 70vw;
 }
+
+.icon{ 
+  font-size: 21px; 
+  margin: 0 10px; 
+}
+
+.delete-icon{
+  color: red; 
+}
+
+.confirm-edit-icon{
+  color: green;
+}
+
+.cancel-edit-icon{
+  color: red;
+}

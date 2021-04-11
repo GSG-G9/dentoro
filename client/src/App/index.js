@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import './App.css';
 
-import Patients from '../components/Patients';
-import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
-
+import LoginPage from '../pages/logIn';
 import TodaySchedule from '../pages/TodaySchedule';
+import Patients from '../components/Patients';
+
+import './App.css';
 
 const Calender = () => <h3>Calender</h3>;
 

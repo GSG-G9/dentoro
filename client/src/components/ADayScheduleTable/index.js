@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import 'antd/dist/antd.css';
-import './style.css';
-// import PropTypes from 'prop-types';
+import axios from 'axios';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+
 import {
   Table,
   Popconfirm,
@@ -9,7 +10,6 @@ import {
   DatePicker,
   TimePicker,
   Checkbox,
-  Alert,
 } from 'antd';
 import {
   EditOutlined,
@@ -17,13 +17,16 @@ import {
   CloseOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
-import axios from 'axios';
-import moment from 'moment';
 
-const TodayScheduleTable = () => {
-  // console.log(srvData, 'hi');
+import 'antd/dist/antd.css';
+import './style.css';
+
+import Loading from '../common/Loading';
+import AlertMessage from '../common/AlertMessage';
+
+const ADayScheduleTable = ({ dayDate }) => {
   const [form] = Form.useForm();
-  const [srvData, setSrvData] = useState([]);
+  const [appointmentsData, setAppointmentsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [date, setDate] = useState('');
@@ -31,14 +34,14 @@ const TodayScheduleTable = () => {
   const [checked, setChecked] = useState('false');
   const [error, setError] = useState('');
 
-  const today = '2021-12-02';
+  // const today = '2021-12-02';
 
   const isEditing = (record) => record.key === editingKey;
   useEffect(() => {
     let unmounted = false;
     const source = axios.CancelToken.source();
     axios
-      .get(`/api/v1/appointments/${today}`)
+      .get(`/api/v1/appointments/${dayDate}`)
       .then(({ data: { data } }) => {
         if (!unmounted) {
           const newData = data.map((item) => ({
@@ -49,10 +52,10 @@ const TodayScheduleTable = () => {
             lastName: item.lastname,
             isDone: item.is_done,
             age:
-              parseInt(today.slice(0, 4), 10) -
+              parseInt(dayDate.slice(0, 4), 10) -
               parseInt(item.birthday.slice(0, 4), 10),
           }));
-          setSrvData(newData);
+          setAppointmentsData(newData);
           setLoading(false);
         }
       })
@@ -73,10 +76,6 @@ const TodayScheduleTable = () => {
       source.cancel('Cancelling in cleanup');
     };
   }, []);
-
-  // useEffect(() => {
-  //   setDate(srvData);
-  // }, [srvData]);
 
   const onDateChange = (_, dateStr) => {
     setDate(dateStr);
@@ -106,7 +105,7 @@ const TodayScheduleTable = () => {
   const save = async (key) => {
     try {
       const row = { appointmentDate: date, appointmentTime: time };
-      const newData = [...srvData];
+      const newData = [...appointmentsData];
       const index = newData.findIndex((item) => key === item.key);
 
       if (index > -1) {
@@ -114,16 +113,16 @@ const TodayScheduleTable = () => {
         const res = await axios.patch(`/api/v1/appointments/${key}/time`, {
           appointmentDate,
           appointmentTime,
-          isDone: srvData[index].isDone,
+          isDone: appointmentsData[index].isDone,
         });
         console.log(res);
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
-        setSrvData(newData);
+        setAppointmentsData(newData);
         setEditingKey('');
       } else {
         newData.push(row);
-        setSrvData(newData);
+        setAppointmentsData(newData);
         setEditingKey('');
       }
     } catch (errInfo) {
@@ -137,19 +136,19 @@ const TodayScheduleTable = () => {
 
   const check = async (key) => {
     try {
-      const newData = [...srvData];
+      const newData = [...appointmentsData];
       const index = newData.findIndex((item) => key === item.key);
 
       if (index > -1) {
         await axios.patch(`/api/v1/appointments/${key}/status`, {
-          isDone: srvData[index].isDone,
+          isDone: appointmentsData[index].isDone,
         });
         const item = newData[index];
         newData.splice(index, 1);
         newData.push({ ...item, ...{ isDone: true } });
-        setSrvData(newData);
+        setAppointmentsData(newData);
       } else {
-        setSrvData(newData);
+        setAppointmentsData(newData);
       }
     } catch (errInfo) {
       setError(
@@ -162,13 +161,13 @@ const TodayScheduleTable = () => {
 
   const deleteCell = async (key) => {
     try {
-      const newData = [...srvData];
+      const newData = [...appointmentsData];
       const index = newData.findIndex((item) => key === item.key);
 
       if (index > -1) {
         await axios.delete(`/api/v1/appointments/${key}`);
         newData.splice(index, 1);
-        // setSrvData(newData);
+        setAppointmentsData(newData);
         setEditingKey('');
       }
     } catch (errInfo) {
@@ -273,6 +272,7 @@ const TodayScheduleTable = () => {
     {
       title: 'operation',
       dataIndex: 'operation',
+      width: '15%',
       render: (_, record) => {
         const editable = isEditing(record);
         return (
@@ -283,29 +283,24 @@ const TodayScheduleTable = () => {
               onConfirm={() => deleteCell(record.key)}
             >
               <DeleteOutlined
-                style={{ color: 'red', fontSize: '21px', margin: '0 10px' }}
+                className="delete-icon icon"
                 disabled={editingKey !== ''}
               />
             </Popconfirm>
             {editable ? (
               <span>
                 <CheckOutlined
-                  style={{ color: 'red', fontSize: '21px', margin: '0 10px' }}
+                  className="confirm-edit-icon icon"
                   onClick={() => save(record.key)}
                 />
 
                 <Popconfirm title="Sure to check?" onConfirm={cancel}>
-                  <CloseOutlined
-                    style={{
-                      color: 'green',
-                      fontSize: '21px',
-                      margin: '0 10px',
-                    }}
-                  />
+                  <CloseOutlined className="cancel-edit-icon icon" />
                 </Popconfirm>
               </span>
             ) : (
               <EditOutlined
+                className="icon"
                 style={{ fontSize: '21px', margin: '0 10px' }}
                 onClick={() => (record.isDone ? null : edit(record))}
               />
@@ -315,53 +310,38 @@ const TodayScheduleTable = () => {
       },
     },
   ];
-  // const mergedColumns = columns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
 
-  //   return {
-  //     // ...col,
-  //     // onCell: (record) => ({
-  //     //   record,
-  //     //   inputType: col.dataIndex === 'age' ? 'number' : 'text',
-  //     //   dataIndex: col.dataIndex,
-  //     //   title: col.title,
-  //     //   editing: isEditing(record),
-  //     // }),
-  //   };
-  // });
   return (
-    <Form form={form} component={false}>
-      {loading ? <h1>loading</h1> : null}
-      {error && <Alert message={error} type="error" showIcon />}
-      <Table
-        style={{
-          width: '60%',
-        }}
-        bordered
-        dataSource={srvData}
-        columns={columns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
-      />
-    </Form>
+    <div>
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <AlertMessage
+          message="Error"
+          type="error"
+          description={error}
+          showIcon
+        />
+      ) : (
+        <Table
+          style={{
+            width: '60%',
+          }}
+          bordered
+          dataSource={appointmentsData}
+          columns={columns}
+          rowClassName="editable-row"
+          pagination={{
+            onChange: cancel,
+          }}
+        />
+      )}
+    </div>
   );
 };
 
-// TodayScheduleTable.propTypes = {
-//   srvData: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       key: PropTypes.number.isRequired,
-//       firstName: PropTypes.string.isRequired,
-//       lastName: PropTypes.string.isRequired,
-//       appointmentDate: PropTypes.string.isRequired,
-//       appointmentTime: PropTypes.string.isRequired,
-//       age: PropTypes.number,
-//     }).isRequired
-//   ).isRequired,
-// };
+ADayScheduleTable.propTypes = {
+  dayDate: PropTypes.string.isRequired,
+};
 
-export default TodayScheduleTable;
+export default ADayScheduleTable;
