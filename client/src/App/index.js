@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import './App.css';
 
-import Patients from '../components/Patients';
-import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
+import LoginPage from '../pages/logIn';
+import TodaySchedule from '../pages/TodaySchedule';
+import Patients from '../components/Patients';
+import PatientProfile from '../pages/admin/PatientProfile';
+import LandingPage from '../pages/LandingPage';
 
-const TodaySchedule = () => <h3>Today Schedule</h3>;
+import './App.css';
+
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => {
@@ -34,7 +36,7 @@ const App = () => {
       <IsAuthContext.Provider value={{ setIsAuth }}>
         <Switch>
           <Route exact path="/">
-            <Header />
+            <LandingPage />
           </Route>
           <Route exact path="/login">
             <LoginPage />
@@ -51,6 +53,9 @@ const App = () => {
                 <Route exact path="/dashboard/patients">
                   <Patients />
                 </Route>
+                <Route exact path="/dashboard/patients/:patientId">
+                  <PatientProfile />
+                </Route>
                 <Redirect to="/404" />
               </Switch>
             </Sidebar>
@@ -58,6 +63,7 @@ const App = () => {
           <Route>
             <h1>Error 404 Not Found !!</h1>
           </Route>
+          <Redirect to="/404" />
         </Switch>
       </IsAuthContext.Provider>
     </div>

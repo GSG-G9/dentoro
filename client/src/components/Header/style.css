@@ -46,10 +46,10 @@ visibility: hidden
 
 .account-link {
     color: #000;
-  }
+}
 .account-link:hover {
-     color: #52CDDE
-  }
+    color: #52CDDE
+}
 
 .Nav-Tap{
     background-color:#2E282D;
@@ -143,17 +143,15 @@ visibility: hidden
         margin-left: 1rem !important;
     }
 
-    .ant-menu > .ant-menu-item:hover,
-.ant-menu > .ant-menu-submenu:hover,
-.ant-menu > .ant-menu-item-active,
-.ant-menu> .ant-menu-submenu-active,
-.ant-menu > .ant-menu-item-open,
-.ant-menu> .ant-menu-submenu-open,
-.ant-menu > .ant-menu-item-selected,
-.ant-menu > .ant-menu-submenu-selected {
-    background-color: #2E282D  !important;
-    padding-top: -2rem;
-}
-
-
+        .ant-menu > .ant-menu-item:hover,
+    .ant-menu > .ant-menu-submenu:hover,
+    .ant-menu > .ant-menu-item-active,
+    .ant-menu> .ant-menu-submenu-active,
+    .ant-menu > .ant-menu-item-open,
+    .ant-menu> .ant-menu-submenu-open,
+    .ant-menu > .ant-menu-item-selected,
+    .ant-menu > .ant-menu-submenu-selected {
+        background-color: #2E282D  !important;
+        padding-top: -2rem;
+    }
 }

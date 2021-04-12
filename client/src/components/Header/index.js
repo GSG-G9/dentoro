@@ -36,7 +36,7 @@ const NavTap = () => (
           icon={<BellOutlined className="icon-top" />}
         >
           Openings Hours <br />
-          From 9 AM to 5 PM
+          From 8 AM to 6 PM
         </Menu.Item>
         <Menu.Item
           className="details-body"
