@@ -1,0 +1,29 @@
+.profile-page-container {
+	width: 70%;
+	display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 80vh;
+  overflow: auto;
+  padding: 0 2rem;
+  
+}
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0797DA;
+}
+
+.patient-profile-loading{
+  margin-top: 5rem;
+}
+
+.patient-profile-alert-message{
+  margin-top: 5rem;
+}
