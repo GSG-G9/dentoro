@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Button } from 'antd';
+import { Menu, Button, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import {
   DownOutlined,
@@ -14,6 +14,8 @@ import './style.css';
 import LogoImage from '../common/Image';
 import logo from '../../assets/images/logo.png';
 
+const { Title } = Typography;
+
 const NavTap = () => (
   <div className="header-container">
     <div className="info">
@@ -24,7 +26,7 @@ const NavTap = () => (
         </Link>
       </Button>
       <hr className="line" />
-      <h5>Welcome to Dental Clinic</h5>
+      <Title level={5}>Welcome to Dental Clinic</Title>
       <hr />
       <LogoImage
         src={logo}
