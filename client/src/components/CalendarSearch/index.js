@@ -1,49 +1,16 @@
 import React, { useState } from 'react';
-import { Input, message, Select, Button, Form } from 'antd';
-import { get } from 'axios';
+import { Input, Select, Button, Form } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './style.css';
 
 const { Option } = Select;
 
-const successMessage = (dataCount) => {
-  message.success({
-    content: `Success! Result Count : ${dataCount}`,
-  });
-};
-
-const failedMessage = (errorMessage = '') => {
-  message.error({
-    content: `Failed! ${errorMessage ? `${errorMessage}` : errorMessage}`,
-  });
-};
-
 const CalendarSearch = () => {
   const history = useHistory();
   const [selectOption, setSelectOption] = useState('name');
-  const searchFunction = async (params) => {
-    const hideLoadingMessage = message.loading('Action in progress..', 1);
-    try {
-      const {
-        data: { data },
-      } = await get('/api/v1/appointments/search', {
-        params,
-      });
-      hideLoadingMessage.then(() => successMessage(data.length));
-      return (
-        data.length &&
-        history.push('/dashboard/calendar/appointmentsearch', { state: data })
-      );
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
-        return hideLoadingMessage.then(() =>
-          failedMessage(data.message ? data.message : data)
-        );
-      }
-      return hideLoadingMessage.then(() => failedMessage());
-    }
-  };
+  const searchFunction = (params) =>
+    history.push('/dashboard/calendar/appointmentsearch', { params });
+
   return (
     <Form
       requiredMark={false}

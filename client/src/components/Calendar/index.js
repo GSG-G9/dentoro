@@ -11,7 +11,10 @@ const CalendarComponent = () => {
 
   const onSelect = (date) => {
     setValue(date);
-    history.push(`/dashboard/calendar/${date.format('YYYY-MM-DD')}`);
+    const dateFormat = date.format('YYYY-MM-DD');
+    history.push(`/dashboard/calendar/${dateFormat}`, {
+      date: dateFormat,
+    });
   };
 
   const onPanelChange = (date) => {
