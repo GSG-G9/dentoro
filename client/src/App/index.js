@@ -1,16 +1,15 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
-// import axios from 'axios';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
-import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
+import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
+import Patients from '../components/Patients';
 
 import './App.css';
 
-const TodaySchedule = () => <h3>Today Schedule</h3>;
 const Calender = () => <h3>Calender</h3>;
 
 const App = () => {
