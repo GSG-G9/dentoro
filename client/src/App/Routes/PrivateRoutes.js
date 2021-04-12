@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { useAuth } from '../../Context/isAuthContext';
+import Loading from '../../components/common/Loading';
 
 const PrivateRoutes = ({ children, ...otherProps }) => {
   const [isAuth] = useAuth();
@@ -10,7 +11,10 @@ const PrivateRoutes = ({ children, ...otherProps }) => {
   if (isAuth) {
     return <Route {...otherProps}>{children}</Route>;
   }
-  return <Redirect to="/login" />;
+  if (isAuth === false) {
+    return <Redirect to="/login" />;
+  }
+  return <Loading size="large" />;
 };
 
 PrivateRoutes.propTypes = {
