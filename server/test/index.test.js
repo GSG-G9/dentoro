@@ -104,7 +104,7 @@ describe('Server Tests', () => {
     test('getAppointmentsByDate query should return appointment objects joined with patients data', async () => {
       const expected = [
         {
-          appointments_id: 2,
+          appointment_id: 2,
           id: 1,
           patient_id: 1,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
@@ -121,7 +121,7 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
         {
-          appointments_id: 8,
+          appointment_id: 8,
           id: 2,
           patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
@@ -519,7 +519,7 @@ describe('Server Tests', () => {
         message: 'success',
         data: [
           {
-            appointments_id: 2,
+            appointment_id: 2,
             id: 1,
             patient_id: 1,
             appointment_date: '2020-12-02T00:00:00.000Z',
@@ -536,7 +536,7 @@ describe('Server Tests', () => {
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
           },
           {
-            appointments_id: 8,
+            appointment_id: 8,
             id: 2,
             patient_id: 2,
             appointment_date: '2020-12-02T00:00:00.000Z',
