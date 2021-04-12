@@ -88,29 +88,17 @@ const ADayScheduleTable = ({ dayDate }) => {
 
   const save = async (key) => {
     try {
-      const row = { appointmentDate: date, appointmentTime: time };
-      const newData = [...appointmentsData];
-      const index = newData.findIndex((item) => key === item.key);
-
+      const index = appointmentsData.findIndex((item) => key === item.key);
       if (index > -1) {
-        const { appointmentDate, appointmentTime } = row;
         await axios.patch(`/api/v1/appointments/${key}/time`, {
-          appointmentDate,
-          appointmentTime,
+          appointmentDate: date,
+          appointmentTime: time,
           isDone: appointmentsData[index].isDone,
         });
 
-        // const item = newData[index];
-        // newData.splice(index, 1, { ...item, ...row });
-        // setAppointmentsData(newData);
         setUpdate(true);
         setEditingKey('');
       }
-      //  else {
-      //   newData.push(row);
-      //   setAppointmentsData(newData);
-      //   setEditingKey('');
-      // }
     } catch (errInfo) {
       setError(
         errInfo.response
@@ -122,8 +110,7 @@ const ADayScheduleTable = ({ dayDate }) => {
 
   const check = async (key) => {
     try {
-      const newData = [...appointmentsData];
-      const index = newData.findIndex((item) => key === item.key);
+      const index = appointmentsData.findIndex((item) => key === item.key);
 
       if (index > -1) {
         await axios.patch(`/api/v1/appointments/${key}/status`, {
