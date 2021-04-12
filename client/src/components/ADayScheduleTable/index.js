@@ -156,7 +156,7 @@ const ADayScheduleTable = ({ dayDate }) => {
 
   const columns = [
     {
-      title: 'Stats',
+      title: 'Status',
       dataIndex: 'isDone',
       defaultSortOrder: 'ascend',
       width: '5%',
@@ -186,17 +186,17 @@ const ADayScheduleTable = ({ dayDate }) => {
       ),
     },
     {
-      title: 'first Name',
+      title: 'First Name',
       dataIndex: 'firstName',
       width: '15%',
     },
     {
-      title: 'last Name',
+      title: 'Last Name',
       dataIndex: 'lastName',
       width: '15%',
     },
     {
-      title: 'age',
+      title: 'Age',
       dataIndex: 'age',
       width: '5%',
     },
@@ -245,7 +245,7 @@ const ADayScheduleTable = ({ dayDate }) => {
       },
     },
     {
-      title: 'operation',
+      title: 'Operation',
       dataIndex: 'operation',
       width: '15%',
       render: (_, record) => {
