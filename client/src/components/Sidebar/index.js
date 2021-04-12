@@ -36,7 +36,13 @@ const Sidebar = ({ children }) => {
 
   return (
     <Layout className="page-layout">
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        collapsible
+        breakpoint="lg"
+        collapsedWidth="80"
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+      >
         <div className={collapsed ? 'logo logo-hidden' : 'logo'}>
           <LogoImage
             src={logo}

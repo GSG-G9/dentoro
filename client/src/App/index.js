@@ -1,6 +1,5 @@
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import axios from 'axios';
 import CalendarSearch from '../components/CalendarSearch';
 import Patients from '../components/Patients';
@@ -8,10 +7,11 @@ import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../pages/admin/Calendar';
-
+import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
 
-const TodaySchedule = () => <h3>Today Schedule</h3>;
+import './App.css';
+
 // const Calendar = () => <h3>Calendar</h3>;
 const AppointmentTable = () => <h3>AppointmentTable</h3>;
 
@@ -30,9 +30,7 @@ const PatientsAppointmentTable = () => {
   );
 };
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
-
-  console.log(isAuth);
+  const [, setIsAuth] = useState(false);
 
   const checkAuth = async () => {
     try {
