@@ -1,13 +1,11 @@
 import React, { useContext, useState, createContext, useEffect } from 'react';
-import { element, arrayOf } from 'prop-types';
+import { element } from 'prop-types';
 import { get } from 'axios';
 
 const IsAuthContext = createContext(false);
 
-export default IsAuthContext;
-
 export const AuthProvider = ({ children }) => {
-  const authState = useState(false);
+  const authState = useState();
   const [, setIsAuth] = authState;
 
   useEffect(() => {
@@ -30,6 +28,8 @@ export const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: arrayOf(element).isRequired,
+  children: element.isRequired,
 };
 export const useAuth = () => useContext(IsAuthContext);
+
+export default IsAuthContext;
