@@ -1,7 +1,6 @@
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CalendarSearch from '../components/CalendarSearch';
 import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
@@ -12,23 +11,9 @@ import PatientProfile from '../pages/admin/PatientProfile';
 
 import './App.css';
 
-// const Calendar = () => <h3>Calendar</h3>;
-const AppointmentTable = () => <h3>AppointmentTable</h3>;
+import PatientsAppointmentTable from '../pages/admin/PatientsAppointmentTable';
+import AppointmentTableBasedOnDate from '../pages/admin/AppointmentTableBasedOnDate';
 
-const PatientsAppointmentTable = () => {
-  const {
-    state: { state },
-  } = useLocation();
-  return (
-    <div style={{ width: '100%' }}>
-      <h3>PatientsAppointmentTable</h3>
-      <CalendarSearch />
-      {state.map((item) => (
-        <p>{item.firstname}</p>
-      ))}
-    </div>
-  );
-};
 const App = () => {
   const [, setIsAuth] = useState(false);
 
@@ -67,7 +52,7 @@ const App = () => {
                   <PatientsAppointmentTable />
                 </Route>
                 <Route exact path="/dashboard/calendar/:appointmentDate">
-                  <AppointmentTable />
+                  <AppointmentTableBasedOnDate />
                 </Route>
                 <Route exact path="/dashboard/patients">
                   <Patients />
