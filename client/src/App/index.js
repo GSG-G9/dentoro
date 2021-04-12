@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
-
+import Patients from '../components/Patients';
+import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
-import LoginPage from '../pages/logIn';
 import TodaySchedule from '../pages/TodaySchedule';
-import Patients from '../components/Patients';
 import PatientProfile from '../pages/admin/PatientProfile';
 
 import './App.css';
 
-const Calender = () => <h3>Calender</h3>;
+import PatientsAppointmentTable from '../pages/admin/PatientsAppointmentTable';
+import AppointmentTableBasedOnDate from '../pages/admin/AppointmentTableBasedOnDate';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -46,8 +46,14 @@ const App = () => {
                 <Route exact path="/dashboard">
                   <TodaySchedule />
                 </Route>
-                <Route exact path="/dashboard/calender">
-                  <Calender />
+                <Route exact path="/dashboard/calendar">
+                  <h1>Calendar</h1>
+                </Route>
+                <Route exact path="/dashboard/calendar/appointmentsearch">
+                  <PatientsAppointmentTable />
+                </Route>
+                <Route exact path="/dashboard/calendar/:appointmentDate">
+                  <AppointmentTableBasedOnDate />
                 </Route>
                 <Route exact path="/dashboard/patients">
                   <Patients />
