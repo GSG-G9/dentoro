@@ -1,0 +1,19 @@
+.ant-input{
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+    box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+    height: 3rem;
+    width: 25rem;
+}
+
+.booking {
+    background-image: linear-gradient(rgba(0, 0, 0,0.8),
+    rgba(0, 0, 0, 0.8)),url(../../assets/images/booking.svg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    }
+
+    .ant-input::-webkit-input-placeholder{
+        color: #fff !important;
+    }
