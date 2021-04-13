@@ -1,0 +1,157 @@
+@import 'antd/dist/antd.css';
+
+.head-container{
+    display: flex;
+    flex-direction: 'column';
+    flex-wrap: wrap;
+}
+
+.info{
+    padding: 0rem 10rem;
+}
+
+.account-button{
+    float: right;
+}
+
+.line{
+visibility: hidden
+}
+
+.details{
+    float: right;
+}
+
+.details .ant-menu-item-active{
+    color: #000 !important;
+    border-bottom: 0px !important;
+    background-color: #fff !important ;
+
+}
+
+.details .ant-menu-item-selected{
+    color: #000 !important;
+    background-color: #fff !important ;
+    border-bottom:0px solid !important;
+}
+
+.details-body{
+    float: right; 
+    padding-bottom: 4.1rem !important;
+}
+
+.icon-top{
+    color:#52CDDE;
+}
+
+.account-link {
+    color: #000;
+}
+.account-link:hover {
+    color: #52CDDE
+}
+
+.Nav-Tap{
+    background-color:#2E282D;
+    height: 3.5rem;
+    width: 100vw ;
+    margin-top: 0.5rem;
+}
+
+.nav-menu{
+    margin-left: 10rem !important
+}
+
+
+.Nav-Tap .ant-menu-item{
+    color: #fff;
+    height: 2.5rem;
+}
+
+.Nav-Tap .ant-menu-item-active{
+    color:#52CDDE !important;
+    border-bottom:2px solid #52CDDE !important;
+}
+
+.Nav-Tap .ant-menu-item-selected{
+    color:#52CDDE !important;
+    border-bottom:2px solid #52CDDE !important;
+}
+
+.Nav-Tap .icon{
+        float: right;
+        margin: 1rem  0rem 0rem 0.5rem;
+}
+
+.form  {
+    width: 12.5rem;
+    text-align: center;
+    color: #fff !important;
+    float:right !important;
+    margin-right:11rem !important;
+    background-color: #52CDDE;
+    height: 3.5rem !important;
+
+}
+
+.form .ant-menu-item-active {
+    color: #fff !important;
+    float:right !important;
+    margin-right:10rem !important;
+    background-color: #52CDDE !important;
+    height: 3.5rem !important;
+} 
+
+.form span {
+    color:#fff !important;
+}
+
+.form-icon{
+    font-size: 1.5rem !important;
+    margin-top: 1rem !important
+}
+
+@media only screen and (max-width: 950px){
+    .form{
+        width: auto;
+        margin-right:0 !important;
+
+    }
+    .info{
+        padding: 0rem ;
+    }
+}
+
+@media only screen and (max-width: 770px){
+    .Nav-Tap  {
+        height: auto;
+        width: auto ;
+        margin-top: 0rem;
+        padding-bottom: 1.8rem ;
+        align-self: center;
+    }
+    .ant-menu {
+        background: #2E282D !important;
+        color:#fff
+    }
+    .ant-menu-submenu span{
+        color: #fff !important;
+    }
+
+
+    .nav-menu{
+        margin-left: 1rem !important;
+    }
+
+        .ant-menu > .ant-menu-item:hover,
+    .ant-menu > .ant-menu-submenu:hover,
+    .ant-menu > .ant-menu-item-active,
+    .ant-menu> .ant-menu-submenu-active,
+    .ant-menu > .ant-menu-item-open,
+    .ant-menu> .ant-menu-submenu-open,
+    .ant-menu > .ant-menu-item-selected,
+    .ant-menu > .ant-menu-submenu-selected {
+        background-color: #2E282D  !important;
+        padding-top: -2rem;
+    }
+}
