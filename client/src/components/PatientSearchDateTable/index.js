@@ -41,7 +41,6 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
     });
   };
   useEffect(() => {
-    console.log('useEffect - 1');
     const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     let unmounted = false;
     const source = axios.CancelToken.source();
@@ -68,9 +67,13 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
           setLoading(false);
           hideLoadingMessage.then(() => failedMessage());
           if (axios.isCancel(e)) {
-            console.log(`request cancelled:${e.message}`);
+            hideLoadingMessage.then(() =>
+              failedMessage(`request cancelled:${e.message}`)
+            );
           } else {
-            console.log(`another error happened:${e.message}`);
+            hideLoadingMessage.then(() =>
+              failedMessage(`another error happened:${e.message}`)
+            );
           }
         }
       });
