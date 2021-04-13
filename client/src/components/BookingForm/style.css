@@ -1,5 +1,4 @@
 .booking {
-
     background-image: linear-gradient(rgba(0, 0, 0,0.8),
     rgba(0, 0, 0, 0.8)),url(../../assets/images/booking.svg);
     background-repeat: no-repeat;
@@ -7,15 +6,30 @@
     padding-top: 2rem;
     }
 
+    .booking .ant-form {
+        margin-left: 20rem;
+        padding: 0px;
+    }
+    
+    .booking .first-name{
+        width: 12rem !important;
+        margin-right: 1rem
+    }
+
+    .booking .last-name{
+        width: 12rem !important;
+    }
+
     .booking  h1.ant-typography{
         color: #fff;
     }
 
 .booking .ant-input::-webkit-input-placeholder{
-        color: #fff !important;
+        color: #fff;
     }
 
 .booking .ant-input{
+    color:#fff;
     display: flex;
     flex-wrap: wrap;
     border-radius: 2rem;
@@ -36,10 +50,19 @@
     margin: -40rem 0  0 -18rem;
 }
 
+.booking .err{
+    width: 25rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-height{
+    height: 5rem !important;
+}
+
 @media only screen and (max-width: 770px){
     .booking .ant-form {
-        margin: 0px !important;
-        padding: 0px;
+        margin: 0 ;
     }
 
     .booking .ant-btn{
