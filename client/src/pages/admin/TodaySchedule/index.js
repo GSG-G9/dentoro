@@ -1,6 +1,6 @@
 import React from 'react';
-import PatientSearchDateTable from '../../components/PatientSearchDateTable';
-import CustomTitle from '../../components/common/Title';
+import PatientSearchDateTable from '../../../components/PatientSearchDateTable';
+import CustomTitle from '../../../components/common/Title';
 
 const TodaySchedule = () => (
   <div>

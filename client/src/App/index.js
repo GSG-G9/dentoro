@@ -6,14 +6,12 @@ import LoginPage from '../pages/logIn';
 import IsAuthContext from '../Context/isAuthContext';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../pages/admin/Calendar';
-import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
 import LandingPage from '../pages/LandingPage';
 
 import './App.css';
 
 import PatientsAppointmentTable from '../pages/admin/PatientsAppointmentTable';
-import AppointmentTableBasedOnDate from '../pages/admin/AppointmentTableBasedOnDate';
 
 const App = () => {
   const [, setIsAuth] = useState(false);
@@ -44,16 +42,19 @@ const App = () => {
             <Sidebar>
               <Switch>
                 <Route exact path="/dashboard">
-                  <TodaySchedule />
+                  <PatientsAppointmentTable
+                    showSearchBar={false}
+                    pageTitle="Today's Schedule"
+                  />
                 </Route>
                 <Route exact path="/dashboard/calendar">
                   <Calendar />
                 </Route>
                 <Route exact path="/dashboard/calendar/appointmentsearch">
-                  <PatientsAppointmentTable />
+                  <PatientsAppointmentTable pageTitle="Patients Appointment Table" />
                 </Route>
                 <Route exact path="/dashboard/calendar/:appointmentDate">
-                  <AppointmentTableBasedOnDate />
+                  <PatientsAppointmentTable pageTitle="Patients Appointment Table" />
                 </Route>
                 <Route exact path="/dashboard/patients">
                   <Patients />
