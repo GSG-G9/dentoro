@@ -8,8 +8,12 @@ const { Option } = Select;
 const CalendarSearch = () => {
   const history = useHistory();
   const [selectOption, setSelectOption] = useState('name');
-  const searchFunction = (params) =>
-    history.push('/dashboard/calendar/appointmentsearch', { params });
+  const searchFunction = (values) => {
+    const params = Object.fromEntries(
+      Object.entries(values).map(([key, value]) => [key, `%${value}%`])
+    );
+    return history.push('/dashboard/calendar/appointmentsearch', { params });
+  };
 
   return (
     <Form

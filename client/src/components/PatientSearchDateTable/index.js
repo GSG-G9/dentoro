@@ -41,6 +41,7 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
     });
   };
   useEffect(() => {
+    console.log('useEffect - 1');
     const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     let unmounted = false;
     const source = axios.CancelToken.source();
@@ -58,7 +59,6 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
           }));
           setAppointmentsData(newData);
           setLoading(false);
-          setUpdate(false);
           hideLoadingMessage.then(() => successMessage(data.length));
         }
       })

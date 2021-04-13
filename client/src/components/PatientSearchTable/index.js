@@ -58,7 +58,7 @@ const PatientSearchTable = ({
           isDone: appointmentsData[index].isDone,
         });
 
-        setUpdate(true);
+        setUpdate((update) => !update);
         setEditingKey('');
       }
     } catch (errInfo) {
@@ -78,7 +78,7 @@ const PatientSearchTable = ({
         await axios.patch(`/api/v1/appointments/${key}/status`, {
           isDone: appointmentsData[index].isDone,
         });
-        setUpdate(true);
+        setUpdate((update) => !update);
       }
     } catch (errInfo) {
       setError(
@@ -92,7 +92,7 @@ const PatientSearchTable = ({
   const deleteCell = async (key) => {
     try {
       await axios.delete(`/api/v1/appointments/${key}`);
-      setUpdate(true);
+      setUpdate((update) => !update);
       setEditingKey('');
     } catch (errInfo) {
       setError(
