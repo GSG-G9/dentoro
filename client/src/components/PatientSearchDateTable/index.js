@@ -90,7 +90,6 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
         appointmentsData={appointmentsData}
         setUpdate={setUpdate}
         error={error}
-        setError={setError}
         loading={loading}
       />
     </div>

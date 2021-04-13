@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {
+  message,
+  Table,
+  Popconfirm,
+  DatePicker,
+  TimePicker,
+  Checkbox,
+} from 'antd';
 
-import { Table, Popconfirm, DatePicker, TimePicker, Checkbox } from 'antd';
 import {
   EditOutlined,
   CheckOutlined,
@@ -16,10 +23,21 @@ import { arrayOf, shape, string, number, func, bool } from 'prop-types';
 import Loading from '../common/Loading';
 import AlertMessage from '../common/AlertMessage';
 
+const successMessage = () => {
+  message.success({
+    content: 'Success!',
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! ${errorMessage}`,
+  });
+};
+
 const PatientSearchTable = ({
   appointmentsData,
   setUpdate,
-  setError,
   loading,
   error,
 }) => {
@@ -49,6 +67,7 @@ const PatientSearchTable = ({
   };
 
   const save = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       const index = appointmentsData.findIndex((item) => key === item.key);
       if (index > -1) {
@@ -60,17 +79,21 @@ const PatientSearchTable = ({
 
         setUpdate((update) => !update);
         setEditingKey('');
+        hideLoadingMessage.then(() => successMessage());
       }
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
 
   const check = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       const index = appointmentsData.findIndex((item) => key === item.key);
 
@@ -79,26 +102,33 @@ const PatientSearchTable = ({
           isDone: appointmentsData[index].isDone,
         });
         setUpdate((update) => !update);
+        hideLoadingMessage.then(() => successMessage());
       }
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
 
   const deleteCell = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       await axios.delete(`/api/v1/appointments/${key}`);
       setUpdate((update) => !update);
       setEditingKey('');
+      hideLoadingMessage.then(() => successMessage());
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
@@ -276,7 +306,6 @@ PatientSearchTable.propTypes = {
     }).isRequired
   ).isRequired,
   setUpdate: func.isRequired,
-  setError: func.isRequired,
   loading: bool.isRequired,
   error: string.isRequired,
 };
