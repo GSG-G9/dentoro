@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Input, Button, Row } from 'antd';
+import { Form, Input, Button, Row, Typography } from 'antd';
 import axios from 'axios';
 import './style.css';
+
+const { Title } = Typography;
 
 const onFinish = async ({
   firstName,
@@ -43,6 +45,7 @@ const BookingForm = () => (
       onFinish={onFinish}
       name="basic"
     >
+      <Title color="#fff"> Book an appointment</Title>
       <Row>
         <Form.Item
           name="firstName"
@@ -71,7 +74,7 @@ const BookingForm = () => (
         name="birthday"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Input placeholder="Birth day" />
+        <Input placeholder="Birthday" />
       </Form.Item>
       <Form.Item
         name="phone"
@@ -109,7 +112,7 @@ const BookingForm = () => (
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Confirm
         </Button>
       </Form.Item>
     </Form>
