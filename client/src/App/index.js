@@ -8,6 +8,7 @@ import Sidebar from '../components/Sidebar';
 import Calendar from '../pages/admin/Calendar';
 import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
+import LandingPage from '../pages/LandingPage';
 
 import './App.css';
 
@@ -34,7 +35,7 @@ const App = () => {
       <IsAuthContext.Provider value={{ setIsAuth }}>
         <Switch>
           <Route exact path="/">
-            Home
+            <LandingPage />
           </Route>
           <Route exact path="/login">
             <LoginPage />
