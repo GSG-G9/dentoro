@@ -3,3 +3,7 @@
 .history-table-container{
   width: 100%;
 }
+
+.history-table-container .ant-spin-container{
+  width: 100%;
+}
