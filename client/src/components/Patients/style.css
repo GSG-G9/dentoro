@@ -28,6 +28,12 @@
     cursor: pointer;
 }
 
+
+.patients-container .ant-select {
+    width: 260px ;
+
+}
+
 @media only screen and (max-width: 770px){
         .patients-container .ant-input-group-wrapper {
             align-self: center;
