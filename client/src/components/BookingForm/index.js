@@ -56,14 +56,16 @@ const BookingForm = () => {
         firstName,
         lastName,
         email,
-        birthday,
+        birthday: moment(birthday).format('YYYY-MM-DD'),
         phone,
         diseases,
-        appointmentDate,
-        appointmentTime,
+        appointmentDate: moment(appointmentDate).format('YYYY-MM-DD'),
+        appointmentTime: moment(appointmentTime).format('HH:mm:ss'),
         complaints,
       });
       setSuccess(true);
+      setError(false);
+      setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       let e;
       if (err.response.data.error === 'Unavailable Time') {
@@ -81,6 +83,8 @@ const BookingForm = () => {
 
   return (
     <div className="booking">
+      {success && <Result status="success" title="Booked successfully" />}
+
       <Form {...layout} onFinish={onFinish} name="basic">
         <Title color="#fff"> Book an appointment</Title>
         {error && (
@@ -110,7 +114,7 @@ const BookingForm = () => {
           <Input placeholder="Email" />
         </Form.Item>
         <Form.Item name="birthday">
-          <Input placeholder="Birthday" />
+          <DatePicker defaultValue={moment()} value={date} onChange={onDate} />
         </Form.Item>
         <Form.Item
           name="phone"
@@ -127,11 +131,7 @@ const BookingForm = () => {
             { required: true, message: 'Please input your appointment date!' },
           ]}
         >
-          <DatePicker
-            value={date}
-            onChange={onDate}
-            defaultValue={moment('2021-01-01').format('YYYY-MM-DD')}
-          />
+          <DatePicker defaultValue={moment()} value={date} onChange={onDate} />
         </Form.Item>
         <Form.Item
           name="appointmentTime"
@@ -140,9 +140,9 @@ const BookingForm = () => {
           ]}
         >
           <TimePicker
+            defaultValue={moment(new Date('2021-01-01 08:00:00'), 'HH:mm')}
             value={time}
             onChange={onTime}
-            defaultValue={moment('00:00:00').format('HH:mm:ss')}
           />
         </Form.Item>
         <Form.Item name="diseases">
@@ -157,7 +157,6 @@ const BookingForm = () => {
           </Button>
         </Form.Item>
       </Form>
-      {success && <Result status="success" title="Booked successfully" />}
     </div>
   );
 };
