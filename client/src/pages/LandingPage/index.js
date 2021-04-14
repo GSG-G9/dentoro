@@ -1,10 +1,10 @@
 import React from 'react';
-import NavTap from '../../components/NavTap';
+import NavBar from '../../components/NavBar';
 import BookingForm from '../../components/BookingForm';
 
 const LandingPage = () => (
   <div>
-    <NavTap />
+    <NavBar />
     <BookingForm />
   </div>
 );
