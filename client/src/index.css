@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.min.css'; 
+@import 'antd/dist/antd.css';
 
 body {
   margin: 0;
@@ -16,3 +16,10 @@ code {
     monospace;
 }
 
+#root{
+  min-height: 100vh;
+}
+
+.App{
+  min-height: 100vh;
+}

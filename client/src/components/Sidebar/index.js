@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import { get } from 'axios';
 import { element } from 'prop-types';
@@ -14,7 +14,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 
-import IsAuthContext from '../../Context/isAuthContext';
+import { useAuth } from '../../Context/isAuthContext';
 
 import logo from '../../assets/images/logo.png';
 import LogoImage from '../common/Image';
@@ -23,7 +23,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 const Sidebar = ({ children }) => {
   const { pathname } = useLocation();
-  const { setIsAuth } = useContext(IsAuthContext);
+  const [, setIsAuth] = useAuth();
 
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);

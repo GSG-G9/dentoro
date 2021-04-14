@@ -15,7 +15,8 @@
   "editor.formatOnSave": false,
   "files.eol": "\n",
   "cSpell.words": [
-    "Popconfirm"
+    "Popconfirm",
+    "Sider"
   ],
   "cSpell.ignoreWords": ["starticon", "boomify", "middlewares","antd"]
 }
