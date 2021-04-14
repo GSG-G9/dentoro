@@ -9,6 +9,7 @@ import Calendar from '../pages/admin/Calendar';
 import { PrivateRoutes, LoggedOutRoutes } from './Routes';
 import PatientProfile from '../pages/admin/PatientProfile';
 import LandingPage from '../pages/LandingPage';
+import './App.css';
 
 import './App.css';
 

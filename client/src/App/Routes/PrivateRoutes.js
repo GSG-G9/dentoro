@@ -14,7 +14,11 @@ const PrivateRoutes = ({ children, ...otherProps }) => {
   if (isAuth === false) {
     return <Redirect to="/login" />;
   }
-  return <Loading size="large" />;
+  return (
+    <div className="loading">
+      <Loading size="large" />
+    </div>
+  );
 };
 
 PrivateRoutes.propTypes = {
