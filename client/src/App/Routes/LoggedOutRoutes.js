@@ -10,7 +10,7 @@ const LoggedOutRoutes = ({ children, ...otherProps }) => {
   if (!isAuth) {
     return <Route {...otherProps}>{children}</Route>;
   }
-  return <Redirect to="/" />;
+  return <Redirect to="/dashboard" />;
 };
 
 LoggedOutRoutes.propTypes = {
