@@ -11,7 +11,6 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons';
 
-import 'antd/dist/antd.css';
 import './style.css';
 
 import Loading from '../common/Loading';
