@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Typography, Input, message, Spin } from 'antd';
+import { Table, Typography, Input, message, Spin, Select } from 'antd';
 import axios from 'axios';
 import './style.css';
 import { useHistory } from 'react-router-dom';
@@ -7,10 +7,12 @@ import { differenceInCalendarYears, parse } from 'date-fns';
 
 const { Search } = Input;
 const { Title } = Typography;
+const { Option } = Select;
 
 const Patients = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchKey, setSearchKey] = useState('firstName');
   const history = useHistory();
 
   const buildUrlQuery = (params) => {
@@ -28,15 +30,12 @@ const Patients = () => {
       setLoading(true);
       if (typeof searchQuery === 'string' && searchQuery.trim().length) {
         setLoading(true);
+        const search = {};
+        search[searchKey] = searchQuery;
         const {
           data: { data },
-        } = await axios.get(
-          `/api/v1/patients/search?${buildUrlQuery({
-            firstName: searchQuery,
-            lastName: searchQuery,
-            phone: searchQuery,
-          })}`
-        );
+        } = await axios.get(`/api/v1/patients/search?${buildUrlQuery(search)}`);
+        console.log(search);
         setDataSource(data);
         setLoading(false);
         return data;
@@ -110,10 +109,19 @@ const Patients = () => {
     },
   ];
 
+  const onSelectChange = (value) => {
+    setSearchKey(value);
+  };
+
   return (
     <div className="patients-container">
       <div className="head">
         <Title level={3}>Patients</Title>
+        <Select defaultValue="firstName" onChange={onSelectChange}>
+          <Option value="firstName">First Name </Option>
+          <Option value="lastName">Last Name </Option>
+          <Option value="phone">Phone</Option>
+        </Select>
         <Search placeholder="Search for patients ..." onSearch={onSearch} />
       </div>
       {loading ? (
