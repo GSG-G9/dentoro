@@ -15,7 +15,7 @@ const PrivateRoutes = ({ children, ...otherProps }) => {
     return <Redirect to="/login" />;
   }
   return (
-    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center' }}>
+    <div className="loading">
       <Loading size="large" />
     </div>
   );
