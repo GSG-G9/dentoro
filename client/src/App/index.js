@@ -8,6 +8,7 @@ import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
 import Patients from '../components/Patients';
 import LandingPage from '../pages/LandingPage';
+import Map from '../components/MapComponent';
 import './App.css';
 
 const Calender = () => <h3>Calender</h3>;
@@ -17,6 +18,7 @@ const App = () => (
     <Switch>
       <Route exact path="/">
         <LandingPage />
+        <Map />
       </Route>
       <LoggedOutRoutes exact path="/login">
         <LoginPage />
