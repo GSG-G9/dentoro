@@ -14,9 +14,6 @@ import axios from 'axios';
 import moment from 'moment';
 import './style.css';
 
-const dateFormate = 'YYYY-MM-DD';
-const timeFormate = 'HH:mm';
-
 const { Title } = Typography;
 
 const layout = {
@@ -34,11 +31,13 @@ const BookingForm = () => {
   const [time, setTime] = useState('');
 
   const onDate = (_, dateString) => {
-    setDate(JSON.stringify(dateString));
+    console.log(dateString);
+    setDate(dateString);
   };
 
   const onTime = (_, timeString) => {
-    setTime(JSON.stringify(timeString));
+    console.log(timeString);
+    setTime(timeString);
   };
 
   const onFinish = async ({
@@ -131,8 +130,7 @@ const BookingForm = () => {
           <DatePicker
             value={date}
             onChange={onDate}
-            defaultValue={moment('2015-01-01', dateFormate)}
-            format={dateFormate}
+            defaultValue={moment('2021-01-01').format('YYYY-MM-DD')}
           />
         </Form.Item>
         <Form.Item
@@ -144,8 +142,7 @@ const BookingForm = () => {
           <TimePicker
             value={time}
             onChange={onTime}
-            defaultValue={moment('00:00', timeFormate)}
-            format={timeFormate}
+            defaultValue={moment('00:00:00').format('HH:mm:ss')}
           />
         </Form.Item>
         <Form.Item name="diseases">
