@@ -1,19 +1,17 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
 
+import { PrivateRoutes, LoggedOutRoutes } from './Routes';
+
 import Patients from '../components/Patients';
 import LoginPage from '../pages/logIn';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../pages/admin/Calendar';
-
-import { PrivateRoutes, LoggedOutRoutes } from './Routes';
 import PatientProfile from '../pages/admin/PatientProfile';
 import LandingPage from '../pages/LandingPage';
-import './App.css';
-
-import './App.css';
-
 import PatientsAppointmentTable from '../pages/admin/PatientsAppointmentTable';
+
+import './App.css';
 
 const App = () => (
   <div className="App">
