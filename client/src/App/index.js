@@ -8,6 +8,7 @@ import TodaySchedule from '../pages/TodaySchedule';
 import PatientProfile from '../pages/admin/PatientProfile';
 import Patients from '../components/Patients';
 import LandingPage from '../pages/LandingPage';
+import './App.css';
 
 const Calender = () => <h3>Calender</h3>;
 
