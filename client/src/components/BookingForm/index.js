@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Row, Typography, Result, Alert } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Row,
+  Typography,
+  DatePicker,
+  TimePicker,
+  Result,
+  Alert,
+} from 'antd';
 import axios from 'axios';
+import moment from 'moment';
 import './style.css';
+
+const dateFormate = 'YYYY-MM-DD';
+const timeFormate = 'HH:mm';
 
 const { Title } = Typography;
 
@@ -16,6 +30,16 @@ const tailLayout = {
 const BookingForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState();
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+
+  const onDate = (_, dateString) => {
+    setDate(JSON.stringify(dateString));
+  };
+
+  const onTime = (_, timeString) => {
+    setTime(JSON.stringify(timeString));
+  };
 
   const onFinish = async ({
     firstName,
@@ -29,7 +53,6 @@ const BookingForm = () => {
     complaints,
   }) => {
     try {
-      setSuccess(false);
       await axios.post('/api/v1/appointments', {
         firstName,
         lastName,
@@ -105,7 +128,12 @@ const BookingForm = () => {
             { required: true, message: 'Please input your appointment date!' },
           ]}
         >
-          <Input placeholder="Appointment date" />
+          <DatePicker
+            value={date}
+            onChange={onDate}
+            defaultValue={moment('2015-01-01', dateFormate)}
+            format={dateFormate}
+          />
         </Form.Item>
         <Form.Item
           name="appointmentTime"
@@ -113,17 +141,19 @@ const BookingForm = () => {
             { required: true, message: 'Please input appointment time!' },
           ]}
         >
-          <Input placeholder="Appointment time" />
+          <TimePicker
+            value={time}
+            onChange={onTime}
+            defaultValue={moment('00:00', timeFormate)}
+            format={timeFormate}
+          />
         </Form.Item>
         <Form.Item name="diseases">
-          <Input placeholder="Diseases" className="input-height" />
+          <Input.TextArea placeholder="Diseases" className="input-height" />
         </Form.Item>
         <Form.Item name="complaints">
-          <Input placeholder="Complaints" className="input-height" />
+          <Input.TextArea placeholder="Complaints" className="input-height" />
         </Form.Item>
-
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked" />
-
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Confirm

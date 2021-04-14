@@ -43,11 +43,11 @@
 .booking .ant-btn{
     background-color: #52CDDE;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.5rem;
     border-radius: 2rem;
     width: 12rem;
     height: 3.5rem;
-    margin: -40rem 0  0 -18rem;
+    margin-left: -18rem;
 }
 
 .booking .err{
