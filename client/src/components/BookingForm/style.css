@@ -24,7 +24,21 @@
         color: #fff;
     }
 
-.booking .ant-input::-webkit-input-placeholder{
+    .booking .ant-input::-webkit-input-placeholder{
+        color: #fff;
+    }
+
+    .booking .ant-picker{
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        width: 25rem;
+        border-radius: 2rem;
+        height: 3rem;
+
+
+    }
+
+    .booking .ant-picker-input > input {
         color: #fff;
     }
 
@@ -50,6 +64,14 @@
     margin-left: -18rem;
 }
 
+.booking .ant-result-title{
+    color: #fff;
+}
+
+.booking .ant-result{
+    margin-left: -45rem;
+}
+
 .booking .err{
     width: 25rem;
     padding-bottom: 1rem;
@@ -65,7 +87,19 @@
         margin: 0 ;
     }
 
+    .booking .ant-result{
+        margin-left: 0;
+    }
+
     .booking .ant-btn{
         margin: 0;
+    }
+
+    .booking .ant-input{
+        width: auto;
+    }
+
+    .booking .ant-picker{
+        width: auto;
     }
 }
