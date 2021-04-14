@@ -1,5 +1,6 @@
 .page-layout {
 	min-height: 100vh;
+	overflow: hidden;
 }
 
 .header-navbar {
@@ -66,10 +67,13 @@
 
 .site-layout-content-body {
 	padding: 24;
-	min-height: 60vh;
 	width: 100%;
 	display: flex;
-	justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+	align-items: center;
+  height: 80vh;
+  overflow: auto;
 }
 
 .site-layout-footer {
