@@ -10,7 +10,10 @@ const CalendarSearch = () => {
   const [selectOption, setSelectOption] = useState('name');
   const searchFunction = (values) => {
     const params = Object.fromEntries(
-      Object.entries(values).map(([key, value]) => [key, `%${value}%`])
+      Object.entries(values).map(([key, value]) => {
+        if (key === 'phone') return [key, value];
+        return [key, `%${value}%`];
+      })
     );
     return history.push('/dashboard/calendar/appointmentsearch', { params });
   };
