@@ -8,7 +8,7 @@ const LoginPage = () => (
   <div className="login">
     <div className="header">
       <div className="loginBody">
-        <CustomTitle text="log In" />
+        <CustomTitle text="Log In" />
         <LoginForm />
       </div>
     </div>
