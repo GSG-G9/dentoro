@@ -19,7 +19,6 @@
   justify-content: center;
   align-items:center;
   width: 100%;
-
 }
 
 .about-us-image-div{
@@ -46,6 +45,23 @@
 
 .about-us-paragraph-1{
   font-size: 1.5rem;
+}
+
+
+@media only screen and (max-width: 900px) {
+.about-us-image-container{
+  flex-direction: column;
+}
+
+.about-us-image-div{
+  width: 100%;
+}
+.about-us-paragraph-list{
+  width: 100%;
+}
+.about-us-description{
+  width: 80vw;
+}
 }
 
 
