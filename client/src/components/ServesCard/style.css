@@ -1,0 +1,8 @@
+.servesCard{
+    width: 240;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 0;
+  }
+  
