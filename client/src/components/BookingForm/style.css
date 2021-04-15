@@ -1,0 +1,121 @@
+.booking {
+    background-image: linear-gradient(rgba(0, 0, 0,0.8),
+    rgba(0, 0, 0, 0.8)),url(../../assets/images/booking.svg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 2rem;
+    min-height : 70vh;
+    display: flex;
+    justify-content: center;
+    }
+    .booking .ant-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    .booking .ant-input:hover{
+        background-color:rgba(0, 0, 0, 0.3) !important
+    }
+
+    .booking .first-name{
+    width: 12rem !important;
+    margin-right: 1rem
+    }
+
+    .booking .last-name{
+    width: 12rem !important;
+    }
+
+    .booking  h1.ant-typography{
+    color: #fff;
+    }
+
+    .booking .ant-input::-webkit-input-placeholder{
+    color: #fff;
+    }
+
+    .booking .ant-picker{
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    width: 25rem;
+    border-radius: 2rem;
+    height: 3rem;
+    }
+
+    .booking .ant-picker-input > input {
+    color: #fff;
+    }
+
+.booking .ant-input{
+    color:#fff;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+    box-shadow: 0 0 0 2px rgba(87,168,233, .2);
+    height: 3rem;
+    width: 25rem;
+}
+
+.booking .ant-btn{
+    background-color: #52CDDE;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 2rem;
+    width: 12rem;
+    height: 3.5rem;
+}
+
+.success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+.booking .ant-result-success {
+    padding: 0;
+    margin-bottom: 3em;
+}
+
+.booking .ant-result-title{
+    color: #fff;
+}
+
+.booking .err{
+    width: 25rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-height{
+    height: 5rem !important;
+}
+
+@media only screen and (max-width: 770px){
+    .booking .ant-form {
+        margin: 0 ;
+    }
+
+    .booking .ant-result{
+        margin-left: 0;
+    }
+
+    .booking .ant-btn{
+        margin: 0;
+    }
+
+    .booking .ant-input{
+        width: auto;
+    }
+
+    .booking .ant-picker{
+        width: auto;
+    }
+    .success .ant-btn{
+        margin-left: 10rem;
+    
+    }
+}
