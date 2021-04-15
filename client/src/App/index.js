@@ -34,7 +34,7 @@ const App = () => (
             <Route exact path="/dashboard/calendar">
               <Calendar />
             </Route>
-            <Route exact path="/dashboard/calendar/appointmentsearch">
+            <Route exact path="/dashboard/calendar/appointmentSearch">
               <PatientsAppointmentTable pageTitle="Patients Appointment Table" />
             </Route>
             <Route exact path="/dashboard/calendar/:appointmentDate">
