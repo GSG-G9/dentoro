@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-around;
     height: 25vh;
+    width: 100vw;
     background-color: #2E282D;
     color: #fff ;
-
 }
 
 .icons-container a{

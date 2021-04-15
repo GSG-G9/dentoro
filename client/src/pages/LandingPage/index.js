@@ -3,13 +3,18 @@ import NavBar from '../../components/NavBar';
 import BookingForm from '../../components/BookingForm';
 import Map from '../home/Map';
 import Footer from '../../components/Footer';
+import AboutUs from '../home/AboutUs';
+import './style.css';
 
 const LandingPage = () => (
-  <div>
-    <NavBar />
-    <BookingForm />
-    <Map />
-    <Footer />
+  <div className="landing-page-container">
+    <div className="landing-page-content">
+      <NavBar />
+      <AboutUs />
+      <BookingForm />
+      <Map />
+      <Footer />
+    </div>
   </div>
 );
 
