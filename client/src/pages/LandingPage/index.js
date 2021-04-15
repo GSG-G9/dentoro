@@ -1,11 +1,14 @@
 import React from 'react';
-import Header from '../../components/Header';
+
+import NavBar from '../../components/NavBar';
+import BookingForm from '../../components/BookingForm';
 import ServesDisplay from '../../components/ServesDisplay';
 
 const LandingPage = () => (
   <div>
-    <Header />
+    <NavBar />
     <ServesDisplay />
+    <BookingForm />
   </div>
 );
 
