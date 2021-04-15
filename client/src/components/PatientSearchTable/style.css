@@ -28,3 +28,6 @@
 .cancel-edit-icon{
   color: red;
 }
+.patient-search-table .ant-table-row {
+    cursor: pointer;
+}

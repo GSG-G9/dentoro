@@ -235,7 +235,7 @@ const PatientDetailsForm = ({ profileData, patientId, setUpdateDate }) => {
           initialValue={diseases}
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Please input Disease!',
             },
           ]}
