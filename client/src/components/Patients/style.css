@@ -2,14 +2,13 @@
     width: 70vw ;
 }
 
-.head{
-    display: flex;
-    flex-direction: column;
+.patients-container .options{
+    margin-left: 20rem
 }
 
 .patients-container .ant-input-group-wrapper {
     align-self: flex-end;
-    width: 260px ;
+    width: 18.5rem ;
     padding-bottom: 1.8rem ;
 }
 
@@ -27,14 +26,20 @@
 
 
 .patients-container .ant-select {
-    width: 260px ;
-
+    width: 18.5rem ;
 }
 
 @media only screen and (max-width: 770px){
         .patients-container .ant-input-group-wrapper {
             align-self: center;
-            width: 150px ;
+            width: 10rem ;
             padding-bottom: 1.8rem ;
+        }
+        .patients-container .options{
+            margin-left: 0rem
+        }
+
+        .patients-container .ant-select {
+            width: 10rem ;
         }
     }

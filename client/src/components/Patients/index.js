@@ -35,7 +35,6 @@ const Patients = () => {
         const {
           data: { data },
         } = await axios.get(`/api/v1/patients/search?${buildUrlQuery(search)}`);
-        console.log(search);
         setDataSource(data);
         setLoading(false);
         return data;
@@ -122,7 +121,11 @@ const Patients = () => {
           <Option value="lastName">Last Name </Option>
           <Option value="phone">Phone</Option>
         </Select>
-        <Search placeholder="Search for patients ..." onSearch={onSearch} />
+        <Search
+          className="options"
+          placeholder="Search for patients ..."
+          onSearch={onSearch}
+        />
       </div>
       {loading ? (
         <Spin />
