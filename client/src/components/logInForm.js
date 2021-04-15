@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
-import IsAuthContext from '../Context/isAuthContext';
+
+import { useAuth } from '../Context/isAuthContext';
 
 const layout = {
   labelCol: {
@@ -23,7 +24,7 @@ const tailLayout = {
 const LoginForm = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsAuth } = useContext(IsAuthContext);
+  const [, setIsAuth] = useAuth();
 
   const history = useHistory();
   const onFinish = async ({ email, password }) => {

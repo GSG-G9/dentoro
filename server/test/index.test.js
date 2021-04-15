@@ -104,7 +104,7 @@ describe('Server Tests', () => {
     test('getAppointmentsByDate query should return appointment objects joined with patients data', async () => {
       const expected = [
         {
-          appointments_id: 2,
+          appointment_id: 2,
           id: 1,
           patient_id: 1,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
@@ -121,7 +121,7 @@ describe('Server Tests', () => {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
         },
         {
-          appointments_id: 8,
+          appointment_id: 8,
           id: 2,
           patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
@@ -148,6 +148,7 @@ describe('Server Tests', () => {
           patient_id: 2,
           appointment_date: new Date('2021-12-02T00:00:00.000Z'),
           appointment_time: '08:00:00',
+          birthday: new Date('1946-12-02T00:00:00.000Z'),
           firstname: 'Alexie',
           lastname: 'Jenkins',
           phone: '0599010102',
@@ -156,6 +157,7 @@ describe('Server Tests', () => {
           appointment_id: 4,
           patient_id: 2,
           appointment_date: new Date('2021-12-02T00:00:00.000Z'),
+          birthday: new Date('1946-12-02T00:00:00.000Z'),
           appointment_time: '17:00:00',
           firstname: 'Alexie',
           lastname: 'Jenkins',
@@ -165,6 +167,7 @@ describe('Server Tests', () => {
           appointment_id: 8,
           patient_id: 2,
           appointment_date: new Date('2020-12-02T00:00:00.000Z'),
+          birthday: new Date('1946-12-02T00:00:00.000Z'),
           appointment_time: '11:00:00',
           firstname: 'Alexie',
           lastname: 'Jenkins',
@@ -519,7 +522,7 @@ describe('Server Tests', () => {
         message: 'success',
         data: [
           {
-            appointments_id: 2,
+            appointment_id: 2,
             id: 1,
             patient_id: 1,
             appointment_date: '2020-12-02T00:00:00.000Z',
@@ -536,7 +539,7 @@ describe('Server Tests', () => {
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
           },
           {
-            appointments_id: 8,
+            appointment_id: 8,
             id: 2,
             patient_id: 2,
             appointment_date: '2020-12-02T00:00:00.000Z',

@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
-import PropTypes from 'prop-types';
+import {
+  message,
+  Table,
+  Popconfirm,
+  DatePicker,
+  TimePicker,
+  Checkbox,
+} from 'antd';
 
-import { Table, Popconfirm, DatePicker, TimePicker, Checkbox } from 'antd';
 import {
   EditOutlined,
   CheckOutlined,
@@ -11,62 +16,37 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons';
 
-import 'antd/dist/antd.css';
 import './style.css';
 
+import moment from 'moment';
+import { arrayOf, shape, string, number, func, bool } from 'prop-types';
 import Loading from '../common/Loading';
 import AlertMessage from '../common/AlertMessage';
 
-const ADayScheduleTable = ({ dayDate }) => {
-  const [appointmentsData, setAppointmentsData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editingKey, setEditingKey] = useState('');
+const successMessage = () => {
+  message.success({
+    content: 'Success!',
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! ${errorMessage}`,
+  });
+};
+
+const PatientSearchTable = ({
+  appointmentsData,
+  setUpdate,
+  loading,
+  error,
+}) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [editingKey, setEditingKey] = useState('');
   const [checked, setChecked] = useState('false');
-  const [error, setError] = useState('');
-  const [update, setUpdate] = useState(false);
 
   const isEditing = (record) => record.key === editingKey;
-  useEffect(() => {
-    let unmounted = false;
-    const source = axios.CancelToken.source();
-    axios
-      .get(`/api/v1/appointments/${dayDate}`)
-      .then(({ data: { data } }) => {
-        if (!unmounted) {
-          const newData = data.map((item) => ({
-            key: item.appointments_id,
-            appointmentDate: moment(item.appointment_date).format('YYYY-MM-DD'),
-            appointmentTime: item.appointment_time,
-            firstName: item.firstname,
-            lastName: item.lastname,
-            isDone: item.is_done,
-            age:
-              moment(dayDate).format('YYYY') -
-              moment(item.birthday).format('YYYY'),
-          }));
-          setAppointmentsData(newData);
-          setLoading(false);
-          setUpdate(false);
-        }
-      })
-      .catch((e) => {
-        if (!unmounted) {
-          setError(e.message);
-          setLoading(false);
-          if (axios.isCancel(e)) {
-            console.log(`request cancelled:${e.message}`);
-          } else {
-            console.log(`another error happened:${e.message}`);
-          }
-        }
-      });
-    return () => {
-      unmounted = true;
-      source.cancel('Cancelling in cleanup');
-    };
-  }, [update]);
 
   const onDateChange = (_, dateStr) => {
     setDate(dateStr);
@@ -87,6 +67,7 @@ const ADayScheduleTable = ({ dayDate }) => {
   };
 
   const save = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       const index = appointmentsData.findIndex((item) => key === item.key);
       if (index > -1) {
@@ -96,19 +77,23 @@ const ADayScheduleTable = ({ dayDate }) => {
           isDone: appointmentsData[index].isDone,
         });
 
-        setUpdate(true);
+        setUpdate((update) => !update);
         setEditingKey('');
+        hideLoadingMessage.then(() => successMessage());
       }
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
 
   const check = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       const index = appointmentsData.findIndex((item) => key === item.key);
 
@@ -116,27 +101,34 @@ const ADayScheduleTable = ({ dayDate }) => {
         await axios.patch(`/api/v1/appointments/${key}/status`, {
           isDone: appointmentsData[index].isDone,
         });
-        setUpdate(true);
+        setUpdate((update) => !update);
+        hideLoadingMessage.then(() => successMessage());
       }
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
 
   const deleteCell = async (key) => {
+    const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     try {
       await axios.delete(`/api/v1/appointments/${key}`);
-      setUpdate(true);
+      setUpdate((update) => !update);
       setEditingKey('');
+      hideLoadingMessage.then(() => successMessage());
     } catch (errInfo) {
-      setError(
-        errInfo.response
-          ? errInfo.response.data.message
-          : `Something went wrong`
+      hideLoadingMessage.then(() =>
+        failedMessage(
+          errInfo.response.data.message
+            ? errInfo.response.data.message
+            : errInfo.response.data
+        )
       );
     }
   };
@@ -302,12 +294,20 @@ const ADayScheduleTable = ({ dayDate }) => {
   );
 };
 
-ADayScheduleTable.propTypes = {
-  dayDate: PropTypes.string,
+PatientSearchTable.propTypes = {
+  appointmentsData: arrayOf(
+    shape({
+      key: number.isRequired,
+      firstName: string.isRequired,
+      lastName: string.isRequired,
+      appointmentDate: string.isRequired,
+      appointmentTime: string.isRequired,
+      age: number,
+    }).isRequired
+  ).isRequired,
+  setUpdate: func.isRequired,
+  loading: bool.isRequired,
+  error: string.isRequired,
 };
 
-ADayScheduleTable.defaultProps = {
-  dayDate: moment().format('YYYY-MM-DD').toString(),
-};
-
-export default ADayScheduleTable;
+export default PatientSearchTable;
