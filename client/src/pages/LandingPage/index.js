@@ -2,13 +2,15 @@ import React from 'react';
 
 import NavBar from '../../components/NavBar';
 import BookingForm from '../../components/BookingForm';
-import ServesDisplay from '../../components/ServesDisplay';
+import Header from '../../components/header';
+import Map from '../home/Map';
 
 const LandingPage = () => (
   <div>
     <NavBar />
-    <ServesDisplay />
+    <Header />
     <BookingForm />
+    <Map />;
   </div>
 );
 

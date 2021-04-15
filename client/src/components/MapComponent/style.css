@@ -1,0 +1,43 @@
+.map-container-div{
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+.map-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+.map-container-card {
+  border-radius:1rem;
+	background: white;
+	position: absolute;
+	top: calc(50vh - 200px);
+  left:calc(25vw - 100px);
+}
+
+.map-container-card-list{
+	width: 20rem;
+}
+
+.map-container-div .ant-list-item-no-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.map-container-div .ant-spin-container{
+	width: 100%;
+}
+
+.map-container-div .ant-list-item-meta{
+	width: 100%;
+}
+
+.map-container-div .map-icon-top{
+    color:#52CDDE;
+		font-size: 2rem;
+}
+

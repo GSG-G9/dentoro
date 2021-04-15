@@ -1,5 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Card } from 'antd';
 
 import './style.css';
@@ -25,5 +26,11 @@ const ServesCard = ({ coverIcon, servesTitle, servesDescription }) => (
     ,
   </div>
 );
+
+ServesCard.propTypes = {
+  coverIcon: PropTypes.element.isRequired,
+  servesTitle: PropTypes.string.isRequired,
+  servesDescription: PropTypes.string.isRequired,
+};
 
 export default ServesCard;

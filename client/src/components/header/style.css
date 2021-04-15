@@ -44,7 +44,7 @@
 .content>p{
     font-size: 20px;
     color: #282828;
-    max-width: 30vw;
+    max-width: 40vw;
 }
 
 .img{
@@ -67,4 +67,8 @@
 .read-more-button:hover{
     background-color: black;
     transition: 0.4s;
+}
+
+.serves-display{
+    height: 100vh;
 }

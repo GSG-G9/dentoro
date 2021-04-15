@@ -6,6 +6,7 @@ import './style.css';
 
 const serves = [
   <ServesCard
+    key="1"
     coverIcon={
       <svg
         width="35"
@@ -25,6 +26,7 @@ const serves = [
     servesDescription="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque necessitatibus quidem nesciunt dolor"
   />,
   <ServesCard
+    key="2"
     coverIcon={
       <svg
         width="34"
@@ -43,6 +45,7 @@ const serves = [
     servesDescription="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque necessitatibus quidem nesciunt dolor"
   />,
   <ServesCard
+    key="3"
     coverIcon={
       <svg
         width="38"
@@ -61,6 +64,7 @@ const serves = [
     servesDescription="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque necessitatibus quidem nesciunt dolor"
   />,
   <ServesCard
+    key="4"
     coverIcon={
       <svg
         width="32"
@@ -80,23 +84,25 @@ const serves = [
   />,
 ];
 
-const ServesDisplay = () => (
-  <div className="container">
-    <img src={theme} alt="dental cover pic" className="img" />
-    <div className="shadow">
-      <div className="content">
-        <h4>Innovative Technology</h4>
-        <h1>Certified dentist</h1>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
-          necessitatibus quidem nesciunt dolor
-        </p>
-        <button className="read-more-button" type="button">
-          Read More
-        </button>
+const Header = () => (
+  <div className="serves-display">
+    <div className="container">
+      <img src={theme} alt="dental cover pic" className="img" />
+      <div className="shadow">
+        <div className="content">
+          <h4>Innovative Technology</h4>
+          <h1>Certified dentist</h1>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
+            necessitatibus quidem nesciunt dolor
+          </p>
+          <button className="read-more-button" type="button">
+            Read More
+          </button>
+        </div>
       </div>
+      <div className="serves-container">{serves}</div>
     </div>
-    <div className="serves-container">{serves}</div>
   </div>
 );
-export default ServesDisplay;
+export default Header;
