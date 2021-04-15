@@ -20,16 +20,6 @@ const BookingForm = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-
-  const onDate = (_, dateString) => {
-    setDate(dateString);
-  };
-
-  const onTime = (_, timeString) => {
-    setTime(timeString);
-  };
 
   const onFinish = async ({
     firstName,
@@ -115,7 +105,7 @@ const BookingForm = () => {
             <Input placeholder="Email" />
           </Form.Item>
           <Form.Item name="birthday" placeholder="Birthday">
-            <DatePicker placeholder="Birthday" value={date} onChange={onDate} />
+            <DatePicker placeholder="Birthday" />
           </Form.Item>
           <Form.Item
             name="phone"
@@ -138,11 +128,7 @@ const BookingForm = () => {
               },
             ]}
           >
-            <DatePicker
-              placeholder="Appointment date"
-              value={date}
-              onChange={onDate}
-            />
+            <DatePicker placeholder="Appointment date" />
           </Form.Item>
           <Form.Item
             name="appointmentTime"
@@ -152,8 +138,6 @@ const BookingForm = () => {
           >
             <TimePicker
               placeholder="Appointment time"
-              value={time}
-              onChange={onTime}
               format="HH"
               disabledHours={() => [0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23]}
               hideDisabledOptions
