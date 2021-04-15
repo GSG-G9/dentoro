@@ -4,6 +4,7 @@ import BookingForm from '../../components/BookingForm';
 import Map from '../home/Map';
 import AboutUs from '../home/AboutUs';
 import Header from '../../components/header';
+import OurServices from '../../components/OurServices';
 import './style.css';
 
 const LandingPage = () => (
@@ -13,6 +14,7 @@ const LandingPage = () => (
       <Header />
       <AboutUs />
       <BookingForm />
+      <OurServices />
       <Map />;
     </div>
   </div>
