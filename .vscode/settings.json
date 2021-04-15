@@ -16,7 +16,8 @@
   "files.eol": "\n",
   "cSpell.words": [
     "Popconfirm",
-    "Sider"
+    "Sider",
+    "hoverable"
   ],
   "cSpell.ignoreWords": ["starticon", "boomify", "middlewares","antd"]
 }
