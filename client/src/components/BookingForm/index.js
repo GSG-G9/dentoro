@@ -9,21 +9,12 @@ import {
   TimePicker,
   Result,
   Alert,
-  Spin,
 } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import './style.css';
 
 const { Title } = Typography;
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
 const BookingForm = () => {
   const [success, setSuccess] = useState(false);
@@ -83,11 +74,19 @@ const BookingForm = () => {
 
   return (
     <div className="booking">
-      {success && <Result status="success" title="Booked successfully" />}
-      {loading ? (
-        <Spin />
+      {success ? (
+        <div className="success">
+          <Result status="success" title="Booked successfully" />
+          <Button
+            value={success}
+            type="primary"
+            onClick={() => setSuccess(false)}
+          >
+            Book again
+          </Button>
+        </div>
       ) : (
-        <Form {...layout} onFinish={onFinish} name="basic">
+        <Form onFinish={onFinish} name="basic">
           <Title color="#fff"> Book an appointment</Title>
           {error && (
             <Alert
@@ -115,12 +114,8 @@ const BookingForm = () => {
           <Form.Item name="email" rules={[{ type: 'email' }]}>
             <Input placeholder="Email" />
           </Form.Item>
-          <Form.Item name="birthday">
-            <DatePicker
-              defaultValue={moment()}
-              value={date}
-              onChange={onDate}
-            />
+          <Form.Item name="birthday" placeholder="Birth day">
+            <DatePicker placeholder="Birthday" value={date} onChange={onDate} />
           </Form.Item>
           <Form.Item
             name="phone"
@@ -144,7 +139,7 @@ const BookingForm = () => {
             ]}
           >
             <DatePicker
-              defaultValue={moment()}
+              placeholder="Appointment date"
               value={date}
               onChange={onDate}
             />
@@ -156,7 +151,7 @@ const BookingForm = () => {
             ]}
           >
             <TimePicker
-              defaultValue={moment(new Date('2021-01-01 08:00:00'), 'HH:mm')}
+              placeholder="Appointment time"
               value={time}
               onChange={onTime}
             />
@@ -167,8 +162,8 @@ const BookingForm = () => {
           <Form.Item name="complaints">
             <Input.TextArea placeholder="Complaints" className="input-height" />
           </Form.Item>
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item>
+            <Button type="primary" htmlType="submit" loading={loading}>
               Confirm
             </Button>
           </Form.Item>

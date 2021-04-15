@@ -4,6 +4,7 @@
     background-repeat: no-repeat;
     background-size:cover;
     padding-top: 2rem;
+    min-height : 70vh;
     }
 
     .booking .ant-form {
@@ -34,8 +35,6 @@
         width: 25rem;
         border-radius: 2rem;
         height: 3rem;
-
-
     }
 
     .booking .ant-picker-input > input {
@@ -61,7 +60,17 @@
     border-radius: 2rem;
     width: 12rem;
     height: 3.5rem;
-    margin-left: -18rem;
+    margin-left: 12rem;
+}
+
+.success{
+    margin-top: 10rem;
+    min-height : 70vh;
+}
+
+.success .ant-btn{
+    margin-left: 21.5rem;
+
 }
 
 .booking .ant-result-title{
@@ -101,5 +110,9 @@
 
     .booking .ant-picker{
         width: auto;
+    }
+    .success .ant-btn{
+        margin-left: 10rem;
+    
     }
 }
