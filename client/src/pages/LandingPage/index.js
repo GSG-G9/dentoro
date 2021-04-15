@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../../components/NavBar';
 import BookingForm from '../../components/BookingForm';
 import Map from '../home/Map';
+import Footer from '../../components/Footer';
 import AboutUs from '../home/AboutUs';
 import './style.css';
 
@@ -11,7 +12,8 @@ const LandingPage = () => (
       <NavBar />
       <AboutUs />
       <BookingForm />
-      <Map />;
+      <Map />
+      <Footer />
     </div>
   </div>
 );
