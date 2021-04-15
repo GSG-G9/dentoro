@@ -1,0 +1,29 @@
+.icons-container{
+    display: flex;
+    justify-content: space-around;
+    height: 25vh;
+    background-color: #2E282D;
+    color: #fff ;
+
+}
+
+.icons-container a{
+    color: #B0AEB0 !important;
+}
+
+.icons-container .description{
+    color: #B0AEB0 !important;
+}
+
+.link:hover {
+    color: #52CDDE !important
+}
+
+.icons-container img{
+    height: 1rem !important;
+    width: 1rem !important;
+}
+
+.icons-container .title{
+    color: #fff;
+}
