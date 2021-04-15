@@ -1,7 +1,7 @@
 .icons-container{
     display: flex;
     justify-content: space-around;
-    height: 25vh;
+    padding: 20px 0;
     width: 100vw;
     background-color: #2E282D;
     color: #fff ;
@@ -20,8 +20,9 @@
 }
 
 .icons-container img{
-    height: 1rem !important;
-    width: 1rem !important;
+    height: 5rem !important;
+    width: 5rem !important;
+    margin-bottom: 10px;
 }
 
 .icons-container .title{
