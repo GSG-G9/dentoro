@@ -67,10 +67,10 @@ const Sidebar = ({ children }) => {
           </Menu.Item>
           <Menu.Item
             className="menu-item"
-            key="/dashboard/calender"
+            key="/dashboard/calendar"
             icon={<DesktopOutlined />}
           >
-            <Link to="/dashboard/calender">Calender </Link>
+            <Link to="/dashboard/calendar">Calendar </Link>
           </Menu.Item>
           <Menu.Item
             className="menu-item"
