@@ -1,0 +1,8 @@
+.ServiceCard{
+    width: 240px;
+    display: flex;
+    align-items: center;
+    border: none;
+    text-align: center;
+}
+   
