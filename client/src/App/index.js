@@ -9,7 +9,7 @@ import Sidebar from '../components/Sidebar';
 import Calendar from '../pages/admin/Calendar';
 import PatientProfile from '../pages/admin/PatientProfile';
 import LandingPage from '../pages/LandingPage';
-import Map from '../components/MapComponent';
+import Map from '../pages/home/Map';
 import PatientsAppointmentTable from '../pages/admin/PatientsAppointmentTable';
 
 import './App.css';

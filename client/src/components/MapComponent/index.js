@@ -4,62 +4,42 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './style.css';
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { List } from 'antd';
+
 import {
-  BellOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
-  SendOutlined,
-} from '@ant-design/icons';
+  objectOf,
+  number,
+  arrayOf,
+  shape,
+  oneOfType,
+  string,
+  element,
+} from 'prop-types';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken =
   'pk.eyJ1IjoiaGFzc2FuZWxuYWpqYXIiLCJhIjoiY2ttYnIwaXEwMXBmaDJ2bGFmamV2bTZscCJ9.4TZoRxt7UnuMOJMPUaSkqg';
 
-const data = [
-  {
-    title: 'Visit our location Palestine',
-    description: 'Gaza - Jalal St.',
-    icon: <EnvironmentOutlined className="map-icon-top" />,
-  },
-  {
-    title: 'Give us a call',
-    description: '+972 59 701 0101',
-    icon: <PhoneOutlined className="map-icon-top" />,
-  },
-  {
-    title: 'Openings Hours',
-    description: 'From 8 AM to 6 PM',
-    icon: <BellOutlined className="map-icon-top" />,
-  },
-  {
-    title: 'Email',
-    description: 'info@dentoro.com',
-    icon: <SendOutlined className="map-icon-top" />,
-  },
-];
-
-const MapComponent = () => {
+const MapComponent = ({ mapInfo }) => {
+  const {
+    geolocation: { lat, long, zoom },
+    info,
+  } = mapInfo;
   const mapContainer = useRef();
   const map = useRef();
-  const [lat] = useState(31.342831483037518);
-  const [lng] = useState(34.30525274373743);
-  const [zoom] = useState(15);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
+      center: [long, lat],
       zoom,
     });
-    new mapboxgl.Marker()
-      .setLngLat([34.30525274373743, 31.342831483037518])
-      .addTo(map.current);
+    new mapboxgl.Marker().setLngLat([long, lat]).addTo(map.current);
     return () => map.current.remove();
-  }, [lat, lng, zoom]);
+  }, [lat, long, zoom]);
   return (
     <div className="map-container-div">
       <div className="map-container" ref={mapContainer} />
@@ -69,7 +49,7 @@ const MapComponent = () => {
           size="small"
           itemLayout="vertical"
           bordered
-          dataSource={data}
+          dataSource={info}
           renderItem={(item) => (
             <List.Item key={item.title}>
               <List.Item.Meta
@@ -85,4 +65,14 @@ const MapComponent = () => {
   );
 };
 
+MapComponent.propTypes = {
+  mapInfo: shape({
+    geolocation: shape({
+      lat: number.isRequired,
+      long: number.isRequired,
+      zoom: number.isRequired,
+    }).isRequired,
+    info: arrayOf(objectOf(oneOfType([element, string]))),
+  }).isRequired,
+};
 export default MapComponent;
