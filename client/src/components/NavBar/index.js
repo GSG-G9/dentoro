@@ -16,7 +16,7 @@ import logo from '../../assets/images/logo.png';
 
 const { Title } = Typography;
 
-const NavTap = () => (
+const NavBar = () => (
   <div className="header-container">
     <div className="info">
       <Button className="account-button" type="text">
@@ -82,4 +82,4 @@ const NavTap = () => (
     </Menu>
   </div>
 );
-export default NavTap;
+export default NavBar;
