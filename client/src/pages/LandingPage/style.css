@@ -1,0 +1,17 @@
+.landing-page-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items:center;
+  width: 100vw;
+}
+
+.landing-page-content{
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items:center;
+  width: 80vw;
+}
+
+
