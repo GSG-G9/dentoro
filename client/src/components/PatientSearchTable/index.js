@@ -20,6 +20,7 @@ import './style.css';
 
 import moment from 'moment';
 import { arrayOf, shape, string, number, func, bool } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Loading from '../common/Loading';
 import AlertMessage from '../common/AlertMessage';
 
@@ -45,6 +46,7 @@ const PatientSearchTable = ({
   const [time, setTime] = useState('');
   const [editingKey, setEditingKey] = useState('');
   const [checked, setChecked] = useState('false');
+  const history = useHistory();
 
   const isEditing = (record) => record.key === editingKey;
 
@@ -266,7 +268,7 @@ const PatientSearchTable = ({
   ];
 
   return (
-    <div>
+    <div className="patient-search-table">
       {loading ? (
         <Loading size="large" />
       ) : error ? (
@@ -278,6 +280,10 @@ const PatientSearchTable = ({
         />
       ) : (
         <Table
+          onRow={(record) => ({
+            onClick: () =>
+              history.push(`/dashboard/patients/${record.patientId}`),
+          })}
           style={{
             width: '60%',
           }}
