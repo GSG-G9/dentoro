@@ -49,6 +49,7 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
         if (!unmounted) {
           const newData = data.map((item) => ({
             key: item.appointment_id,
+            patientId: item.patient_id,
             appointmentDate: moment(item.appointment_date).format('YYYY-MM-DD'),
             appointmentTime: item.appointment_time,
             firstName: item.firstname,
