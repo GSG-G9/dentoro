@@ -1,5 +1,3 @@
-@import 'antd/dist/antd.css';
-
 .head-container{
     display: flex;
     flex-direction: 'column';
@@ -155,3 +153,13 @@ visibility: hidden
         padding-top: -2rem;
     }
 }
+
+#nav-bar .nav-button{
+    text-decoration: none;
+    color:white ;
+}
+
+#nav-bar .nav-button:hover{
+    color:#4ABACA;
+}
+

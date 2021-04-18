@@ -7,7 +7,7 @@ import './style.css';
 const { Title, Text } = Typography;
 
 const OurServices = () => (
-  <div className="ourService-display">
+  <div className="ourService-display" id="our-services">
     <div className="ourService-container">
       <div className="ourService-content">
         <Title level={5} className="ourService-subtitle">

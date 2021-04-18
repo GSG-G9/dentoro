@@ -9,7 +9,7 @@ import './style.css';
 const { Title, Text } = Typography;
 
 const Header = () => (
-  <div className="Service-display">
+  <div className="Service-display" id="home">
     <div className="container">
       <Image src={theme} alt="dental cover pic" className="img" />
       <div className="shadow">
@@ -22,14 +22,13 @@ const Header = () => (
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
             necessitatibus quidem nesciunt dolor
           </Text>
-          <button className="read-more-button" type="button">
+          <a className="read-more-button" type="button" href="#about-us">
             Read More
-          </button>
+          </a>
         </div>
       </div>
       <div className="Service-container">{Services}</div>
     </div>
   </div>
 );
-
 export default Header;
