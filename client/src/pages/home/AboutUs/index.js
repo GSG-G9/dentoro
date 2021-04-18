@@ -9,7 +9,7 @@ import './style.css';
 const { Text, Paragraph } = Typography;
 
 const AboutUs = () => (
-  <div className="about-us-container">
+  <div className="about-us-container" id="about-us">
     <Text className="about-us-page-name">About Us</Text>
     <Title text="Welcome to Dental Clinic Center" />
     <Paragraph className="about-us-description">

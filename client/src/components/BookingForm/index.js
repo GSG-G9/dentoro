@@ -63,7 +63,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="booking">
+    <div className="booking" id="booking-form">
       {success ? (
         <div className="success">
           <Result status="success" title="Booked successfully" />

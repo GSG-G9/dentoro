@@ -41,7 +41,7 @@ const MapComponent = ({ mapInfo }) => {
     return () => map.current.remove();
   }, [lat, long, zoom]);
   return (
-    <div className="map-container-div">
+    <div className="map-container-div" id="map">
       <div className="map-container" ref={mapContainer} />
       <div className="map-container-card">
         <List
