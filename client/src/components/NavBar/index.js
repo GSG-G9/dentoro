@@ -66,8 +66,8 @@ const NavBar = () => (
         </a>
       </Menu.Item>
       <Menu.Item icon={<DownOutlined className="icon" />} key="2">
-        <a className="nav-button" href="#nav-bar">
-          Features
+        <a className="nav-button" href="#about-us">
+          About Us
         </a>
       </Menu.Item>
       <Menu.Item icon={<DownOutlined className="icon" />} key="3">
