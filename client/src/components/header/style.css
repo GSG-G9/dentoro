@@ -42,11 +42,6 @@
     font-size: 35px;
 
 }
-
-/* .Service-display{
-    height: 80vh;
-} */
-
 .description{
     font-size: 20px;
     color: #282828;
@@ -67,6 +62,7 @@
     width: 150px;
     cursor: pointer;
     transition: 0.4s;
+    text-align: center;
 
 }
 
