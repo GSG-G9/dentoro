@@ -36,8 +36,18 @@ const MapComponent = ({ mapInfo }) => {
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [long, lat],
       zoom,
+      interactive: false,
     });
     new mapboxgl.Marker().setLngLat([long, lat]).addTo(map.current);
+    map.current.addControl(new mapboxgl.NavigationControl());
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
     return () => map.current.remove();
   }, [lat, long, zoom]);
   return (
