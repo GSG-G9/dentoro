@@ -38,6 +38,16 @@ const MapComponent = ({ mapInfo }) => {
       zoom,
     });
     new mapboxgl.Marker().setLngLat([long, lat]).addTo(map.current);
+    map.current.addControl(new mapboxgl.NavigationControl());
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
+    map.current.scrollZoom.disable();
     return () => map.current.remove();
   }, [lat, long, zoom]);
   return (
