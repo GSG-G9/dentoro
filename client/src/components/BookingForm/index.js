@@ -21,6 +21,8 @@ const BookingForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
+  const disabledDate = (current) => current && current < moment().endOf('day');
+
   const onFinish = async ({
     firstName,
     lastName,
@@ -128,7 +130,10 @@ const BookingForm = () => {
               },
             ]}
           >
-            <DatePicker placeholder="Appointment date" />
+            <DatePicker
+              disabledDate={disabledDate}
+              placeholder="Appointment date"
+            />
           </Form.Item>
           <Form.Item
             name="appointmentTime"
@@ -145,10 +150,16 @@ const BookingForm = () => {
             />
           </Form.Item>
           <Form.Item name="diseases">
-            <Input.TextArea placeholder="Diseases" className="input-height" />
+            <Input.TextArea
+              placeholder="Do you have any chronic diseases ?"
+              className="input-height"
+            />
           </Form.Item>
           <Form.Item name="complaints">
-            <Input.TextArea placeholder="Complaints" className="input-height" />
+            <Input.TextArea
+              placeholder="What are you suffering from ?"
+              className="input-height"
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>
