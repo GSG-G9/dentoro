@@ -13,13 +13,34 @@ import {
 import axios from 'axios';
 import moment from 'moment';
 import './style.css';
+import Hours from './Hours';
 
 const { Title } = Typography;
 
 const BookingForm = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [timeAppear, setTimeAppear] = useState(false);
+  const [availableHours, setAvailableHours] = useState([]);
   const [error, setError] = useState();
+
+  const onDateTrigger = async ({ appointmentDate }) => {
+    if (appointmentDate) {
+      setTimeAppear(true);
+      const {
+        data: { data: availableTimes },
+      } = await axios.get(
+        `/api/v1/appointments/available/${moment(appointmentDate).format(
+          'YYYY-MM-DD'
+        )}`
+      );
+      setAvailableHours(
+        Hours.filter((hour) => !availableTimes.includes(hour)).map(
+          (hour) => +hour.split(':')[0]
+        )
+      );
+    }
+  };
 
   const onFinish = async ({
     firstName,
@@ -48,6 +69,7 @@ const BookingForm = () => {
       setSuccess(true);
       setError(false);
       setLoading(false);
+      setTimeAppear(false);
     } catch (err) {
       setLoading(false);
       let e;
@@ -76,7 +98,7 @@ const BookingForm = () => {
           </Button>
         </div>
       ) : (
-        <Form onFinish={onFinish} name="basic">
+        <Form onFinish={onFinish} onValuesChange={onDateTrigger} name="basic">
           <Title color="#fff"> Book an appointment</Title>
           {error && (
             <Alert
@@ -130,20 +152,23 @@ const BookingForm = () => {
           >
             <DatePicker placeholder="Appointment date" />
           </Form.Item>
-          <Form.Item
-            name="appointmentTime"
-            rules={[
-              { required: true, message: 'Please input appointment time!' },
-            ]}
-          >
-            <TimePicker
-              placeholder="Appointment time"
-              format="HH"
-              disabledHours={() => [0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23]}
-              hideDisabledOptions
-              showNow={false}
-            />
-          </Form.Item>
+          {timeAppear && (
+            <Form.Item
+              name="appointmentTime"
+              rules={[
+                { required: true, message: 'Please input appointment time!' },
+              ]}
+            >
+              <TimePicker
+                placeholder="Appointment time"
+                format="HH"
+                disabledHours={() => [...availableHours]}
+                hideDisabledOptions
+                showNow={false}
+              />
+            </Form.Item>
+          )}
+
           <Form.Item name="diseases">
             <Input.TextArea placeholder="Diseases" className="input-height" />
           </Form.Item>
