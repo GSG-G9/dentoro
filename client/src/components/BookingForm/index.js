@@ -24,6 +24,8 @@ const BookingForm = () => {
   const [availableHours, setAvailableHours] = useState([]);
   const [error, setError] = useState();
 
+  const disabledDate = (current) => current && current < moment().endOf('day');
+
   const onDateTrigger = async ({ appointmentDate }) => {
     if (appointmentDate) {
       setTimeAppear(true);
@@ -150,7 +152,10 @@ const BookingForm = () => {
               },
             ]}
           >
-            <DatePicker placeholder="Appointment date" />
+            <DatePicker
+              disabledDate={disabledDate}
+              placeholder="Appointment date"
+            />
           </Form.Item>
           {timeAppear && (
             <Form.Item
@@ -170,10 +175,16 @@ const BookingForm = () => {
           )}
 
           <Form.Item name="diseases">
-            <Input.TextArea placeholder="Diseases" className="input-height" />
+            <Input.TextArea
+              placeholder="Do you have any chronic diseases ?"
+              className="input-height"
+            />
           </Form.Item>
           <Form.Item name="complaints">
-            <Input.TextArea placeholder="Complaints" className="input-height" />
+            <Input.TextArea
+              placeholder="What are you suffering from ?"
+              className="input-height"
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>

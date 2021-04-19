@@ -28,6 +28,24 @@
 .cancel-edit-icon{
   color: red;
 }
-.patient-search-table .ant-table-row {
+.row-click-pointer {
+    font-weight: 500;
     cursor: pointer;
+    text-transform: capitalize;
+    transition: text-decoration 2s linear 1s;
+    text-decoration: none;
 }
+
+.row-click-pointer::after{
+  content: '';
+  width: 0px;
+  height: 2px;
+  display: block;
+  background: #001529;
+  transition: width 300ms;
+}
+
+.row-click-pointer:hover::after{
+  width: 50%;
+}
+
