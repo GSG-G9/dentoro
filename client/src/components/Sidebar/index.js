@@ -34,6 +34,10 @@ const Sidebar = ({ children }) => {
     history.push('/login');
   };
 
+  const sendToHome = () => {
+    history.push('/');
+  };
+
   return (
     <Layout className="page-layout">
       <Sider
@@ -47,6 +51,8 @@ const Sidebar = ({ children }) => {
           <LogoImage
             src={logo}
             alt="Dental Clinic logo image show a tooth inside a heart"
+            onClick={sendToHome}
+            style={{ cursor: 'pointer' }}
           />
           <Title className="title-text" level={3}>
             Dental Clinic
