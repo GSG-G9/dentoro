@@ -14,6 +14,7 @@
     border-radius: 20px;
     left: 10vw;
     top: -6vh;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.433);
 }
 
 .shadow{
@@ -85,9 +86,7 @@
     background-color: black;
     transition: 0.4s;
 }
-.Service-display{
-        box-shadow: 0px 0px 60px;
-}
+
 
 @media only screen and (max-width: 1250px) {
     .Service-display{
