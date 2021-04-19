@@ -24,7 +24,8 @@ const BookingForm = () => {
   const [availableHours, setAvailableHours] = useState([]);
   const [error, setError] = useState();
 
-  const disabledDate = (current) => current && current < moment().endOf('day');
+  const disabledDate = (current) =>
+    current && current < moment().startOf('day');
 
   const onDateTrigger = async ({ appointmentDate }) => {
     if (appointmentDate) {
