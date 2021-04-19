@@ -1,46 +1,52 @@
-.head-container{
+.header-container{
+    width: 100%;
     display: flex;
-    flex-direction: 'column';
-    flex-wrap: wrap;
-}
-
-.info{
-    padding: 0rem 10rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center
 }
 
 .account-button{
-    float: right;
+    height: 100%;
 }
 
-.line{
-visibility: hidden
+.nav-bar-logo-account{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
 }
 
-.details{
-    float: right;
+.nav-bar-logo-image-icons{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 100%;
+}
+.navbar-icon{
+color:#52CDDE;
+font-size: 1rem;
 }
 
-.details .ant-menu-item-active{
-    color: #000 !important;
-    border-bottom: 0px !important;
-    background-color: #fff !important ;
-
+.navbar-icon-list{
+    width: 60vw;
 }
 
-.details .ant-menu-item-selected{
-    color: #000 !important;
-    background-color: #fff !important ;
-    border-bottom:0px solid !important;
+.map-container-div .ant-list-item-no-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.details-body{
-    float: right; 
-    padding-bottom: 4.1rem !important;
+.map-container-div .ant-spin-container{
+	width: 100%;
 }
 
-.icon-top{
-    color:#52CDDE;
+.map-container-div .ant-list-item-meta{
+	width: 100%;
 }
+
 
 .account-link {
     color: #000;
@@ -49,117 +55,128 @@ visibility: hidden
     color: #52CDDE
 }
 
-.Nav-Tap{
+.navbar-bar{
     background-color:#2E282D;
-    height: 3.5rem;
+    height: 3rem;
     width: 100vw ;
-    margin-top: 0.5rem;
-}
-
-.nav-menu{
-    margin-left: 10rem !important
-}
-
-
-.Nav-Tap .ant-menu-item{
     color: #fff;
-    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items:center
 }
 
-.Nav-Tap .ant-menu-item-active{
-    color:#52CDDE !important;
-    border-bottom:2px solid #52CDDE !important;
+
+.navbar-links{
+    width: var(--landing-page-content-width);
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
 }
 
-.Nav-Tap .ant-menu-item-selected{
-    color:#52CDDE !important;
-    border-bottom:2px solid #52CDDE !important;
+.ant-anchor{
+    height: 100%;
 }
 
-.Nav-Tap .icon{
-        float: right;
-        margin: 1rem  0rem 0rem 0.5rem;
+.navbar-links-background{
+    background-color:transparent;
+    height: 100% !important;
+    align-items:center
+}
+.navbar-links .ant-anchor{
+    display: flex ;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
 }
 
-.form  {
-    width: 12.5rem;
-    text-align: center;
-    color: #fff !important;
-    float:right !important;
-    margin-right:10rem !important;
+.navbar-links  .ant-anchor-ink{
+    display: none;
+}
+
+.navbar-links  .ant-anchor-link{
+    display: flex;
+    padding-left:1rem;
+    color:white;
+    cursor: pointer;
+    position: relative;
+    justify-content: center;
+    align-items:center;
+}
+
+.ant-dropdown-menu .ant-anchor-link{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.navbar-links  .ant-anchor-link::after{
+    content:'';
+    position: absolute;
+    left: 0;
+    bottom:0;
+    width:0px;
+    height: 2px;
+    display: block;
+    transition: width 300ms;
+}
+
+
+.navbar-links  .ant-anchor-link:hover{
+    color:#52CDDE
+}
+
+.navbar-links  .ant-anchor-link:hover::after{
+    background-color:#52CDDE;
+    width:100%
+}
+
+
+.navbar-link-icon{
+    font-size: 1rem;
+    color:inherit;
+    padding-left:0.50rem;
+}
+
+.navbar-book-icon{
+    font-size: 2rem;
+    padding-right: 1rem;
+}
+
+.navbar-links  .ant-anchor-link-title{
+    color:inherit
+}
+
+
+.navbar-book-button{
+    flex-direction: row-reverse;
     background-color: #52CDDE;
-    height: 3.5rem !important;
-
+    height: 100%;
+    padding:0  1rem !important;
 }
 
-.form .ant-menu-item-active {
-    color: #fff !important;
-    float:right !important;
-    margin-right:10rem !important;
-    background-color: #52CDDE !important;
-    height: 3.5rem !important;
-} 
-
-.form span {
-    color:#fff !important;
+.navbar-book-button:hover{
+    background-color:transparent
+}
+.navbar-info{
+    width: 100%;
 }
 
-.form-icon{
-    font-size: 1.5rem !important;
-    margin-top: 1rem !important
+.navbar-menu-icon{
+    display: none;
 }
 
-@media only screen and (max-width: 950px){
-    .form{
-        width: auto;
-        margin-right:0 !important;
+@media screen and (max-width: 1200px){
+    .nav-bar-logo-image-icons ,.line,.navbar-bar-links-only {
+        display: none;
+    }
 
-    }
-    .info{
-        padding: 0rem ;
-    }
+    .navbar-menu-icon{
+    display: block;
+    font-size: 2rem;
+    align-self:center
 }
 
-@media only screen and (max-width: 770px){
-    .Nav-Tap  {
-        height: auto;
-        width: auto ;
-        margin-top: 0rem;
-        padding-bottom: 1.8rem ;
-        align-self: center;
-    }
-    .ant-menu {
-        background: #2E282D !important;
-        color:#fff
-    }
-    .ant-menu-submenu span{
-        color: #fff !important;
-    }
-
-
-    .nav-menu{
-        margin-left: 1rem !important;
-    }
-
-        .ant-menu > .ant-menu-item:hover,
-    .ant-menu > .ant-menu-submenu:hover,
-    .ant-menu > .ant-menu-item-active,
-    .ant-menu> .ant-menu-submenu-active,
-    .ant-menu > .ant-menu-item-open,
-    .ant-menu> .ant-menu-submenu-open,
-    .ant-menu > .ant-menu-item-selected,
-    .ant-menu > .ant-menu-submenu-selected {
-        background-color: #2E282D  !important;
-        padding-top: -2rem;
-    }
+    
 }
-
-#nav-bar .nav-button{
-    text-decoration: none;
-    color:white ;
-}
-
-#nav-bar .nav-button:hover{
-    color:#4ABACA;
-}
-

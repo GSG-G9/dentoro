@@ -6,16 +6,21 @@
 .header-navbar {
 	height: 100%;
   display: flex;
-	justify-content:flex-start;
+	justify-content:space-between;
 	align-items: center;
 	background-color: white;
 	border-bottom: 1px solid black;
   box-shadow: 2px 0 3px black;
 }
 
-.menu-icon-style{
+.nave-icon-style-menu{
   font-size: 2rem;
   padding-left: 20px;
+}
+
+.nav-icon-style-home{
+	font-size: 2rem;
+  padding-right: 20px;
 }
 
 .menu-items {

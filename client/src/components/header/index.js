@@ -11,21 +11,21 @@ const { Title, Text } = Typography;
 const Header = () => (
   <div className="Service-display" id="home">
     <div className="container">
-      <Image src={theme} alt="dental cover pic" className="img" />
-      <div className="shadow">
-        <div className="content">
-          <Title level={4} className="header-subtitle">
-            Innovative Technology
-          </Title>
-          <Title className="header-title">Certified dentist</Title>
-          <Text className="description">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
-            necessitatibus quidem nesciunt dolor
-          </Text>
-          <a className="read-more-button" type="button" href="#about-us">
-            Read More
-          </a>
-        </div>
+      <div className="image-container">
+        <Image src={theme} alt="dental cover pic" className="img" />
+      </div>
+      <div className="content">
+        <Title level={4} className="header-subtitle">
+          Innovative Technology
+        </Title>
+        <Title className="header-title">Certified dentist</Title>
+        <Text className="description">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque
+          necessitatibus quidem nesciunt dolor
+        </Text>
+        <a className="read-more-button" type="button" href="#about-us">
+          Read More
+        </a>
       </div>
       <div className="Service-container">{Services}</div>
     </div>

@@ -6,8 +6,6 @@ import './style.css';
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import React, { useEffect, useRef } from 'react';
 
-import { List } from 'antd';
-
 import {
   objectOf,
   number,
@@ -17,6 +15,7 @@ import {
   string,
   element,
 } from 'prop-types';
+import List from '../common/List';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken =
@@ -60,15 +59,6 @@ const MapComponent = ({ mapInfo }) => {
           itemLayout="vertical"
           bordered
           dataSource={info}
-          renderItem={(item) => (
-            <List.Item key={item.title}>
-              <List.Item.Meta
-                avatar={item.icon}
-                title={item.title}
-                description={item.description}
-              />
-            </List.Item>
-          )}
         />
       </div>
     </div>
