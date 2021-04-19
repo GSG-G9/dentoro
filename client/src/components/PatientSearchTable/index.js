@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -20,7 +21,7 @@ import './style.css';
 
 import moment from 'moment';
 import { arrayOf, shape, string, number, func, bool } from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Loading from '../common/Loading';
 import AlertMessage from '../common/AlertMessage';
 
@@ -170,11 +171,27 @@ const PatientSearchTable = ({
       title: 'First Name',
       dataIndex: 'firstName',
       width: '15%',
+      render: (_, { firstName, patientId }) => (
+        <Link
+          className="row-click-pointer"
+          onClick={() => history.push(`/dashboard/patients/${patientId}`)}
+        >
+          {firstName}
+        </Link>
+      ),
     },
     {
       title: 'Last Name',
       dataIndex: 'lastName',
       width: '15%',
+      render: (_, { lastName, patientId }) => (
+        <Link
+          className="row-click-pointer"
+          onClick={() => history.push(`/dashboard/patients/${patientId}`)}
+        >
+          {lastName}
+        </Link>
+      ),
     },
     {
       title: 'Age',
@@ -280,10 +297,6 @@ const PatientSearchTable = ({
         />
       ) : (
         <Table
-          onRow={(record) => ({
-            onClick: () =>
-              history.push(`/dashboard/patients/${record.patientId}`),
-          })}
           style={{
             width: '60%',
           }}
