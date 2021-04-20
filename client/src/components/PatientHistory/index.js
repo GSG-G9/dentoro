@@ -24,7 +24,7 @@ const PatientHistory = ({ historyData }) => {
   );
   return (
     <div className="history-table-container">
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} scroll={{ x: 900 }} />
     </div>
   );
 };

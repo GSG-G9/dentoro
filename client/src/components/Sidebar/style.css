@@ -72,7 +72,7 @@
 
 .site-layout-content-body {
 	padding: 24;
-	width: 100%;
+	width: 80%;
 	display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -83,4 +83,8 @@
 
 .site-layout-footer {
 	text-align: center;
+}
+
+@media screen and (max-width:1200px) {
+	.site-layout-content-body {width: 100%}
 }

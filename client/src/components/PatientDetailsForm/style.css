@@ -60,3 +60,10 @@
 .patient-details-form-diseases .ant-form-item textarea.ant-input {
     height: 100px;
 }
+
+@media (max-width:900px) {
+	.patient-details-form{
+		flex-direction: column;
+	}
+	
+}

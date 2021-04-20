@@ -62,6 +62,7 @@ const Patients = () => {
         <Spin />
       ) : (
         <Table
+          scroll={{ x: 900 }}
           size="small"
           dataSource={dataSource}
           columns={columns}

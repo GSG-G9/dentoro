@@ -42,7 +42,7 @@ const Sidebar = ({ children }) => {
     <Layout className="page-layout">
       <Sider
         collapsible
-        breakpoint="lg"
+        breakpoint="xl"
         collapsedWidth="80"
         collapsed={collapsed}
         onCollapse={onCollapse}
