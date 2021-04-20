@@ -37,3 +37,22 @@
 	width: 100%;
 }
 
+.map-button{
+	display: none;
+}
+
+@media screen and (max-width:1200px) {
+	.map-button{
+		height: auto;
+		display: block;
+		position: relative;
+		top:80vh;
+		left:20vh;
+		border-radius:1rem
+
+	}
+	.map-container-card{
+		display: none;
+	}
+	
+}
