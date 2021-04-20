@@ -141,11 +141,11 @@ const PatientSearchTable = ({
       title: 'Status',
       dataIndex: 'isDone',
       defaultSortOrder: 'ascend',
-      width: '5%',
       sorter: {
         compare: (a, b) => a.isDone - b.isDone,
         multiple: 3,
       },
+
       render: (_, { key, isDone }) => (
         <Popconfirm
           disabled={isDone}
@@ -158,6 +158,7 @@ const PatientSearchTable = ({
           }}
         >
           <Checkbox
+            className="patient-search-table-status"
             disabled={isDone}
             checked={isDone && checked}
             onChange={() => {
@@ -170,7 +171,6 @@ const PatientSearchTable = ({
     {
       title: 'First Name',
       dataIndex: 'firstName',
-      width: '15%',
       render: (_, { firstName, patientId }) => (
         <Link
           className="row-click-pointer"
@@ -183,7 +183,6 @@ const PatientSearchTable = ({
     {
       title: 'Last Name',
       dataIndex: 'lastName',
-      width: '15%',
       render: (_, { lastName, patientId }) => (
         <Link
           className="row-click-pointer"
@@ -196,12 +195,10 @@ const PatientSearchTable = ({
     {
       title: 'Age',
       dataIndex: 'age',
-      width: '5%',
     },
     {
       title: 'Appointment Date',
       dataIndex: 'appointmentDate',
-      width: '17%',
       sorter: {
         compare: (a, b) => a.age - b.age,
         multiple: 3,
@@ -222,7 +219,6 @@ const PatientSearchTable = ({
     {
       title: 'Appointment time',
       dataIndex: 'appointmentTime',
-      width: '17%',
       defaultSortOrder: 'ascend',
       sorter: {
         compare: (a, b) =>
@@ -245,7 +241,6 @@ const PatientSearchTable = ({
     {
       title: 'Operation',
       dataIndex: 'operation',
-      width: '15%',
       render: (_, record) => {
         const editable = isEditing(record);
         return (
@@ -297,9 +292,7 @@ const PatientSearchTable = ({
         />
       ) : (
         <Table
-          style={{
-            width: '60%',
-          }}
+          scroll={{ x: 800 }}
           bordered
           dataSource={appointmentsData}
           columns={columns}

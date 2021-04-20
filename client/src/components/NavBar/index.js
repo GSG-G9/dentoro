@@ -1,95 +1,93 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Menu, Button, Typography } from 'antd';
+import { Button, Typography, Anchor, BackTop, Dropdown, Menu } from 'antd';
+
 import { Link } from 'react-router-dom';
 import {
   DownOutlined,
   AuditOutlined,
   UserOutlined,
-  BellOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons';
-
-import './style.css';
+import List from '../common/List';
 import LogoImage from '../common/Image';
 import logo from '../../assets/images/logo.png';
+import addressInfo from '../../utils/addressInfo';
+import './style.css';
+
+const { Link: AntLink } = Anchor;
 
 const { Title } = Typography;
+const { info } = addressInfo({ iconClassName: 'navbar-icon' });
+
+const AnchorLinks = ({ ...otherProps }) => (
+  <Anchor {...otherProps} affix={false}>
+    <AntLink title="Home" href="#home">
+      <DownOutlined className="navbar-link-icon" />
+    </AntLink>
+    <AntLink title="About Us" href="#about-us">
+      <DownOutlined className="navbar-link-icon" />
+    </AntLink>
+    <AntLink title="Services" href="#our-services">
+      <DownOutlined className="navbar-link-icon" />
+    </AntLink>
+    <AntLink title="Map" href="#map">
+      <DownOutlined className="navbar-link-icon" />
+    </AntLink>
+  </Anchor>
+);
 
 const NavBar = () => (
   <div className="header-container" id="nav-bar">
-    <div className="info">
-      <Button className="account-button" type="text">
-        <UserOutlined />
-        <Link className="account-link" to="/login">
-          account
-        </Link>
-      </Button>
+    <div className="navbar-info">
+      <div className="nav-bar-logo-account">
+        <Title level={5}>Welcome to Dental Clinic</Title>
+        <Button className="account-button" type="text">
+          <UserOutlined />
+          <Link className="account-link" to="/login">
+            account
+          </Link>
+        </Button>
+      </div>
       <hr className="line" />
-      <Title level={5}>Welcome to Dental Clinic</Title>
-      <hr />
-      <LogoImage
-        src={logo}
-        alt="Dental Clinic logo image show a tooth inside a heart"
-      />
-      <Menu className="details">
-        <Menu.Item
-          className="details-body"
-          icon={<BellOutlined className="icon-top" />}
-        >
-          Openings Hours <br />
-          From 8 AM to 6 PM
-        </Menu.Item>
-        <Menu.Item
-          className="details-body"
-          icon={<PhoneOutlined className="icon-top" />}
-        >
-          Give us a call <p>+972 59 701 0101</p>
-        </Menu.Item>
-        <Menu.Item
-          className="details-body"
-          icon={<EnvironmentOutlined className="icon-top" />}
-        >
-          Visit our location <br />
-          Palestine - Gaza - Jalal St.
-        </Menu.Item>
-      </Menu>
+      <div className="nav-bar-logo-image-icons">
+        <LogoImage
+          src={logo}
+          alt="Dental Clinic logo image show a tooth inside a heart"
+        />
+        <List
+          grid={{ gutter: 0, column: 4 }}
+          size="small"
+          itemLayout="horizontal"
+          dataSource={info}
+          className="navbar-icon-list"
+        />
+      </div>
     </div>
-    <Menu className="Nav-Tap " mode="horizontal">
-      <Menu.Item
-        className="nav-menu"
-        icon={<DownOutlined className="icon" />}
-        key="1"
-      >
-        <a className="nav-button" href="#home">
-          Home
-        </a>
-      </Menu.Item>
-      <Menu.Item icon={<DownOutlined className="icon" />} key="2">
-        <a className="nav-button" href="#about-us">
-          About Us
-        </a>
-      </Menu.Item>
-      <Menu.Item icon={<DownOutlined className="icon" />} key="3">
-        <a className="nav-button" href="#our-services">
-          Services
-        </a>
-      </Menu.Item>
-      <Menu.Item icon={<DownOutlined className="icon" />} key="4">
-        <a className="nav-button" href="#map">
-          Map
-        </a>
-      </Menu.Item>
-      <Menu.Item
-        className="form"
-        icon={<AuditOutlined className="form-icon" />}
-        key="5"
-      >
-        <a className="nav-button" href="#booking-form">
-          Book an appointment
-        </a>
-      </Menu.Item>
-    </Menu>
+    <div className="navbar-bar">
+      <div className="navbar-links">
+        <AnchorLinks className="navbar-links-background navbar-bar-links-only" />
+        <Anchor className="navbar-links-background" affix={false}>
+          <AntLink
+            className="navbar-book-button"
+            title="Book an appointment"
+            href="#booking-form"
+            affix={false}
+          >
+            <AuditOutlined className="navbar-link-icon navbar-book-icon" />
+          </AntLink>
+        </Anchor>
+        <Dropdown
+          placement="bottomCenter"
+          trigger={['click']}
+          overlay={<AnchorLinks className="navbar-links-background" />}
+        >
+          <MenuFoldOutlined className="navbar-menu-icon" />
+        </Dropdown>
+      </div>
+    </div>
+
+    <BackTop />
   </div>
 );
 export default NavBar;

@@ -21,6 +21,7 @@ code {
 
 #root{
   min-height: 100vh;
+  --landing-page-content-width:80vw
 }
 
 .App{

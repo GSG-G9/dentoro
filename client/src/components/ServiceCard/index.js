@@ -23,7 +23,6 @@ const ServiceCard = ({ coverIcon, ServiceTitle, ServiceDescription }) => (
     >
       <Meta title={ServiceTitle} description={ServiceDescription} />
     </Card>
-    ,
   </div>
 );
 

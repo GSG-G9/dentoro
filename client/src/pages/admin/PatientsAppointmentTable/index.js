@@ -4,7 +4,7 @@ import PatientSearchDateTable from '../../../components/PatientSearchDateTable';
 import Title from '../../../components/common/Title';
 
 const PatientsAppointmentTable = ({ pageTitle, showSearchBar }) => (
-  <div>
+  <div style={{ width: '100%', padding: '0 2rem' }}>
     <Title text={pageTitle} />
     <PatientSearchDateTable showSearchBar={showSearchBar} />
   </div>
