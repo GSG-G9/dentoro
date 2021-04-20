@@ -22,7 +22,8 @@ const BookingForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
-  const disabledDate = (current) => current && current < moment().endOf('day');
+  const disabledDate = (current) =>
+    current && current < moment().startOf('day');
 
   const onFinish = async ({
     firstName,

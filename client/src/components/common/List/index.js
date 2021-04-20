@@ -1,10 +1,9 @@
 import React from 'react';
 import { List } from 'antd';
 
-const customList = ({ dataSource, ...otherProps }) => (
+const CustomList = ({ ...otherProps }) => (
   <List
     {...otherProps}
-    dataSource={dataSource}
     renderItem={(item) => (
       <List.Item key={item.title}>
         <List.Item.Meta
@@ -17,4 +16,4 @@ const customList = ({ dataSource, ...otherProps }) => (
   />
 );
 
-export default customList;
+export default CustomList;
