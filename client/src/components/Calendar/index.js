@@ -23,6 +23,7 @@ const CalendarComponent = () => {
   return (
     <div>
       <Calendar
+        headerRender={() => {}}
         fullscreen={false}
         value={value}
         onSelect={onSelect}
