@@ -1,8 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
 
-import theme from '../../assets/images/theme1.png';
-import Image from '../common/Image';
 import Services from './data';
 import './style.css';
 
@@ -11,9 +9,8 @@ const { Title, Text } = Typography;
 const Header = () => (
   <div className="Service-display" id="home">
     <div className="container">
-      <Image src={theme} alt="dental cover pic" className="img" />
-      <div className="shadow">
-        <div className="content">
+      <div className="content">
+        <div className="content-div">
           <Title level={4} className="header-subtitle">
             Innovative Technology
           </Title>

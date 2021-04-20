@@ -4,14 +4,6 @@
     font-size: 12px;
   }
 
-.site-layout-content {
-  justify-content: end;
-}
-
-.ant-spin-container {
-  width: 70vw;
-}
-
 .icon{ 
   font-size: 21px; 
   margin: 0 10px; 
@@ -47,5 +39,9 @@
 
 .row-click-pointer:hover::after{
   width: 50%;
+}
+
+.patient-search-table-status .ant-checkbox-inner{
+border-color: #001529;
 }
 

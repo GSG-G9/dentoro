@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import { get } from 'axios';
 import { element } from 'prop-types';
-import 'antd/dist/antd.css';
 import './style.css';
 
 import { Layout, Menu, Typography } from 'antd';
@@ -12,6 +11,7 @@ import {
   FileOutlined,
   MenuFoldOutlined,
   LogoutOutlined,
+  HomeOutlined,
 } from '@ant-design/icons';
 
 import { useAuth } from '../../Context/isAuthContext';
@@ -42,7 +42,7 @@ const Sidebar = ({ children }) => {
     <Layout className="page-layout">
       <Sider
         collapsible
-        breakpoint="lg"
+        breakpoint="xl"
         collapsedWidth="80"
         collapsed={collapsed}
         onCollapse={onCollapse}
@@ -103,7 +103,11 @@ const Sidebar = ({ children }) => {
           <nav className="header-navbar">
             <MenuFoldOutlined
               onClick={() => setCollapsed((x) => !x)}
-              className="menu-icon-style"
+              className="nave-icon-style-menu"
+            />
+            <HomeOutlined
+              onClick={() => history.push('/')}
+              className="nav-icon-style-home"
             />
           </nav>
         </Header>

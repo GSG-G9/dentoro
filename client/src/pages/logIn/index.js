@@ -6,11 +6,9 @@ import './style.css';
 
 const LoginPage = () => (
   <div className="login">
-    <div className="header">
-      <div className="loginBody">
-        <CustomTitle text="Log In" />
-        <LoginForm />
-      </div>
+    <div className="loginBody">
+      <CustomTitle text="Log In" />
+      <LoginForm />
     </div>
   </div>
 );

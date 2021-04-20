@@ -1,19 +1,6 @@
 .patients-container{
-    width: 70vw 
-}
-
-.patients-container .ant-input-group-wrapper {
-    width: 260px ;
-    float:right ;
-    padding-bottom: 1.8rem ;
-}
-
-.patients-container h3{
-    text-align: center;
-}
-
-.patients-container .ant-spin-spinning{
-    padding: 10rem 0px 0px 34rem ;
+    width: 100%;
+    padding: 0 2rem;
 }
 
 .patients-container .ant-table-row {

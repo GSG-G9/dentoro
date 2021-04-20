@@ -7,11 +7,10 @@
 }
 
 .landing-page-content{
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items:center;
-  width: 80vw;
+  width: var(--landing-page-content-width);
 }
-
 

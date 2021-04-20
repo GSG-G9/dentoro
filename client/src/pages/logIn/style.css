@@ -1,14 +1,3 @@
-.loginBody{
-    padding: 100;
-    margin: 0;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    align-items: center;
-    width:600px;
-    height: 350px;
-    border-radius: 5px;
-}
 .login{
     width: 100vw;
     height: 100vh;
@@ -19,6 +8,13 @@
 
 }
 
-.loginFormStyle{
-    width: 400px;
+.loginBody{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    width:80%;
+    border-radius: 5px;
 }
+
+
