@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Typography, Input, message, Spin } from 'antd';
+import { Table, Input, message, Spin } from 'antd';
 import axios from 'axios';
 import './style.css';
 import { useHistory } from 'react-router-dom';
+import CustomTitle from '../common/Title';
 
 const { Search } = Input;
-const { Title } = Typography;
 
 const Patients = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -56,7 +56,7 @@ const Patients = () => {
 
   return (
     <div className="patients-container">
-      <Title level={3}>Patients</Title>
+      <CustomTitle text="Patients" />
       <Search placeholder="Search for patients ..." />
       {loading ? (
         <Spin />
