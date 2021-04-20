@@ -1,36 +1,57 @@
 .container{
-    position: relative;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
 }
 
 .Service-container{
     position: relative;
     display: flex;
     background-color: white;
-    width: 80vw;
+    width: var(--landing-page-content-width);
     justify-content: center;
     flex-wrap: wrap;
     padding: 20px;
     border-radius: 20px;
-    left: 10vw;
-    top: -6vh;
+    top: -15vh;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.433);
 }
 
 .content{
-    position: absolute;
-    top: 20%;
-    left: 20vw;
+    position: relative;
+    background-image: linear-gradient(rgba(151,220,227,.3764705882352941),rgba(151,220,227,.3764705882352941)),url(../../assets/images/theme1.png);
+    background-repeat: no-repeat;
+	background-size: cover;
+    background-position: center;
+    height: 70vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
+    align-items:center;
+    position: relative;
+
 }
+.content-div{
+    width: var(--landing-page-content-width);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+    margin-top: 15vh;
+}
+
 
 .header-subtitle{
     font-size: 20px;
-    color: #E2F4F7 !important;
+    color:rgba(212, 189, 189, 0.501);
+    margin: 0 !important;
 }
 
 .header-title{
     font-size: 35px;
+    text-align: left;
+     margin: 1rem 0 !important;
 
 }
 .description{
@@ -45,16 +66,6 @@
 .image-container{
     width: 100vw;
     position: relative;
-}
-
-.image-container::after{
-    position: absolute;
-    content:'';
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    background-color: #97DCE360;
 }
 
 .read-more-button{
@@ -80,17 +91,37 @@
     .Service-container{
         display: none;
     }
-    .img{
-        height: 400px;
-    }
     .description{
         max-width: 70vw;
     }
+    .description{
+    font-size:1rem;
+
+}
+
+
 }
 
 @media only screen and (max-width: 650px) {
 
+    .header-subtitle{
+    font-size: 1rem;
+
+}
+.description{
+    font-size:1rem;
+
 }
 
 
-   
+.header-title{
+    font-size: 2rem
+}
+}
+
+
+@media only screen and (max-width: 600px) {
+   .content-div{
+    margin-top: 15vh;
+   } 
+}
