@@ -8,6 +8,7 @@ import {
   TimePicker,
   Result,
   Alert,
+  message,
 } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
@@ -18,6 +19,22 @@ import bookingFormImage from '../../assets/images/undraw_Booking_re_gw4j.svg';
 
 const { Title } = Typography;
 
+const successMessage = (dataCount) => {
+  if (!dataCount) {
+    return message.info({
+      content: `Please Choose another Appointment date! There are : ${dataCount} available appointments `,
+    });
+  }
+  return message.success({
+    content: `Success! There are : ${dataCount} available appointments`,
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! ${errorMessage ? `${errorMessage}` : errorMessage}`,
+  });
+};
 const BookingForm = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,19 +47,34 @@ const BookingForm = () => {
 
   const onDateTrigger = async ({ appointmentDate }) => {
     if (appointmentDate) {
-      const {
-        data: { data: availableTimes },
-      } = await axios.get(
-        `/api/v1/appointments/available/${moment(appointmentDate).format(
-          'YYYY-MM-DD'
-        )}`
+      const hideLoadingMessage = message.loading(
+        `Get The Available Appointment in ${appointmentDate} ... `,
+        0.5
       );
-      setTimeAppear(false);
-      setAvailableHours(
-        Hours.filter((hour) => !availableTimes.includes(hour)).map(
-          (hour) => +hour.split(':')[0]
-        )
-      );
+      try {
+        const {
+          data: { data: availableTimes },
+        } = await axios.get(
+          `/api/v1/appointments/available/${moment(appointmentDate).format(
+            'YYYY-MM-DD'
+          )}`
+        );
+        setTimeAppear(false);
+        hideLoadingMessage.then(() => successMessage(availableTimes.length));
+        setAvailableHours(
+          Hours.filter((hour) => !availableTimes.includes(hour)).map(
+            (hour) => +hour.split(':')[0]
+          )
+        );
+      } catch (err) {
+        hideLoadingMessage.then(() =>
+          failedMessage(
+            err.response.data.message
+              ? err.response.data.message
+              : err.response.data
+          )
+        );
+      }
     }
   };
 
