@@ -14,6 +14,7 @@ import moment from 'moment';
 import Image from '../common/Image';
 import './style.css';
 import bookingFormImage from '../../assets/images/undraw_Booking_re_gw4j.svg';
+import socket from '../../App/socket';
 
 const { Title } = Typography;
 
@@ -49,6 +50,7 @@ const BookingForm = () => {
         appointmentTime: moment(appointmentTime).format('HH:mm:ss'),
         complaints,
       });
+      socket.emit('add appointment', 'hassan');
       setSuccess(true);
       setError(false);
       setLoading(false);
