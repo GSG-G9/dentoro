@@ -22,10 +22,15 @@
 - As a dentist, I can add the treatment or the cure as a text, its price, and the actual payment to the current patient. The patients will be removed from the queue, and all of their data will be stored in the database.
 - As a dentist, I can delete or edit the patient's appointment. So I can do it when needed.
 
-## **User Journey**  :pencil2: :-
+## **User Journey**  :pencil2: :-1: 
+
+### **User who want to register an appointment** :pill:
 
 - As a patient, I can see the main page with a login button and a (book now) button, Also there is some basic info about the clinic.
 - As a patient, I can click on the (book now) button, then a form will appear and will ask me for my info and the time of the appointment.
+
+### **User who is a Dentist** :syringe:
+
 - as a dentist, I can see the dashboard with three options (Today's Schedule, calendar, patients).
 - The Today's Schedule option will present the schedule of this day, and showing all the patients on this day with delete - edit - history options.
 - The calendar is presenting all the appointments of the patients and a search bar to go through all of them.
