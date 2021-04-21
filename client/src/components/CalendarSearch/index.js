@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Input, Select, Button, Form } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { string } from 'prop-types';
 import './style.css';
 
 const { Option } = Select;
 
-const CalendarSearch = () => {
+const CalendarSearch = ({ searchFor }) => {
   const history = useHistory();
   const [selectOption, setSelectOption] = useState('name');
   const searchFunction = (values) => {
@@ -15,7 +16,11 @@ const CalendarSearch = () => {
         return [key, `%${value}%`];
       })
     );
-    return history.push('/dashboard/calendar/appointmentsearch', { params });
+    if (searchFor === 'Appointment')
+      return history.push('/dashboard/calendar/appointmentsearch', { params });
+    if (searchFor === 'Patients')
+      return history.push('/dashboard/patients', { params });
+    return null;
   };
 
   return (
@@ -87,6 +92,13 @@ const CalendarSearch = () => {
       </div>
     </Form>
   );
+};
+
+CalendarSearch.defaultProps = {
+  searchFor: 'Appointments',
+};
+CalendarSearch.propTypes = {
+  searchFor: string,
 };
 
 export default CalendarSearch;
