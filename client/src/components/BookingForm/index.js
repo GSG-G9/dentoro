@@ -59,7 +59,8 @@ const BookingForm = () => {
             'YYYY-MM-DD'
           )}`
         );
-        setTimeAppear(false);
+
+        setTimeAppear(availableTimes.length === 0);
         hideLoadingMessage.then(() => successMessage(availableTimes.length));
         setAvailableHours(
           Hours.filter((hour) => !availableTimes.includes(hour)).map(
