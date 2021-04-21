@@ -50,7 +50,10 @@ const BookingForm = () => {
         appointmentTime: moment(appointmentTime).format('HH:mm:ss'),
         complaints,
       });
-      socket.emit('add appointment', 'hassan');
+      socket.emit(
+        'add appointment',
+        moment(appointmentDate).format('YYYY-MM-DD')
+      );
       setSuccess(true);
       setError(false);
       setLoading(false);

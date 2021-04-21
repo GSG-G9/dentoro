@@ -9,8 +9,10 @@ const server = http.createServer(app);
 
 const io = socketIO(server);
 io.on('connection', (socket) => {
-  socket.on('add appointment', () => {
-    io.sockets.emit('updateAppointments');
+  socket.on('add appointment', (value) => {
+    if (new Date(value).toDateString() === new Date().toDateString()) {
+      io.sockets.emit('updateAppointments');
+    }
   });
 });
 // eslint-disable-next-line no-console
