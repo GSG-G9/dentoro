@@ -55,18 +55,18 @@ As a dentist, I can log into my account, and I can see the dashboard with three 
 
 *  Run `npm i` to install the packages for the app as general.
 
-*  Run `cd client` and `npm i` to install the packages for client- React Js.
+*  Run `cd client` and `npm i` to install the packages for the client- React Js.
 
 ### Database Setup  :clipboard:
 
-make sure you have installed postgreSQL and pgcli 
+make sure you have installed PostgreSQL and pgcli 
 
 ```sql=
 CREATE DATABASE {database name};
 CREATE USER {user name} WITH superuser password {password}
 ALTER DATABASE {database name} OWNER TO {user name};
 ```
-- Test db:
+- Test DB:
 - Do the same as before but make sure to change the names.
 
 * Run the following command in the database pgcli terminal  
@@ -87,17 +87,17 @@ SECRET_TOKEN= # Your token Secret key
 
 ### Start the App :electric_plug:
 
-To start the App Locally you can start server First then start client side or vice versa!
+To start the App Locally you can start the server First then start client-side or vice versa!
 > To run Server, In your terminal Type: 
 
     `npm run dev` then you should be able to go to [localhost](http://localhost:5000/) 
-> To run client side, In your terminal Type:    
+> To run client-side, In your terminal Type:    
 
     `cd client` => `npm start` then you will be able to run [localhost](http://localhost:3000/) 
 
 Now you can view the app live in the Browser!
 
-You can use this email amd password for testing only
+You can use this email and password for testing only
 
 - Email:`someemail@admin.com`
 - Password:`password`
