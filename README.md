@@ -10,9 +10,14 @@
 
 - Use the technology to create a smooth and tidy system, also employment its advantages in durability by creating a web application to provide the specific requirements include a booking form and database history for every patient. So that saves time and effort for the dentist and helps the patients with their reservation for an appointment.
 
-## **User Stories**  :books: :-
+## **User Stories**  :books: 
+
+### **User who want to register an appointment** :pill:
 
 - As a patient, I want to book an appointment at a specific time and date and personal details like a name and birthday. So I can save my time and effort.
+
+### **User who is a Dentist** :syringe:
+
 - As a dentist, I want a table to display all the schedules for the day so I can manage them IRL.
 - As a dentist, I want to view the history of any patient I have. So I can track any of their health status and payment.
 - As a patient, I want to be able to view the patient's info. So I can contact them.
@@ -22,20 +27,80 @@
 - As a dentist, I can add the treatment or the cure as a text, its price, and the actual payment to the current patient. The patients will be removed from the queue, and all of their data will be stored in the database.
 - As a dentist, I can delete or edit the patient's appointment. So I can do it when needed.
 
-## **User Journey**  :pencil2: :-
+## **User Journey**  :pencil2:
 
-- As a patient, I can see the main page with a login button and a (book now) button, Also there is some basic info about the clinic.
-- As a patient, I can click on the (book now) button, then a form will appear and will ask me for my info and the time of the appointment.
-- as a dentist, I can see the dashboard with three options (Today's Schedule, calendar, patients).
-- The Today's Schedule option will present the schedule of this day, and showing all the patients on this day with delete - edit - history options.
-- The calendar is presenting all the appointments of the patients and a search bar to go through all of them.
-- The patient's option is presenting the info of the registered patients in the clinic database and a search bar to go through all of them.
-- If I click on a patient's name, it shows all the history for him with the profile data and a form to enter the new data (operation) and the payment.
+### **User who want to register an appointment** :pill:
+
+- As a patient, I can see the main page with a login button and a (book now) button, Also there is some basic info about the clinic, I can click on the (book now) button, then a form will appear and will ask me for my info and the time of the appointment.
+
+### **User who is a Dentist** :syringe:
+
+As a dentist, I can log into my account, and I can see the dashboard with three options (Today's Schedule, calendar, patients).
+- The Today's Schedule option will present the schedule of this day, and showing all the patients on this day with delete - edit - history options, when using the edit you can only change the time of the appointment.
+- The calendar is presenting all the appointments of the patients and a search bar to go through all of them, Also by clicing on a day you I can see the appointments of that day .
+- The patient's option is presenting the info of the registered patients in the clinic database and a search bar to go through all of them, Also when i click on a patent's name I can view all his records and history.
+- If I click on a patient's name in any table, it shows all the history for him with the profile data and a form to enter the new data (operation) and the payment.
 
 ## **Prototype**
 
 [View Prototype](https://www.figma.com/proto/mL8QfRpfZywsgNCpXzhBtX/DENTAL?node-id=0%3A1&scaling=min-zoom&page-id=0%3A1)
-![dentaro](https://user-images.githubusercontent.com/62717875/112746910-ce22ac80-8fba-11eb-99f9-857214f75df8.png)
+
+------------------------
+![dentoro](https://user-images.githubusercontent.com/62717875/112746910-ce22ac80-8fba-11eb-99f9-857214f75df8.png)
+
+## **How to Launch App Locally** :-
+
+*  clone this repo by typing this command in the terminal:  
+`git clone https://github.com/GSG-G9/dentoro.git`
+
+*  Run `npm i` to install the packages for the app as general.
+
+*  Run `cd client` and `npm i` to install the packages for the client- React Js.
+
+### Database Setup  :clipboard:
+
+make sure you have installed PostgreSQL and pgcli 
+
+```sql=
+CREATE DATABASE {database name};
+CREATE USER {user name} WITH superuser password {password}
+ALTER DATABASE {database name} OWNER TO {user name};
+```
+- Test DB:
+- Do the same as before but make sure to change the names.
+
+* Run the following command in the database pgcli terminal  
+`\i server/database/config/build.sql`
+and the command 
+`\i server/database/config/fakeData.sql`
+to add fake Data
+
+### **Environment variables:**
+Environment variables are one of the ways we keep our product safe. If you want to access our app locally you will need to add your own.
+- create .env file
+- add your Environment variables
+```sh
+DEV_DB_URL= # Your development PostgreSQL connect
+DATABASE_URL= # Your production PostgreSQL connect
+SECRET_TOKEN= # Your token Secret key
+```
+
+### Start the App :electric_plug:
+
+To start the App Locally you can start the server First then start client-side or vice versa!
+> To run Server, In your terminal Type: 
+
+    `npm run dev` then you should be able to go to [localhost](http://localhost:5000/) 
+> To run client-side, In your terminal Type:    
+
+    `cd client` => `npm start` then you will be able to run [localhost](http://localhost:3000/) 
+
+Now you can view the app live in the Browser!
+
+You can use this email and password for testing only
+
+- Email:`someemail@admin.com`
+- Password:`password`
 
 ## **Technologies** :computer: :-
 
@@ -45,7 +110,7 @@
 - Styling: **CSS**
 - Libraries: **AntDesign**
 
-## **Lead Mentor** :-
+## **Lead Mentor** :sunglasses::-
 
 - Muhammad Abdulhadi
 
@@ -60,3 +125,5 @@
 - [Node Js](https://nodejs.org/en/)
 - [React Js](https://reactjs.org/)
 - [Express](http://expressjs.com/)
+- [Ant Design](https://ant.design/)
+- [Yup library](https://github.com/jquense/yup) 
