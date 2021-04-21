@@ -171,7 +171,7 @@ const BookingForm = () => {
             </Form.Item>
             <div className="booking-form-row">
               <Form.Item
-                className="booking-form-item item-appointment-date"
+                className="booking-form-item"
                 name="appointmentDate"
                 rules={[
                   {
