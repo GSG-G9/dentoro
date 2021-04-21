@@ -8,22 +8,76 @@ import {
   TimePicker,
   Result,
   Alert,
+  message,
 } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import Image from '../common/Image';
 import './style.css';
+import Hours from './Hours';
 import bookingFormImage from '../../assets/images/undraw_Booking_re_gw4j.svg';
 
 const { Title } = Typography;
 
+const successMessage = (dataCount) => {
+  if (!dataCount) {
+    return message.info({
+      content: `Please Choose another Appointment date! There are : ${dataCount} available appointments `,
+    });
+  }
+  return message.success({
+    content: `Success! There are : ${dataCount} available appointments`,
+  });
+};
+
+const failedMessage = (errorMessage = '') => {
+  message.error({
+    content: `Failed! ${errorMessage ? `${errorMessage}` : errorMessage}`,
+  });
+};
 const BookingForm = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [timeAppear, setTimeAppear] = useState(true);
+  const [availableHours, setAvailableHours] = useState([]);
   const [error, setError] = useState();
 
   const disabledDate = (current) =>
     current && current < moment().startOf('day');
+
+  const onDateTrigger = async ({ appointmentDate }) => {
+    if (appointmentDate) {
+      const hideLoadingMessage = message.loading(
+        `Get The Available Appointment in ${appointmentDate} ... `,
+        0.5
+      );
+      try {
+        const {
+          data: { data: availableTimes },
+        } = await axios.get(
+          `/api/v1/appointments/available/${moment(appointmentDate).format(
+            'YYYY-MM-DD'
+          )}`
+        );
+
+        setTimeAppear(availableTimes.length === 0);
+        hideLoadingMessage.then(() => successMessage(availableTimes.length));
+        setAvailableHours(
+          Hours.filter((hour) => !availableTimes.includes(hour)).map(
+            (hour) => +hour.split(':')[0]
+          )
+        );
+      } catch (err) {
+        hideLoadingMessage.then(() =>
+          failedMessage(
+            err.response.data.message
+              ? err.response.data.message
+              : err.response.data
+          )
+        );
+      }
+    }
+  };
 
   const onFinish = async ({
     firstName,
@@ -52,6 +106,7 @@ const BookingForm = () => {
       setSuccess(true);
       setError(false);
       setLoading(false);
+      setTimeAppear(true);
     } catch (err) {
       setLoading(false);
       let e;
@@ -81,7 +136,12 @@ const BookingForm = () => {
         </div>
       ) : (
         <div className="booking-form-form-container">
-          <Form onFinish={onFinish} name="basic" className="booking-form-form">
+          <Form
+            onFinish={onFinish}
+            onValuesChange={onDateTrigger}
+            name="basic"
+            className="booking-form-form"
+          >
             <Title level={3} className="booking-form-title">
               Book an appointment
             </Title>
@@ -158,31 +218,22 @@ const BookingForm = () => {
                   placeholder="Appointment date"
                 />
               </Form.Item>
+
               <Form.Item
                 className="booking-form-item"
                 name="appointmentTime"
                 rules={[
-                  { required: true, message: 'Please input appointment time!' },
+                  {
+                    required: true,
+                    message: 'Please input appointment time!',
+                  },
                 ]}
               >
                 <TimePicker
+                  disabled={timeAppear}
                   placeholder="Appointment time"
                   format="HH"
-                  disabledHours={() => [
-                    0,
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    19,
-                    20,
-                    21,
-                    22,
-                    23,
-                  ]}
+                  disabledHours={() => [...availableHours]}
                   hideDisabledOptions
                   showNow={false}
                 />
