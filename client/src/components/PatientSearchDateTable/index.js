@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useLocation } from 'react-router-dom';
 import { bool } from 'prop-types';
 import { message } from 'antd';
+import socketIOClient from 'socket.io-client';
 import CalendarSearch from '../CalendarSearch';
 import PatientSearchTable from '../PatientSearchTable';
 
@@ -40,6 +41,15 @@ const PatientSearchDateTable = ({ showSearchBar }) => {
       content: `Failed! ${errorMessage ? `${errorMessage}` : errorMessage}`,
     });
   };
+
+  useEffect(() => {
+    const socket = socketIOClient('/');
+    socket.on('updateAppointments', () => {
+      setUpdate((x) => !x);
+    });
+    return () => socket.disconnect();
+  }, []);
+
   useEffect(() => {
     const hideLoadingMessage = message.loading('Action in progress..', 0.5);
     let unmounted = false;
