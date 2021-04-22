@@ -11,10 +11,11 @@ const {
 const { isAuth } = require('../../middlewares');
 
 router.post('/', addAppointment);
+router.get('/available/:date', getAvailableAppointments);
+
 router.use(isAuth);
 router.get('/search', appointmentsSearch);
 router.get('/:appointmentDate', getAppointmentsByDate);
-router.get('/available/:date', getAvailableAppointments);
 
 router.delete('/:appointmentId', deleteAppointments);
 router.patch('/:appointmentId/time', editAppointmentTime);
