@@ -16,7 +16,7 @@ const CalendarSearch = ({ searchFor }) => {
         return [key, `%${value}%`];
       })
     );
-    if (searchFor === 'Appointment')
+    if (searchFor === 'Appointments')
       return history.push('/dashboard/calendar/appointmentsearch', { params });
     if (searchFor === 'Patients')
       return history.push('/dashboard/patients', { params });
